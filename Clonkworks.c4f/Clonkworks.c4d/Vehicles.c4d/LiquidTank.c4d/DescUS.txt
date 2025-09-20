@@ -1,0 +1,1 @@
+Stores 2000 pixels of liquid, which can be dispenced into barrels, or let out via Drain pipe.

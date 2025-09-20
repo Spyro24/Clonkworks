@@ -52,3 +52,5 @@ func SetBatteryEnergy(int Amount){
 	Charge = Amount;
 	return(1);
 }
+
+public func IsAdvancedProduct(){ return(1); }
