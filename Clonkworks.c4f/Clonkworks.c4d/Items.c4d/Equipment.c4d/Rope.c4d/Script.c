@@ -8,9 +8,11 @@ local pPulley;
 local fNoPickUp_0, fNoPickUp_1;
 local MaxLength; //new variable, set custom length of rope :)
 local Connect1, Connect2; // new variables, two objects being tied.
+local RopeColor; //new variable, quickly manage color :)
 
 protected func Initialize()
 {
+  RopeColor = RGBa(100, 50, 0, 50);
   // OCF's, an die verbunden werden kann
   iOCF = OCF_Living | OCF_Grab | OCF_Chop | OCF_Collectible;
 
@@ -246,7 +248,7 @@ private func Timer()
     var iY1 = GetPoint(i, 1) - GetY() + Cos(iAngle1, 2);
     var iX2 = GetPoint(i + 1) - GetX() - Sin(iAngle2, 2);
     var iY2 = GetPoint(i + 1, 1) - GetY() + Cos(iAngle2, 2);
-    iAmount += DrawParticleLine2("Rope", iX1, iY1, iX2, iY2, 5, 40, RGBa(100, 50, 0, 50));
+    iAmount += DrawParticleLine2("Rope", iX1, iY1, iX2, iY2, 5, 40, RopeColor);
     i++;
   }
 }

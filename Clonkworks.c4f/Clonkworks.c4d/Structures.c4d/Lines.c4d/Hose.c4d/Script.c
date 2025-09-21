@@ -2,8 +2,11 @@
 
 #strict
 
+local hoseRope;
+
 protected func Initialize()
 {
+  hoseRope = 0;
   Local(0) = 8;
   Local(1) = 8;
   
@@ -18,7 +21,23 @@ private func Transfer()
   var pPumpSource = GetActionTarget(0);
   var pPumpTarget = GetActionTarget(1);
   if(!pPumpSource) return(0);
-  //the source needs to be a liquid tank.
+  
+  if(pPumpSource && pPumpTarget && !hoseRope){
+	  Local(0) = -1;
+	  Local(1) = -1;
+	  hoseRope = CreateObject(CK5P);
+	  hoseRope->ConnectObjects(pPumpSource, pPumpTarget);
+	  hoseRope->SetRopeLength(800);
+	  LocalN("RopeColor", hoseRope) = RGBa(57,110,52);
+	  LocalN("MaxLength", hoseRope) = 800;
+	  return(0);
+  }else if(pPumpSource != hoseRope->GetConnectedByRope(0) || pPumpTarget != hoseRope->GetConnectedByRope(1)){
+  hoseRope->ConnectObjects(pPumpSource, pPumpTarget);
+  LocalN("MaxLength", hoseRope) = 800;
+  hoseRope->SetRopeLength(800);
+  }
+  
+   //the source needs to be a liquid tank.
   if(pPumpSource->~IsLiquidStorage()){
 	  //is the other end a wipfkit? turn it into a hose and bail.
 	  if(GetID(pPumpTarget) == FNKT){
@@ -49,6 +68,7 @@ private func Transfer()
 
 public func LineBreak(bool fNoMsg)
 {
+  if(hoseRope) RemoveObject(hoseRope);
   if(GetID(GetActionTarget(1)) == HOSH) ChangeDef(FNKT, GetActionTarget(1));
   Sound("LineBreak");
   if (!fNoMsg) BreakMessage();
