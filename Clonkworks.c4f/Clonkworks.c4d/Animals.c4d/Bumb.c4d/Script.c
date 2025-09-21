@@ -289,7 +289,7 @@ func Activity(){
 	  
 	  	//Eat Honey
 		if(!Random(6) && FindObject2(Find_ID(HONY), Find_Distance(20))){
-			var Food = FindObject2(Find_ID(HONY), Find_Distance(10));
+			var Food = FindObject2(Find_ID(HONY), Find_Distance(20), Find_NoContainer());
 			DoCon(RandomX(-30,-5), Food);
 			DoEnergy(5);
 			Sound("Corrode");
@@ -339,7 +339,7 @@ func Activity(){
 		return(0);
 	  }
 	  
-	  if(ObjectDistance(this(), GrudgeTarget) <= 12 && (GetAction() == "Fly" || GetAction()) == "FlyTurn" && !Contained(GrudgeTarget)){
+	  if(ObjectDistance(this(), GrudgeTarget) <= 15 && (GetAction() == "Fly" || GetAction() == "FlyTurn") && !Contained(GrudgeTarget)){
 		  SetAction("Attack");
 		  Sound("Sting");
 		  Punch(GrudgeTarget, RandomX(1,5));

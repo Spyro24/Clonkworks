@@ -56,6 +56,7 @@ func FlightLogic(){
 
 func ContactLeft(){
 	if(GetAction() S= "Fly" || GetAction() S= "FlyTurn"){
+	if(GetDir() == DIR_Right) return(0); //you cant hit a wall to the right when youre going left!
 	ShakeOffRopes();
 	SetXDir(-(WindHeld/2));
 	SetYDir(-15);
@@ -66,6 +67,7 @@ func ContactLeft(){
 
 func ContactRight(){
 	if(GetAction() S= "Fly" || GetAction() S= "FlyTurn"){
+	if(GetDir() == DIR_Left) return(0); //you cant hit a wall to the left when youre going right!
 	ShakeOffRopes();
 	SetXDir(WindHeld/2);
 	SetYDir(-15);
