@@ -1,0 +1,4 @@
+Togl=Toggle/Disconnect
+Aim1=Aim Up
+Aim2=Aim Vertically
+Aim3=Aim Horizontally

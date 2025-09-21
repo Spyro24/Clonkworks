@@ -17,7 +17,7 @@ VertexFriction=20,20,100,100,100,100,100,100
 VertexCNAT=8,8,8,1,2,4,4,4
 Grab=1
 GrabPutGet=C4D_GrabGet
-Components=METL=3;TTIG=1
+Components=METL=3;TTIG=2
 ColorByOwner=1
 Timer=3
 TimerCall=LiquidCheck

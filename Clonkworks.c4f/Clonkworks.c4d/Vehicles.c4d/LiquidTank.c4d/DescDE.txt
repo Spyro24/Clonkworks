@@ -1,1 +1,3 @@
-Speichert 2000 Pixel Flüssigkeit, die in Fässer abgefüllt oder über ein Abflussrohr abgelassen werden kann.
+Kann bis zu 3000 Pixel beliebigen Materials speichern, aber höchstwahrscheinlich werden Sie hier Flüssigkeiten aufbewahren :)
+
+Gespeicherte Flüssigkeiten können in Fässer gefüllt, freigegeben, über Rohre transportiert oder mit einem Schlauch herausgeschossen werden.

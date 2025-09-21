@@ -27,7 +27,12 @@ private func Transfer() // Abflussrohr führt zur Zeit keine Prüfung von AcceptTr
 	if(pPumpSource->~IsLiquidStorage()){
 		for(i = 0; i < 3; i++){
 		 if(pPumpSource->GetLiquidAmount() > 0){
+			 if(!pPumpTarget->~IsFull())
 		 pPumpSource->SetLiquidAmount(pPumpSource->~GetLiquidAmount()-1);
+		 if(pPumpTarget->~IsLiquidStorage()){
+			 if(!pPumpTarget->~IsFull())
+			 pPumpTarget->InsertLiquidPx(pPumpSource->GetLiquidType(),1);
+		 }else
 		 pPumpTarget->InsertMaterial(Material(pPumpSource->GetLiquidType()));	
 		 }
 		}

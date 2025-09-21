@@ -23,9 +23,17 @@ protected func Transfer()
   // Materialtransfer
   for (var i = 0; i < 3; i++)
   {
-    var mat = ObjectExtractLiquid(GetActionTarget(1));
+    var mat;
+	if(GetActionTarget(1)->~IsLiquidStorage() && !pPumpTarget->~IsFull()){
+		mat = Material(GetActionTarget(1)->GetLiquidType());
+		GetActionTarget(1)->SetLiquidAmount(GetActionTarget(1)->~GetLiquidAmount()-1);
+	}else{
+	mat = ObjectExtractLiquid(GetActionTarget(1));
     if (mat == -1) mat = ExtractLiquid(GetVertex(50, 0), GetVertex(50, 1));
+	}
+	
 	if(pPumpTarget->~IsLiquidStorage()){
+		if(!pPumpTarget->~IsFull())
 		pPumpTarget->InsertLiquidPx(MaterialName(mat), 1);
 	}else{
     ObjectInsertMaterial(mat, pPumpTarget);

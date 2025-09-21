@@ -1,0 +1,3 @@
+Sie können den Schlauch durch zweimaliges Drücken der Dig-Taste ein- und ausschalten. Die Zielrichtung kann im Kontextmenü geändert werden.
+
+Um die Verbindung zu trennen, gehen Sie zum verbundenen Container und drücken Sie zweimal die Dig-Taste.

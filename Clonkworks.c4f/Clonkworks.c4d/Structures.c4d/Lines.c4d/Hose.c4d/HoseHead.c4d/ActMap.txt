@@ -1,0 +1,9 @@
+[Action]
+Name=Aim
+Length=3
+Delay=0
+Facet=0,0,6,6,0,0
+FacetBase=0
+Directions=2
+FlipDir=1
+

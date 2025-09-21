@@ -1,7 +1,7 @@
 #strict 2
 
 local LiquidType; //type of liquid
-local Amount; //Max 2000 pixels
+local Amount; //Max 4000 pixels
 
 func Initialize() {
 	LiquidType = 0;
@@ -11,8 +11,8 @@ func Initialize() {
   return(1);
 }
 
-func MaxAmount(){ return(2000); }
-func AmountDevision(){ return(100);}
+func MaxAmount(){ return(3000); }
+func AmountDevision(){ return(150);}
 
 func LiquidCheck(){
 	if(!LiquidType) Amount = 0;
@@ -176,3 +176,8 @@ public func ContextRelease(pByObj){
 private func MaxContents() { return(0); }
 func RejectContents(){ return(1); }
 func HasLiquid(){ return(Amount > 0); }
+func IsFull(){ return(Amount >= MaxAmount()); }
+
+public func ALKConnectType(){
+	return([HOSE]);
+}

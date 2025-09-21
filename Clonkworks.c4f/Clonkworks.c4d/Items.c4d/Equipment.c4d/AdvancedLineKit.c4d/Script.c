@@ -77,7 +77,16 @@ private func CreateLine(linetype, owner, from, to)
 private func ConnectLine(line, to)
 {
 
-  var line_accept = GetOCF(to) & OCF_Container;
+  var line_accept;
+  if(to->~ALKConnectType()){
+	  if(GetIndexOf(line, to->~ALKConnectType()) != -1){
+		  line_accept = true;
+	  }else{
+		  line_accept = false;
+	  }
+  }else{
+	  line_accept = false;
+  }
 
   var t1 = GetActionTarget(0, line);
   var t2 = to;

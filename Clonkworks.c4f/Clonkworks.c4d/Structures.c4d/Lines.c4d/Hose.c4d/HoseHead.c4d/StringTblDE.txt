@@ -1,0 +1,4 @@
+Togl=Umschalten/Trennen
+Aim1=Nach oben zielen
+Aim2=Vertikal zielen
+Aim3=Horizontal zielen

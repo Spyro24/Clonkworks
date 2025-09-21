@@ -1,0 +1,1 @@
+Sprays materials from Liquid Tanks and any other liquid containers. The other end automatically becomes a Hose Head that can be aimed and toggled.

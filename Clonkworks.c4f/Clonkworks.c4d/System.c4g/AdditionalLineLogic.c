@@ -4,6 +4,7 @@
 #appendto DPIP
 #appendto PWRL
 #appendto FNPP
+#appendto HOSE
 
 private func Transfer(){
 	if(!ObjectCount(RSWR)) 	return(inherited());
