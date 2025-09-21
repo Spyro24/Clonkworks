@@ -27,23 +27,24 @@ private func Transfer()
 	  Local(1) = -1;
 	  hoseRope = CreateObject(CK5P);
 	  hoseRope->ConnectObjects(pPumpSource, pPumpTarget);
-	  hoseRope->SetRopeLength(800);
+	  hoseRope->SetRopeLength(600);
 	  LocalN("RopeColor", hoseRope) = RGBa(57,110,52);
-	  LocalN("MaxLength", hoseRope) = 800;
+	  LocalN("MaxLength", hoseRope) = 600;
+	  LocalN("fNoPickUp_1", hoseRope) = 1;
+	  LocalN("fNoPickUp_0", hoseRope) = 1;
 	  return(0);
   }else if(pPumpSource != hoseRope->GetConnectedByRope(0) || pPumpTarget != hoseRope->GetConnectedByRope(1)){
   hoseRope->ConnectObjects(pPumpSource, pPumpTarget);
-  LocalN("MaxLength", hoseRope) = 800;
-  hoseRope->SetRopeLength(800);
+  LocalN("MaxLength", hoseRope) = 600;
+  hoseRope->SetRopeLength(600);
   }
   
    //the source needs to be a liquid tank.
   if(pPumpSource->~IsLiquidStorage()){
 	  //is the other end a wipfkit? turn it into a hose and bail.
 	  if(GetID(pPumpTarget) == FNKT){
-		  var newHose = pPumpTarget->CreateObject(HOSH);
-		  SetActionTargets(pPumpSource, newHose, this());
-		  RemoveObject(pPumpTarget);
+		  ChangeDef(HOSH,pPumpTarget);
+		  pPumpTarget->Initialize();
 		  return(0);
 	  }
 	  
@@ -59,7 +60,9 @@ private func Transfer()
 			  }
 		  }
 		  
-		  pPumpTarget->Spew(amount, pPumpSource->GetLiquidType());
+		  var minVal = (600-hoseRope->CalcLength())/4;
+		  var MaxVal = minVal + (minVal/2);
+		  pPumpTarget->Spew(amount, pPumpSource->GetLiquidType(), minVal, MaxVal);
 	  }
   }
   

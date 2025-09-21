@@ -13,7 +13,7 @@ func Initialize() {
 
 public func IsHoseOn(){ return(IsOn); }
 
-public func Spew(int Amount, string Mat){
+public func Spew(int Amount, string Mat, int minPower, int maxPower){
 	var angle;
 	
 	if(Contained()) SetDir(GetDir(Contained()));
@@ -31,7 +31,7 @@ public func Spew(int Amount, string Mat){
 	 if(GetPhase() == 0) angle = -90; //aim up
 	 
 	 for(var i = 0; i < Amount; i++){
-		 CastPXSX(Mat, 1, RandomX(100,150),0,-3,angle);
+		 CastPXSX(Mat, 1, RandomX(minPower,maxPower),0,-3,angle);
 	 }
 }
 
