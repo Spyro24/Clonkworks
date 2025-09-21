@@ -22,6 +22,7 @@ func LiquidCheck(){
 	if(Amount == 0) LiquidType = 0;
 	
 	SetPhase(Min(Amount / AmountDevision(),19));
+	SetMass(250+(Amount/3));
 	
 	if(LiquidType && Amount != 0){
 	var r, g, b;
@@ -85,3 +86,93 @@ func Destruction(){
 		}
 	}
 }
+
+public func IsAdvancedProduct(){ return(1); }
+
+public func ControlThrow(pByObj){
+	[$Fill$|Image=L_FL]
+	
+	//controller must be holding this
+	if(pByObj->GetAction() != "Push") return(0);
+	if(GetActionTarget(0,pByObj) != this()) return(0);
+	
+	//check if player is holding barrel
+	var Count = ContentsCount(,pByObj);
+	var barrel;
+	for(var i = 0; i < Count; i++){
+		if(Contents(i,pByObj)->~BarrelMaxFill()){
+			barrel = Contents(i,pByObj);
+			break;
+		}
+	}
+	
+	if(GetID(barrel) == BARL) {
+		//check if has enough liquid
+		if(Amount < barrel->BarrelMaxFill()){
+			Message("$FillEmpty$",this(),LiquidType);
+			Sound("CommandFailure1");
+			return(1);
+		}
+		//empty? fill it up!
+		if(Amount >= barrel->BarrelMaxFill()){
+			if(LiquidType == "Water") ChangeDef(WBRL,barrel);
+			else if(LiquidType == "Acid") ChangeDef(ABRL,barrel);
+			else if(LiquidType == "Oil") ChangeDef(OBRL,barrel);
+			else if(LiquidType == "Lava" || LiquidType == "DuroLava") ChangeDef(LBRL,barrel);
+			else{
+				Message("$FillFail$",this(),LiquidType);
+				Sound("CommandFailure1");
+				return(1);
+			}
+			
+			LocalN("iFillLevel", barrel) = barrel->BarrelMaxFill();
+			Amount -= barrel->BarrelMaxFill();
+			Sound("Splash2");
+		}
+		
+		return(1);
+	}
+	
+	//dispense liquid
+	if(!barrel){
+		Message("$FillNoBarrel$",this(),LiquidType);
+		Sound("CommandFailure1");
+		return(1);
+	}
+	
+	var mat, cnt;
+	cnt = barrel->GetAmount();
+	mat = barrel->BarrelMaterialName();
+	if(!cnt || !mat) return(1);
+	
+	barrel->BarrelDoFill(-cnt);
+	ChangeDef(BARL, barrel);
+	InsertLiquidPx(mat, cnt);
+	Sound("Splash1");
+	
+	return(1);
+}
+
+public func ContextFill(pByObj){
+	[$Fill$|Image=L_FL]
+	SetCommand(pByObj, "Grab", this());
+	AppendCommand(pByObj, "Call", this(), pByObj, 0, 0,,"ControlThrow");
+}
+
+public func ControlDig(pByObj){
+	[$Release$|Image=L_RL]
+	if(Amount != 0){
+		Sound("AirLock2");
+		DepositLiquidPx(Amount);
+	}
+}
+
+public func ContextRelease(pByObj){
+	[$Release$|Image=L_RL|Condition=HasLiquid]
+	SetCommand(pByObj, "Grab", this());
+	AppendCommand(pByObj, "Call", this(), pByObj, 0, 0,,"ControlDig");
+}
+
+private func MaxContents() { return(0); }
+func RejectContents(){ return(1); }
+func HasLiquid(){ return(Amount > 0); }

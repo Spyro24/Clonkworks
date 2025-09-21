@@ -1,0 +1,5 @@
+Release=Release Liquid
+Fill=Fill
+FillFail=Can't Fill Barrel with %s!
+FillNoBarrel=No Barrel!
+FillEmpty=Not enough stored liquid!

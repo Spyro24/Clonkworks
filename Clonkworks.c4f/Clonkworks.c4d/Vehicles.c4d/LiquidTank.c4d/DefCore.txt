@@ -17,8 +17,7 @@ VertexFriction=20,20,100,100,100,100,100,100
 VertexCNAT=8,8,8,1,2,4,4,4
 Grab=1
 GrabPutGet=C4D_GrabGet
-VehicleControl=C4D_VehicleControl_Outside
-Components=METL=3
+Components=METL=3;TTIG=1
 ColorByOwner=1
 Timer=3
 TimerCall=LiquidCheck

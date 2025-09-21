@@ -25,6 +25,8 @@ private func AdjustTrainSpeed()
 	SetPhysical("Walk", 15000, 2);
 }
 
+private func MaxContents() { return(0); }
+
 protected func SignalDelay()
 {
 	if(GetAction() eq "Idle") SetAction("Walk");
