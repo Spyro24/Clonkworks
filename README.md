@@ -1,17 +1,18 @@
 # <img width="2048" height="1024" alt="Promo1" src="https://github.com/user-attachments/assets/b7a8734b-2ae7-4c20-80de-bb765cb6ff67" />
 
-Clonkworks is a mod for [LegacyClonk](https://github.com/legacyclonk/LegacyClonk), that plans on expanding cave exploration and mining, by adding new things to find and use in caves alongside adding some new tools, utilities, and more..!
-currently, the mod has a new crafting system - "Forging", which lets you choose a metal and craft anything out of it. And also Bumbs, which are plump bees that make huge hives in caves.
+Clonkworks is a mod for [LegacyClonk](https://github.com/legacyclonk/LegacyClonk), that plans on adding new advanced technology, improve mining + cave exploration, and adding bran new tools and utilities for you to mess around with.
 
 Planned Features:
 
 * Logic Gate Systems
-* Ropes
-* New Tools (Mining drill, launchpads, etc.)
+* Many new Vehicles
+* New Tools 
 * New Magic Spells
 * New Environment Effects
 * Better Mining and Cave Exploration
 * 3 new clonk types
+
+Want a better look? [The Itch.io page](https://kodenith.itch.io/clonkworks) has a better look and description of this, check it out!
 
 # How to edit the Mod?
 
