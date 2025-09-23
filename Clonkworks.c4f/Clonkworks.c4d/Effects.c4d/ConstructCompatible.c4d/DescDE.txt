@@ -1,0 +1,1 @@
+Logik für Objekte, an die mithilfe der Brückenkonstruktionsregel Brücken angebracht werden können. Wenn Sie dies im Spiel lesen, sollten Sie das eigentlich nicht tun.

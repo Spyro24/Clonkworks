@@ -1,0 +1,11 @@
+[Action]
+Name=Locked
+Facet=72,0,72,11
+Length=1
+
+[Action]
+Name=Attached
+Facet=72,0,72,11
+Length=1
+Procedure=ATTACH
+AbortCall=Release

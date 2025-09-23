@@ -1,0 +1,1 @@
+Logic for objects that can have bridges attached to them with the Bridge Construct Rule. if you are reading this in-game, you are not meant to.

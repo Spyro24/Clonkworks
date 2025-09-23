@@ -7,11 +7,11 @@ MaxUserSelect=5
 Width=36
 Height=44
 Offset=-18,-22
-Vertices=4
-VertexX=-16,17,-18,17
-VertexY=13,13,21,21
-VertexCNAT=5,6,9,10
-VertexFriction=80,80,80,80
+Vertices=6
+VertexX=-16,17,-18,17,-18,17
+VertexY=13,13,21,21,17,17
+VertexFriction=80,80,80,80,20,20
+VertexCNAT=5,6,9,10,65,66
 Value=15
 Mass=50
 Components=WOOD=3
