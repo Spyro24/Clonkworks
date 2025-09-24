@@ -105,7 +105,6 @@ private func SetAttach(){
 	if(GetXDir() > 1) SetXDir(GetXDir() - 1);
 	if(GetXDir() < 1) SetXDir(GetXDir() + 1);
 	//Setting positions of objects on top.
-	
 	var Xdif = GetX()-bX;
 	var Ydif = GetY()-bY;
 	for(var i in ObjOnTop){
@@ -116,6 +115,28 @@ private func SetAttach(){
 		SetPosition(GetX(j),GetY(j)+Ydif, j);
 	}
 	
+	//collision detection
+	if(GetXDir() < 0 && GBackSolid(-37,3)){
+		SetXDir(0);
+		DisturbConnections(1, 0, 0);
+	}
+	
+	if(GetXDir() > 0 && GBackSolid(37,3)){
+		SetXDir(0);
+		DisturbConnections(0, 0, 0);
+	}
+}
+
+private func DisturbConnections(int lr, int x, int y){
+	if(lr == 0 && iAttachedLeft){
+		iAttachedLeft->SetXDir(x);
+		iAttachedLeft->SetYDir(y);
+		iAttachedLeft->~DisturbConnections(lr,x,y);
+	}else if(lr == 1 && iAttachedRight){
+		iAttachedRight->SetXDir(x);
+		iAttachedRight->SetYDir(y);
+		iAttachedRight->~DisturbConnections(lr,x,y);
+	}
 }
 
 private func Lock(quiet, dont_descend) {
@@ -179,4 +200,8 @@ public func IsLocked() { return(is_locked); }
 public func NoPull()
 {
   return IsLocked();
+}
+
+public func RejectEntrance(){
+	return(is_locked);
 }
