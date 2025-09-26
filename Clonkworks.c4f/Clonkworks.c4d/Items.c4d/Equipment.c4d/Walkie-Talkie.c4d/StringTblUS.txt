@@ -1,3 +1,0 @@
-Message=Message
-SendFail=Sending Failed!
-NoSignal=No Signal!
