@@ -82,6 +82,14 @@ private func DecollideAll(){
 	}
 }
 
+private func CollideAll(){
+	var x = 0;
+	while(x < GetVertexNum()-2){
+		SetVertex(x,2,GetVertex(x,2)-64,this(),2);
+		x++;
+	}
+}
+
 private func SetAttachPos(){
 	paX = GetX(PrimaryAttachment) - GetX();
 	paY = GetY(PrimaryAttachment) - GetY();
@@ -112,18 +120,20 @@ private func SetAttach(){
 	}
 	
 	for(var j in ObjOnTop){
+		if(j->~IsLocked()) continue; //dont drag locked bridges!
+		if((GetDefBottom()-GetY())-6 > GetY(j)) continue; //dont drag objects that touch the top of the collision line
 		SetPosition(GetX(j),GetY(j)+Ydif, j);
 	}
 	
 	//collision detection
-	if(GetXDir() < 0 && GBackSolid(-37,3)){
-		SetXDir(0);
-		DisturbConnections(1, 0, 0);
+	if(GetXDir() < 0 && GBackSolid(-37,0)){
+		SetXDir(1);
+		DisturbConnections(1, 1, 0);
 	}
 	
-	if(GetXDir() > 0 && GBackSolid(37,3)){
-		SetXDir(0);
-		DisturbConnections(0, 0, 0);
+	if(GetXDir() > 0 && GBackSolid(37,0)){
+		SetXDir(-1);
+		DisturbConnections(0, -1, 0);
 	}
 }
 
@@ -154,30 +164,41 @@ private func Lock(quiet, dont_descend) {
   return(1);
 }
 
-private func Release(quiet, dont_ascend) {
-  if(iAttachedLeft){
-	  if(iAttachedLeft == PrimaryAttachment) PrimaryAttachment = 0;
+private func Destruction(){
+	Release(1);
+}
+
+private func Release(quiet, dont_ascend){
+  if(iAttachedLeft && iAttachedLeft == PrimaryAttachment){
+	  PrimaryAttachment = 0;
 	  iAttachedLeft->ClearRight();
-	  iAttachedLeft->~Release();
-	  iAttachedLeft = 0;
-  }
-   if(iAttachedRight){
-	  if(iAttachedRight == PrimaryAttachment) PrimaryAttachment = 0;
+	  if(iAttachedRight){
 	  iAttachedRight->ClearLeft();
 	  iAttachedRight->~Release();
 	  iAttachedRight = 0;
+	  }
   }
   
+  if(iAttachedRight && iAttachedRight == PrimaryAttachment){
+	  PrimaryAttachment = 0;
+	  iAttachedRight->ClearLeft();
+	  if(iAttachedLeft){
+	  iAttachedLeft->ClearRight();
+	  iAttachedLeft->~Release();
+	  iAttachedLeft = 0;
+	  }
+  }
+
   if(locktype_attach && this()){
-	  var new = CreateObject(GetID());
-	  new->Release();
-	  RemoveObject(this());
-	  return(0);
+	  CollideAll();
+	  iAttachedLeft = 0;
+	  iAttachedRight = 0;
   }
   
   SetAction("Idle");
   SetSolidMask();
   is_locked = 0;
+  locktype_attach = 0;
 
   if (!quiet)
     Sound("Connect");
@@ -202,6 +223,6 @@ public func NoPull()
   return IsLocked();
 }
 
-public func RejectEntrance(){
-	return(is_locked);
+public func Entrance(){
+	Release(true);
 }
