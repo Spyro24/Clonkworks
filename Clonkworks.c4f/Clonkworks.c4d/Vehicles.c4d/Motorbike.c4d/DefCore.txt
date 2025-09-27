@@ -21,7 +21,7 @@ ContactCalls=1
 Grab=1
 IncompleteActivity=1
 GrabPutGet=C4D_GrabGet
-BorderBound=C4D_Border_Bottom|C4D_Border_Top|C4D_Border_Sides
+BorderBound=7
 VehicleControl=C4D_VehicleControl_Inside
 ClosedContainer=1
 ContactIncinerate=3
@@ -31,7 +31,6 @@ NoPushEnter=1
 Timer=1
 TimerCall=DoInfo
 Rotate=1
-Pathfinder=1
 
 [Physical]
 Walk=800000

@@ -149,9 +149,20 @@ public func DoInfo(){
 	
 	//no trying to run over monsters kids!
 	if(FindObject2(Find_Or(Find_ID(MONS), Find_ID(FMNS)), Find_NoContainer(), Find_AtPoint())){
-		if(ContentsCount()){
+		var mons = FindObject2(Find_Or(Find_ID(MONS), Find_ID(FMNS)), Find_NoContainer(), Find_AtPoint());
+		if(GetSpeed() > 160 && GetX(mons) < GetX()){ //crashing to the left, less sensetive than into a wall.
+			ContactLeft();
+			Fling(mons, -RandomX(5,10), -4);
+			Punch(mons,RandomX(5,12));
+		}else if(GetSpeed() > 160 && GetX(mons) > GetX()){ //crashing to the right, less sensetive than into a wall.
+			ContactRight();
+			Fling(mons, RandomX(5,10), -4);
+			Punch(mons,RandomX(5,12));
+		}
+		else if(ContentsCount() && !Random(20)){
 			var conk = Contents();
 			Exit(conk);
+			Punch(conk,RandomX(5,12));
 			Fling(conk, RandomX(-5,5), -3);
 			conk->Sound("Scream");
 			Sound("ClonkHit*");
@@ -273,6 +284,7 @@ protected func ContactLeft(){
 			conk->Sound("Scream");
 			}
 			SetComDir(COMD_Stop);
+			if(!Random(12)) Incineration();
 			Fling(this(), RandomX(5,10), -4);
 			return(1);
 	}
@@ -292,6 +304,7 @@ protected func ContactRight(){
 			conk->Sound("Scream");
 			}
 			SetComDir(COMD_Stop);
+			if(!Random(12)) Incineration();
 			Fling(this(), -RandomX(5,10), -4);
 			return(1);
 	}
