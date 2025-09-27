@@ -23,6 +23,7 @@ public func ContainedRight(pByObj){
 public func ContainedDown(pByObj){
 	if(GetPlrJumpAndRunControl(pByObj->GetController())) return(0);
 	SetComDir(COMD_Stop);
+	return(1);
 }
 
 public func ContainedDownDouble(pByObj){
@@ -31,6 +32,7 @@ public func ContainedDownDouble(pByObj){
 	SetComDir(COMD_Stop);
 	Exit(Contents());
 	SetAction("Walk");
+	return(1);
 }
 
 public func ContainedUp(pByObj){
@@ -53,6 +55,7 @@ public func ControlUp(pByObj){
 		Enter(this(), pByObj);
 		SetColorDw(GetColorDw(pByObj));
 		SetAction("WalkMount");
+	    SetCommand(pByObj,"Grab",this());
 	}
 }
 
@@ -128,8 +131,13 @@ public func DoInfo(){
 	if(fuel > 0){
 		  SetPhysical("Walk", 800000, 2);
 	}else{
+		if(!Contained())
 		Message("{{OBRL}}",this());
 		 SetComDir(COMD_Stop);
+	}
+	
+	if (GetContact(this(), -1) & CNAT_Bottom){
+		SetR(0);
 	}
 	
 	//hitting the clonk out of the vehicle.
@@ -146,6 +154,7 @@ public func DoInfo(){
 			Exit(conk);
 			Fling(conk, RandomX(-5,5), -3);
 			conk->Sound("Scream");
+			Sound("ClonkHit*");
 			SetComDir(COMD_Stop);
 			return(0);
 		}
@@ -222,6 +231,7 @@ public func ContextRide(pByObj){
 	if(!CanRide()){
 		if(Contents() == pByObj){
 			ContainedDownDouble();
+			return(1);
 		}else{
 			Message("$RideFail2$",pByObj);
 			pByObj->Sound("CommandFailure1");
@@ -238,3 +248,51 @@ public func TryRide(pByObj){
 }
 
 public func IsAdvancedProduct(){ return(1); }
+
+//Crash logic
+
+protected func ContactTop(){
+	if(GetR() >= 100 && GetR() <= 265){
+		Sound("ClonkHit*");
+		Exit(Contents());
+		SetR(0);
+	}
+}
+
+protected func ContactLeft(){
+	if(GetSpeed() > 180){
+			if(GetR() >= 100 && GetR() <= 265){
+				ContactTop();
+				return(1);
+			}	
+			Sound("ClonkHit*");
+			if(ContentsCount()){
+			var conk = Contents();
+			Exit(conk);
+			Fling(conk, RandomX(5,10), -4);
+			conk->Sound("Scream");
+			}
+			SetComDir(COMD_Stop);
+			Fling(this(), RandomX(5,10), -4);
+			return(1);
+	}
+}
+
+protected func ContactRight(){
+	if(GetSpeed() > 180){
+		if(GetR() >= 100 && GetR() <= 265){
+				ContactTop();
+				return(1);
+			}	
+			Sound("ClonkHit*");
+			if(ContentsCount()){
+			var conk = Contents();
+			Exit(conk);
+			Fling(conk, -RandomX(5,10), -4);
+			conk->Sound("Scream");
+			}
+			SetComDir(COMD_Stop);
+			Fling(this(), -RandomX(5,10), -4);
+			return(1);
+	}
+}

@@ -11,10 +11,10 @@ Height=30
 Offset=-19,-21
 Picture=0,60,64,64
 Vertices=6
-VertexX=0,-19,17,-19,17,-1
-VertexY=8,5,5,-2,-2,-17
+VertexX=0,17,12,-13,-19,0
+VertexY=-11,-3,8,8,-3,-1
 VertexFriction=20,20,20,20,20,20
-VertexCNAT=8,1,2,1,2,4
+VertexCNAT=4,2,8,8,1,16
 ColorByOwner=1
 Components=METL=1;TTIG=3;
 ContactCalls=1
@@ -31,6 +31,7 @@ NoPushEnter=1
 Timer=1
 TimerCall=DoInfo
 Rotate=1
+Pathfinder=1
 
 [Physical]
 Walk=800000
