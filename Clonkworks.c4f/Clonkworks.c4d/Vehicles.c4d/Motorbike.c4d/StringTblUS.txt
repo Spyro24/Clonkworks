@@ -4,3 +4,7 @@ FuelFail1=No fuel needed at this moment!
 FuelFail2=You need an Oil Barrel to refuel the Motorcycle.
 RideFail1=I don't have permission!
 RideFail2=Someone is already riding this!
+
+FuelWarn50=50% Fuel Remaining!
+FuelWarn25=25% Fuel Remaining!
+FuelWarn10=10% Fuel Remaining!

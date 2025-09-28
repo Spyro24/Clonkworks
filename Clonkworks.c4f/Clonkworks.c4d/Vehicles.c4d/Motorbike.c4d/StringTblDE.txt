@@ -4,3 +4,7 @@ RefuelFail1=Derzeit kein Kraftstoff erforderlich!
 RefuelFail2=Zum Tanken des Motorrads benötigen Sie ein Ölfass.
 RideFail1=Ich habe keine Berechtigung!
 RideFail2=Jemand fährt bereits damit!
+
+FuelWarn50=50 % Kraftstoff übrig!
+FuelWarn25=25 % Kraftstoff übrig!
+FuelWarn10=10 % Kraftstoff übrig!

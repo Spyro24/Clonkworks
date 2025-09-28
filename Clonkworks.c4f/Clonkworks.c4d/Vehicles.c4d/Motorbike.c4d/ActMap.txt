@@ -19,7 +19,7 @@ Facet=0,0,37,30,0,0
 FacetBase=0
 Procedure=FLIGHT
 StartCall=CheckJump
-NextAction=Jump
+NextAction=Hold
 Directions=2
 FlipDir=1
 
@@ -44,4 +44,4 @@ FacetBase=0
 Directions=2
 FlipDir=1
 Procedure=FLIGHT
-NextAction=JumpMount
+NextAction=Hold

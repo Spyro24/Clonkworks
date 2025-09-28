@@ -2,6 +2,11 @@
 
 #strict
 local fuel;
+local GhostRider;
+
+public func SetGhostRider(val){
+	GhostRider = val;
+}
 
 func Initialize() {
   fuel = 0;
@@ -11,24 +16,39 @@ func Initialize() {
 }
 
 public func ContainedLeft(pByObj){
+	if(fuel == 0){
+		Sound("StartFail");
+		return(0);
+	}
 	if(GetPlrJumpAndRunControl(pByObj->GetController())) return(0);
+	if(GetCommand()){
+		FinishCommand();
+	}
 	SetComDir(COMD_Left);
 }
 
 public func ContainedRight(pByObj){
+	if(fuel == 0){
+		Sound("StartFail");
+		return(0);
+	}
 	if(GetPlrJumpAndRunControl(pByObj->GetController())) return(0);
+	if(GetCommand()){
+		FinishCommand();
+	}
 	SetComDir(COMD_Right);
 }
 
 public func ContainedDown(pByObj){
-	if(GetPlrJumpAndRunControl(pByObj->GetController())) return(0);
+	if(GetPlrJumpAndRunControl(pByObj->GetController())) return(1);
+	FinishCommand();
 	SetComDir(COMD_Stop);
 	return(1);
 }
 
 public func ContainedDownDouble(pByObj){
 	[$Ride$|Image=DSCN]
-	if(Abs(GetXDir()) > 5) return(0);
+	if(Abs(GetXDir()) > 5) return(1);
 	SetComDir(COMD_Stop);
 	Exit(Contents());
 	SetAction("Walk");
@@ -36,6 +56,13 @@ public func ContainedDownDouble(pByObj){
 }
 
 public func ContainedUp(pByObj){
+		if(fuel == 0){
+		Sound("StartFail");
+		return(0);
+	}
+	if(GetCommand()){
+		FinishCommand();
+	}
 	var dr = GetXDir();
 	if(Jump()){
 	SetXDir(dr);
@@ -81,7 +108,7 @@ public func ControlThrow(pByObj){
 	}
 }
 
-public func Ejection(){
+protected func Ejection(){
 	if(GetAction() eq "WalkMount") SetAction("Walk");
 	if(GetAction() eq "JumpMount") SetAction("Jump");
 	
@@ -90,6 +117,7 @@ public func Ejection(){
 
 public func ContainedUpdate(object self, int comdir, bool dig, bool throw)
 {
+  FinishCommand();
   SetComDir(comdir);
 
   return(1);
@@ -97,8 +125,8 @@ public func ContainedUpdate(object self, int comdir, bool dig, bool throw)
 
 public func RejectContents(){ return(true); }
 
-public func UseFuel(){
-	if(!Random(6) && fuel > 0 && Abs(GetXDir()) > 15 && (GetAction() eq "Walk" || GetAction() eq "WalkMount")){
+protected func UseFuel(){
+	if(!Random(8) && fuel > 0 && Abs(GetXDir()) > 15 && (GetAction() eq "Walk" || GetAction() eq "WalkMount")){
 		fuel -= 1;
 		var sx = 15;
 		if(GetDir() == DIR_Left){
@@ -106,6 +134,21 @@ public func UseFuel(){
 		}
 		
 		Smoke(sx, 7, RandomX(5,25));
+		
+		if(GetCursor(GetOwner(Contents()), 0) == Contents()){
+		if(fuel == 100){
+			PlayerMessage(GetOwner(Contents()), "$FuelWarn50$");
+		}
+		
+		if(fuel == 50){
+			PlayerMessage(GetOwner(Contents()), "$FuelWarn25$");
+		}
+		
+		if(fuel == 20){
+			PlayerMessage(GetOwner(Contents()), "$FuelWarn10$");
+		}
+		}
+		
 		if(fuel == 0){
 			Sound("Discharge");
 		}
@@ -119,9 +162,13 @@ protected func ControlCommand(szCommand, pTarget, iTx, iTy)
  return(0);
 }
 
-public func DoInfo(){
+protected func DoInfo(){
 	if(InLiquid()){
 		Incineration();
+	}
+	
+	if(!Contents() && !GhostRider && GetCommand() ne "Exit"){
+		FinishCommand();
 	}
 	
 	if(!isBuilt()){
@@ -219,7 +266,7 @@ protected func CheckJump(){
 
 protected func CanRefuel(){
 	if(!CanRide()) return(0);
-	return(fuel == 0);
+	return(fuel <= 100);
 }
 
 protected func CanRide(){
@@ -233,7 +280,7 @@ public func ContextRefuel(pByObj){
 	AddCommand(pByObj,"Acquire",,,,,,OBRL);
 }
 
-public func TryAutoRefuel(pByObj){
+protected func TryAutoRefuel(pByObj){
 	if(GetActionTarget(0, pByObj) == this()) ControlThrow(pByObj);
 }
 
@@ -254,7 +301,7 @@ public func ContextRide(pByObj){
 
 }
 
-public func TryRide(pByObj){
+protected func TryRide(pByObj){
 	if(GetActionTarget(0, pByObj) == this()) ControlUp(pByObj);
 }
 
@@ -308,4 +355,9 @@ protected func ContactRight(){
 			Fling(this(), -RandomX(5,10), -4);
 			return(1);
 	}
+}
+
+//other logic
+protected func RejectEntrance(pIntoObj){
+	Log("%v",pIntoObj);
 }
