@@ -9,6 +9,7 @@ public func SetGhostRider(val){
 }
 
 func Initialize() {
+  SetPhysical("Walk", 700000, 2);
   fuel = 0;
   SetAction("Walk");
   SetComDir(COMD_Stop);
@@ -51,6 +52,7 @@ public func ContainedDownDouble(pByObj){
 	if(Abs(GetXDir()) > 5) return(1);
 	SetComDir(COMD_Stop);
 	Exit(Contents());
+	Sound("Click");
 	SetAction("Walk");
 	return(1);
 }
@@ -79,10 +81,17 @@ public func ControlUp(pByObj){
 		return(0);
 	}
 	if(!ContentsCount()){
+		Sound("Click");
 		Enter(this(), pByObj);
 		SetColorDw(GetColorDw(pByObj));
 		SetAction("WalkMount");
 	    SetCommand(pByObj,"Grab",this());
+		
+		// making other objects ungrab
+		var grabbers = FindObjects(Find_Action("Push"), Find_ActionTarget(this()), Find_Exclude(Contents()));
+		for(var i in grabbers){
+			i->SetAction("Walk");
+		}
 	}
 }
 
@@ -175,9 +184,7 @@ protected func DoInfo(){
 		Exit(Contents());
 	}
 	
-	if(fuel > 0){
-		  SetPhysical("Walk", 800000, 2);
-	}else{
+	if(fuel <= 0){
 		if(!Contained())
 		Message("{{OBRL}}",this());
 		 SetComDir(COMD_Stop);
@@ -359,5 +366,9 @@ protected func ContactRight(){
 
 //other logic
 protected func RejectEntrance(pIntoObj){
-	Log("%v",pIntoObj);
+	if(Contents()) return(true);
+}
+
+protected func RejectGrabbed(){
+	if(Contents()) return(true);
 }

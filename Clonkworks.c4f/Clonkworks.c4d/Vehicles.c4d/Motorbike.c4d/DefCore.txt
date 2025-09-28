@@ -10,11 +10,11 @@ Width=37
 Height=30
 Offset=-19,-21
 Picture=0,60,64,64
-Vertices=6
-VertexX=0,17,12,-12,-19,0
-VertexY=-11,-3,8,8,-3,-1
-VertexFriction=20,20,20,20,20,20
-VertexCNAT=4,2,8,8,1,16
+Vertices=5
+VertexX=0,3,-3,0,0
+VertexY=-11,-1,-1,8,0
+VertexFriction=20,20,20,20,20
+VertexCNAT=4,2,1,8,16
 ColorByOwner=1
 Components=METL=1;TTIG=3;
 ContactCalls=1
@@ -31,5 +31,5 @@ Rotate=1
 NoPushEnter=1
 
 [Physical]
-Walk=800000
+Walk=700000
 Jump=35000
