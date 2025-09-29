@@ -204,16 +204,7 @@ protected func DoInfo(){
 	//no trying to run over monsters kids!
 	if(FindObject2(Find_Or(Find_ID(MONS), Find_ID(FMNS)), Find_NoContainer(), Find_AtPoint())){
 		var mons = FindObject2(Find_Or(Find_ID(MONS), Find_ID(FMNS)), Find_NoContainer(), Find_AtPoint());
-		if(GetSpeed() > 160 && GetX(mons) < GetX()){ //crashing to the left, less sensetive than into a wall.
-			ContactLeft();
-			Fling(mons, -RandomX(5,10), -4);
-			Punch(mons,RandomX(5,12));
-		}else if(GetSpeed() > 160 && GetX(mons) > GetX()){ //crashing to the right, less sensetive than into a wall.
-			ContactRight();
-			Fling(mons, RandomX(5,10), -4);
-			Punch(mons,RandomX(5,12));
-		}
-		else if(ContentsCount() && !Random(20)){
+		if(ContentsCount() && !Random(20) && GetSpeed() < 160){
 			var conk = Contents();
 			Exit(conk);
 			Punch(conk,RandomX(5,12));
@@ -222,6 +213,20 @@ protected func DoInfo(){
 			Sound("ClonkHit*");
 			SetComDir(COMD_Stop);
 			return(0);
+		}
+	}
+	if(FindObjects(Find_Not(Find_ID(MONS), Find_ID(FMNS)), Find_NoContainer(), Find_AtPoint(), Find_OCF(OCF_Alive)) && DangerousMode() && GetSpeed() >= 160 ){
+		var list = FindObjects(Find_Not(Find_ID(MONS), Find_ID(FMNS)), Find_NoContainer(), Find_AtPoint(), Find_OCF(OCF_Alive));
+		for(var mons in list){
+		if(GetSpeed() > 160 && GetX(mons) < GetX() && DangerousMode()){ //crashing to the left, less sensetive than into a wall.
+			if(GetCreatureSize(mons) > 30) ContactLeft();
+			Punch(mons,RandomX(10,35));
+			Fling(mons, -RandomX(7,14), -4);
+		}else if(GetSpeed() > 160 && GetX(mons) > GetX() && DangerousMode()){ //crashing to the right, less sensetive than into a wall.
+			if(GetCreatureSize(mons) > 30) ContactRight();
+			Punch(mons,RandomX(10,35));
+			Fling(mons, RandomX(7,14), -4);
+		}
 		}
 	}
 	
@@ -325,7 +330,7 @@ protected func ContactTop(){
 }
 
 protected func ContactLeft(){
-	if(GetSpeed() > 180){
+	if(GetSpeed() > 160){
 			if(GetR() >= 100 && GetR() <= 265){
 				ContactTop();
 				return(1);
@@ -334,6 +339,9 @@ protected func ContactLeft(){
 			if(ContentsCount()){
 			var conk = Contents();
 			Exit(conk);
+			if(!DangerousMode()){
+				Punch(conk,RandomX(15,33));
+			}
 			Fling(conk, RandomX(5,10), -4);
 			conk->Sound("Scream");
 			}
@@ -345,7 +353,7 @@ protected func ContactLeft(){
 }
 
 protected func ContactRight(){
-	if(GetSpeed() > 180){
+	if(GetSpeed() > 160){
 		if(GetR() >= 100 && GetR() <= 265){
 				ContactTop();
 				return(1);
@@ -354,6 +362,9 @@ protected func ContactRight(){
 			if(ContentsCount()){
 			var conk = Contents();
 			Exit(conk);
+			if(!DangerousMode()){
+				Punch(conk,RandomX(15,33));
+			}
 			Fling(conk, -RandomX(5,10), -4);
 			conk->Sound("Scream");
 			}
@@ -371,4 +382,12 @@ protected func RejectEntrance(pIntoObj){
 
 protected func RejectGrabbed(){
 	if(Contents()) return(true);
+}
+
+public func DangerousMode(){
+	return(ObjectCount(RDKL) > 0);
+}
+
+public func GetCreatureSize(Creature){
+	return(Max(GetDefCoreVal("Width", "DefCore", GetID(Creature)), GetDefCoreVal("Height", "DefCore", GetID(Creature))));
 }

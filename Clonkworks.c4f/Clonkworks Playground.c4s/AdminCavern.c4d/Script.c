@@ -154,7 +154,7 @@ public func RemoveRule(idItem){
 public func AddRuleMenu(idItem, iParameter){
 	Sound("Click");
 	CreateMenu(GOAL, iParameter, this(),4,"$Add$",,0);
-	var AvailableRules = [COAN, CNMT, ENRG, FGRV, REAC, NMTT, RSWR, ALCO, MGES, NMGE, NTMG, NOIS, BCNR];
+	var AvailableRules = [COAN, CNMT, ENRG, FGRV, REAC, NMTT, RSWR, ALCO, MGES, NMGE, NTMG, NOIS, BCNR, RDKL];
 	for(var rule in AvailableRules){
 		if(!ObjectCount(rule) && GetName(,rule)) AddMenuItem(GetName(,rule), "AddRule",rule, iParameter,0);
 	}
