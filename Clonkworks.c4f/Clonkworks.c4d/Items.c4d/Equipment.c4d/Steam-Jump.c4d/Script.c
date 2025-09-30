@@ -13,16 +13,21 @@ protected func Chargeup(){
 	SetPicture(0,74,64,64,this());
 }
 
-protected func DischargeAir(){
+protected func DischargeAir(SpecialUser){
 	if(GetAction() == "Charged"){
-	if(!Contained()) return 0;
+	if(!Contained() && !SpecialUser) return 0;
+	
+	var Targ = Contained();
+	if(SpecialUser) Targ = SpecialUser;
+	
+	if(GetProcedure(Targ) != "FLIGHT") return(0);
 	
 	SetAction("Charging");
 	SetPicture(0,10,64,64,this());
 	Sound("SteamBlast*");
 	
-	var vX =GetXDir(Contained());
-	var vY =GetYDir(Contained());
+	var vX =GetXDir(Targ);
+	var vY =GetYDir(Targ);
 	
 	var nvX = vX * 3;
 	var nvY = vY * 3;
@@ -44,12 +49,12 @@ protected func DischargeAir(){
 	if(vY > 50) nvY = vY + 50;
 	if(vY < -50) nvY = vY - 50;
 	
-	SetXDir(nvX, Contained());
-	SetYDir(nvY, Contained());
+	SetXDir(nvX, Targ);
+	SetYDir(nvY, Targ);
 	//Contained()->SetAction("Tumble");
 	
-	for(var i = 0; i < RandomX(5,10); i++){
-		CreateParticle("Steam", 0,0,RandomX(-vX,0),RandomX(-vY,0),RandomX(50,170),RGBa(255,255,255));
+	for(var i = 0; i < RandomX(5,20); i++){
+		CreateParticle("PSpark", 0,0,RandomX(-vX,0),RandomX(-vY,0),RandomX(50,170),RGBa(255,255,255));
 	}
 	
 	return(1);
@@ -71,6 +76,16 @@ protected func ChargeAir(){
 public func Activate(){
 	[$Launch$]
 	return DischargeAir();
+}
+
+public func Departure(thrower){
+	if(GetAction() == "Charging" || GetProcedure(thrower) != "FLIGHT") return(0);
+	DischargeAir(thrower);
+	Enter(thrower);
+}
+
+public func Hit(){
+	if(!Random(3)) Sound("MetalHit*");
 }
 
 public func IsAnvilProduct(){ return(true); }

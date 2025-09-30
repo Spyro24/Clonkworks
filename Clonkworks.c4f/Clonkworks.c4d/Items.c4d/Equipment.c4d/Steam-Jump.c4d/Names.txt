@@ -1,2 +1,2 @@
-DE:Dampf-Sprung
-US:Steam-Jump
+DE:Mini-Dampfkanone
+US:Mini Steam Launcher
