@@ -53,8 +53,8 @@ protected func DischargeAir(SpecialUser){
 	SetYDir(nvY, Targ);
 	//Contained()->SetAction("Tumble");
 	
-	for(var i = 0; i < RandomX(5,20); i++){
-		CreateParticle("PSpark", 0,0,RandomX(-vX,0),RandomX(-vY,0),RandomX(50,170),RGBa(255,255,255));
+	for(var i = 0; i < RandomX(10,25); i++){
+		CreateParticle("PSpark", 0,0,RandomX(-vX*2,vX/2),RandomX(-vY*2,0),RandomX(50,170),RGBa(255,255,255,RandomX(0,10)));
 	}
 	
 	return(1);

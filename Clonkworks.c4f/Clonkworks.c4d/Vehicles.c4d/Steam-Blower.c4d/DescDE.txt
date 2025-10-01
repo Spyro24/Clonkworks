@@ -1,0 +1,2 @@
+Eine spezielle windbetriebene Kanone. Nachdem sie große Mengen Luft gespeichert hat, kann sie diese freisetzen, um Objekte in ihrer Nähe wegzuschleudern und zu löschen.
+Eine einfachere Version wurde von den alten Clonk-Piraten verwendet, die damit Feinde von ihren Schiffen wegbliesen, um sie sicher zu plündern.
