@@ -1,30 +1,83 @@
 /*-- Neues Script --*/
 
-#strict
+#strict 2
 #include CANN
+
+local Steam;
 
 func Initialize() {
   SetAction("Aim");
-  SetPhase(10);
+  SetPhase(15);
+  Steam = 500;
   return(1);
 }
 
 public func Fire(bool fAuto)
 {
+	if(GetAction() != "Ready"){
+		Sound("Click");
+		return(0);
+	}
+	
   var iX = ((GetPhase()+GetPhase()/2)-8)*(GetDir()*2-1);
+  if(iX < 0) iX = 0;
   var iY = (GetPhase()*2)-40;
   var iAngle = BoundBy(GetPhase()*5-6,0,90);
   var iXDir = Sin(iAngle,32*(GetDir()*2-1));
   var iYDir = Cos(iAngle,-20)+GetPhase()-6;
 	
-	CreateParticle("PSpark",iX+iXDir,iY+iYDir,0,0,250,RGBa(255,0,0));
-	CreateParticle("PSpark",iX+iXDir*2,iY+iYDir*2,0,0,200,RGBa(255,0,0));
-	CreateParticle("PSpark",iX+(iXDir*3),iY+(iYDir*3),0,0,180,RGBa(255,0,0));
-	CreateParticle("PSpark",iX+(iXDir*4),iY+(iYDir*4),0,0,150,RGBa(255,0,0));
- CreateParticle("PSpark",iX,iY,iXDir+RandomX(-5,5),iYDir+RandomX(-5,5),75,RGBa(255,255,255));
+	// test markers
+	/* CreateParticle("PSpark",iX+iXDir,iY+iYDir,0,0,250,RGBa(255,0,0));
+	CreateParticle("PSpark",iX+iXDir*2,iY+iYDir*2,0,0,275,RGBa(255,0,0));
+	CreateParticle("PSpark",iX+(iXDir*3),iY+(iYDir*3),0,0,300,RGBa(255,0,0));
+	CreateParticle("PSpark",iX+(iXDir*4),iY+(iYDir*4),0,0,350,RGBa(255,0,0));
+	CreateParticle("PSpark",iX+(iXDir*5),iY+(iYDir*5),0,0,375,RGBa(255,0,0));
+	CreateParticle("PSpark",iX+(iXDir*6),iY+(iYDir*6),0,0,400,RGBa(255,0,0)); */
+
+	var BlownObjects = FindObjects( Find_Or(Find_Category(C4D_Living), Find_Category(C4D_Vehicle), Find_Category(C4D_Object)), Find_Or(Find_Distance(18, iX+(iXDir*1), iY+(iYDir*1)),Find_Distance(20, iX+(iXDir*2), iY+(iYDir*3)), Find_Distance(25, iX+(iXDir*3), iY+(iYDir*3)), Find_Distance(30, iX+(iXDir*4), iY+(iYDir*4)), Find_Distance(35, iX+(iXDir*5), iY+(iYDir*5)), Find_Distance(40, iX+(iXDir*6), iY+(iYDir*6))), Find_Exclude(this()), Find_NoContainer()); //i hate how long this line is
+	for(var obj in BlownObjects){
+		Fling(obj, iXDir/2, iYDir/2,,true);
+	}
+	
+	var BlownObjectsAll = FindObjects(Find_Or(Find_Distance(18, iX+(iXDir*1), iY+(iYDir*1)),Find_Distance(20, iX+(iXDir*2), iY+(iYDir*3)), Find_Distance(25, iX+(iXDir*3), iY+(iYDir*3)), Find_Distance(30, iX+(iXDir*4), iY+(iYDir*4)), Find_Distance(35, iX+(iXDir*5), iY+(iYDir*5)), Find_Distance(40, iX+(iXDir*6), iY+(iYDir*6))), Find_Exclude(this()), Find_NoContainer()); //i hate how long this line is
+	for(var obj in BlownObjectsAll){
+		Extinguish(obj);
+	}
+	
+	Sound("SteamBlast*");
+	Steam -= 250;
+	if(Steam <= 0)
+	SetActionKeepPhase("Aim");
+	
+	for(var i = 0; i < RandomX(35,38); i++){
+		var fXdir, fYdir;
+		fXdir = iXDir * RandomX(1,6);
+		fYdir = iYDir * RandomX(1,6);
+		
+		   CreateParticle("PSpark",iX,iY,fXdir+RandomX(-5,5),fYdir+RandomX(-5,5),RandomX(75,200),RGBa(255,255,255, RandomX(0,255)));
+	}
   return(1);
 }
 
 func Recollect(){
-	Fire();
+	if(GetCon() < 100) return(0);
+  if(GetAction() == "Ready") return(0);
+  if(Steam < 500){
+	 Steam++;
+  }else{
+	  Sound("Lever1");
+	  SetActionKeepPhase("Ready");
+  }
+}
+
+func ControlThrow(){
+	  return(Fire());
+}
+
+public func IsAdvancedProduct(){
+	return(1);
+}
+
+public func Departure(){
+	SetPosition(GetX(),GetY()+37);
 }

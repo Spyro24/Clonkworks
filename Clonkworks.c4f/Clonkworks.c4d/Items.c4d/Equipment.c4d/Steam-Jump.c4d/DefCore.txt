@@ -17,4 +17,4 @@ VertexCNAT=8,1,4,2
 Picture=0,10,64,64
 Collectible=1
 Rotate=1
-Components=CPIG=3;ADM3=1;METL=1;
+Components=CPIG=1;ADM3=1;METL=1;

@@ -5,7 +5,7 @@
 #include CXEC
 
 func Initialize(){
-	SetCommand(this(),"Exit");
+	if(GetID(Contained()) == ADVW) SetCommand(this(),"Exit");
 }
 
 func Construction(){
