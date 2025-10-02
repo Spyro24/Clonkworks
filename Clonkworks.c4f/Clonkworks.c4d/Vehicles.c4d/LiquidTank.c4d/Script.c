@@ -181,3 +181,51 @@ func IsFull(){ return(Amount >= MaxAmount()); }
 public func ALKConnectType(){
 	return([HOSE]);
 }
+
+// leftover from wagon
+protected func ControlLeft(object clonk)
+{
+  [$TxtLeft$|Image=STMS:1]
+  var pEngine = FindObject(0,0,0,0,0,OCF_Grab,"Push",this());
+  if(!pEngine) return(0);
+  pEngine->~ControlLeft(clonk);
+  return(1);
+}
+
+protected func ControlRight(object clonk)
+{
+  var pEngine = FindObject(0,0,0,0,0,OCF_Grab,"Push",this());
+  if(!pEngine) return(0);
+  pEngine->~ControlRight(clonk);
+  return(1);
+}
+
+protected func ControlLeftDouble(object clonk)
+{
+  var pEngine = FindObject(0, 0,0,0,0, OCF_Grab, "Push",this());
+  if(!pEngine) return(0);
+  pEngine->~ControlLeftDouble(clonk);
+  return(1);
+}
+
+protected func ControlRightDouble(object clonk)
+{
+  var pEngine = FindObject(0, 0,0,0,0, OCF_Grab, "Push",this());
+  if(!pEngine) return(0);
+  pEngine->~ControlRightDouble(clonk);
+  return(1);
+}
+
+protected func ControlUpdate(object clonk, int comdir, bool dig, bool throw)
+{
+  var pEngine = FindObject(0, 0,0,0,0, OCF_Grab, "Push",this());
+  if(pEngine) pEngine->~ControlUpdate(clonk, comdir, dig, throw);
+}
+
+protected func ControlDownSingle(object clonk)
+{
+  var pEngine = FindObject(0, 0,0,0,0, OCF_Grab, "Push",this());
+  if(!pEngine) return(0);
+  pEngine->~ControlDownSingle(clonk);
+  return(1);
+}
