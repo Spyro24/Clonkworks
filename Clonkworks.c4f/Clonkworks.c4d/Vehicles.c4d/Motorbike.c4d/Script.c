@@ -215,8 +215,8 @@ protected func DoInfo(){
 			return(0);
 		}
 	}
-	if(FindObjects(Find_Not(Find_ID(MONS), Find_ID(FMNS)), Find_NoContainer(), Find_AtPoint(), Find_OCF(OCF_Alive)) && DangerousMode() && GetSpeed() >= 160 ){
-		var list = FindObjects(Find_Not(Find_ID(MONS), Find_ID(FMNS)), Find_NoContainer(), Find_AtPoint(), Find_OCF(OCF_Alive));
+	if(FindObjects(Find_NoContainer(), Find_AtPoint(), Find_OCF(OCF_Alive)) && DangerousMode() && GetSpeed() >= 160 ){
+		var list = FindObjects(Find_NoContainer(), Find_AtPoint(), Find_OCF(OCF_Alive));
 		for(var mons in list){
 		if(GetSpeed() > 160 && GetX(mons) < GetX() && DangerousMode()){ //crashing to the left, less sensetive than into a wall.
 			if(GetCreatureSize(mons) > 30) ContactLeft();
