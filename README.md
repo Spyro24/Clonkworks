@@ -6,7 +6,7 @@ Planned Features:
 
 * Logic Gate Systems
 * Many new Vehicles
-* New Tools 
+* New Tools
 * New Magic Spells
 * New Environment Effects
 * Better Mining and Cave Exploration
@@ -37,9 +37,9 @@ The mod is fully translated in English & German, english being the primary langu
 * Thanks to [Ryou](https://github.com/RoboClonk) for help with 3d modeling
 * This Content pack includes music from **Clonk Endeavor**, composed by Hans-Christian Kühl and Sebastian Burkhart.
 
-
-
   **This Content Pack uses and modifies the following content packs:**
-* [Ropepack Remake](https://ccan.de/cgi-bin/ccan/ccan-user.pl?a=info&i=6679&3f=1) (Supaplex, Pluto, RedWolf Design, Nachtfalter, Randrian, Guenther)
+* [Ropepack Remake](https://ccan.de/cgi-bin/ccan/ccan-view.pl?a=view&i=5627) (Supaplex, Pluto, RedWolf Design, Nachtfalter, Randrian, Guenther)
+* [New Functions](https://ccan.de/cgi-bin/ccan/ccan-view.pl?a=view&i=6069) (Viktor234)
+* [Useful features for developers](https://ccan.de/cgi-bin/ccan/ccan-view.pl?a=view&i=6017) (sstj_clonkfan)
 
 Clonk Game Content and Trademark License is contained in license.txt

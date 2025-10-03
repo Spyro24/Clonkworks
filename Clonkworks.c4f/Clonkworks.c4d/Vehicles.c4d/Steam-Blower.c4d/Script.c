@@ -4,6 +4,7 @@
 #include CANN
 
 local Steam;
+local tester; //foo
 
 func Initialize() {
   SetAction("Aim");
@@ -34,15 +35,22 @@ public func Fire(bool fAuto)
 	CreateParticle("PSpark",iX+(iXDir*5),iY+(iYDir*5),0,0,375,RGBa(255,0,0));
 	CreateParticle("PSpark",iX+(iXDir*6),iY+(iYDir*6),0,0,400,RGBa(255,0,0)); */
 
-	var BlownObjects = FindObjects( Find_Or(Find_Category(C4D_Living), Find_Category(C4D_Vehicle), Find_Category(C4D_Object)), Find_Or(Find_Distance(18, iX+(iXDir*1), iY+(iYDir*1)),Find_Distance(20, iX+(iXDir*2), iY+(iYDir*3)), Find_Distance(25, iX+(iXDir*3), iY+(iYDir*3)), Find_Distance(30, iX+(iXDir*4), iY+(iYDir*4)), Find_Distance(35, iX+(iXDir*5), iY+(iYDir*5)), Find_Distance(40, iX+(iXDir*6), iY+(iYDir*6))), Find_Exclude(this()), Find_NoContainer()); //i hate how long this line is
+	var BlownObjects = FindObjects(Find_Or(Find_Category(C4D_Living), Find_Category(C4D_Vehicle), Find_Category(C4D_Object)),Find_Distance(18, iX+(iXDir*1), iY+(iYDir*1)), Find_Exclude(this()), Find_NoContainer());
+	var DoFinding = true;
+	
+	for(var i = 2; i <= 6; i++){
+		if(!GBackSolidCircle(iX+(iXDir*i), iY+(iYDir*i), (i+3) * 5) && DoFinding){
+		ArrayAddArray(BlownObjects, FindObjects(Find_Or(Find_Category(C4D_Living), Find_Category(C4D_Vehicle), Find_Category(C4D_Object)),Find_Distance((i+3) * 5, iX+(iXDir*i), iY+(iYDir*i)), Find_Exclude(this()), Find_NoContainer()), true);
+		}else{
+		DoFinding = false;
+		}
+		
+		if(!DoFinding) break;
+	}
+
 	for(var obj in BlownObjects){
 		Fling(obj, iXDir/2, iYDir/2,,true);
-	}
-	
-	var BlownObjectsAll = FindObjects(Find_Or(Find_Distance(18, iX+(iXDir*1), iY+(iYDir*1)),Find_Distance(20, iX+(iXDir*2), iY+(iYDir*3)), Find_Distance(25, iX+(iXDir*3), iY+(iYDir*3)), Find_Distance(30, iX+(iXDir*4), iY+(iYDir*4)), Find_Distance(35, iX+(iXDir*5), iY+(iYDir*5)), Find_Distance(40, iX+(iXDir*6), iY+(iYDir*6))), Find_Exclude(this()), Find_NoContainer()); //i hate how long this line is
-	for(var obj in BlownObjectsAll){
-		Extinguish(obj);
-	}
+	} //wowzers! all this logic no longer uses a giant line of code!
 	
 	Sound("SteamBlast*");
 	Steam -= 250;
