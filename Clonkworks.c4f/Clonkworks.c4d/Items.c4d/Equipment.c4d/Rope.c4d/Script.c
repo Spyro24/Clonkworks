@@ -114,7 +114,7 @@ private func TieUp(idTo, pTo)
 
     // Info den Szenarioscripten, Spielzielen usw. zur Verfügung stellen
     GameCallEx("OnStartTiedMember", pTo, Contained(pPulley), fWasTied);
-
+	
     // Physicals anpassen
     SetTiedPhysicals(pTo);
     LocalN("pCapturer", pTo) = Contained(pPulley);

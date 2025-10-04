@@ -1160,9 +1160,10 @@ global func CreateLocalN(string szLocalName , xValue , object pTargetObject)
 
 
 //Erweitert! Man kann die Funktion jetzt auch mitten im Spiel benutzen und ganze Scripte ausführen lassen...
-global func AddMsgBoardCmd(string szBoardCmd , string szScript , string szFunction , object pFunctionObject)
+/* global func AddMsgBoardCmd(string szBoardCmd , string szScript , string szFunction , object pFunctionObject)
 {
-}
+} */
+// this is empty... whoever managed this code really liked to delete it
 
 
 
