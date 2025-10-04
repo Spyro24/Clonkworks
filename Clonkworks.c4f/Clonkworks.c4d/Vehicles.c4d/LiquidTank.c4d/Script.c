@@ -11,6 +11,11 @@ func Initialize() {
   return(1);
 }
 
+public func ExitWorkshop(){
+	if(GetCon() < 100) return(false);
+	return(true);
+}
+
 func MaxAmount(){ return(3000); }
 func AmountDevision(){ return(150);}
 

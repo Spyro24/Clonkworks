@@ -4,8 +4,9 @@
 #include STMG
 #include CXEC
 
-func Initialize(){
-	if(GetID(Contained()) == ADVW) SetCommand(this(),"Exit");
+public func ExitWorkshop(){
+	if(GetCon() < 100) return(false);
+	return(true);
 }
 
 func Construction(){

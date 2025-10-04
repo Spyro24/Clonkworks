@@ -8,6 +8,11 @@ public func SetGhostRider(val){
 	GhostRider = val;
 }
 
+public func ExitWorkshop(){
+	if(GetCon() < 100) return(false);
+	return(true);
+}
+
 func Initialize() {
   SetPhysical("Walk", 700000, 2);
   fuel = 0;
@@ -180,7 +185,7 @@ protected func DoInfo(){
 		FinishCommand();
 	}
 	
-	if(!isBuilt()){
+	if(!isBuilt() && ContentsCount()){
 		Exit(Contents());
 	}
 	
@@ -377,6 +382,7 @@ protected func ContactRight(){
 
 //other logic
 protected func RejectEntrance(pIntoObj){
+	if(GetCon() < 100) return(0);
 	if(Contents()) return(true);
 }
 

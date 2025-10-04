@@ -9,6 +9,11 @@ func Initialize() {
   return(1);
 }
 
+public func ExitWorkshop(){
+	if(GetCon() < 100) return(false);
+	return(true);
+}
+
 func CheckGround(){
 	//check if its on the ground, if not - liftoff!
 	if(CanGlide() && GetYDir()>10){

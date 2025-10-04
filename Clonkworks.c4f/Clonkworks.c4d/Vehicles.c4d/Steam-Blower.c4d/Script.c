@@ -4,7 +4,11 @@
 #include CANN
 
 local Steam;
-local tester; //foo
+
+public func ExitWorkshop(){
+	if(GetCon() < 100) return(false);
+	return(true);
+}
 
 func Initialize() {
   SetAction("Aim");

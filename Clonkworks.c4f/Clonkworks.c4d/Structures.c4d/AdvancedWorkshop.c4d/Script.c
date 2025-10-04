@@ -155,7 +155,7 @@ protected func ContainedUp(pCaller)
 private func CheckBuild() {
 	
 	for(var thing in FindObjects(Find_Container(this()))){
-		if(ObjectCall(thing, "ExitWorkshop") == 1){
+		if(thing ->~ ExitWorkshop() == true){
 			SetCommand(thing, "Exit");
 		}
 	}
