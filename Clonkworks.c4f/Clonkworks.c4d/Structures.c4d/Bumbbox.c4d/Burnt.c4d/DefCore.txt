@@ -24,6 +24,4 @@ Grab=1
 Rotate=1
 Construction=1
 TimerCall=Update
-
-[Physical]
 Float=1

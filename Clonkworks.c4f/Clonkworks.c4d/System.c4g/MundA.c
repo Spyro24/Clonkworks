@@ -1144,7 +1144,7 @@ global func CreateLocalN(string szLocalName , xValue , object pTargetObject)
 
 
 //Reload für CreateLocalN (benötigt Pitris Funktion "PartOf")
-global func LocalN(string szLocalName , object pLocalObject)
+/* global func LocalN(string szLocalName , object pLocalObject)
 {
 	if(!_inherited(...))
 	{
@@ -1153,7 +1153,9 @@ global func LocalN(string szLocalName , object pLocalObject)
 	}
 
 	else	return _inherited(...);
-}
+} */
+// for now i commented this out
+//TODO: fix this
 
 
 

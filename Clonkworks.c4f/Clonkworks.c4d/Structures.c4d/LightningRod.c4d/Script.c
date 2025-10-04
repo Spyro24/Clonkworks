@@ -4,6 +4,8 @@
 #include CPBT
 #include BAS2
 
+//TODO: Overhaul this whole object
+
 public func LightningStrike() 
 {
   if (GetCon() < 100) return(0);

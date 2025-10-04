@@ -33,15 +33,7 @@ func Initialize() {
 ForgeTimer = 0;
 Producing = false;
 Forging=false;
-
-if(FindObject2(Find_ID(FALW))){
-	Forgebase = FindObject2(Find_ID(FALW));
-	return(0);
-}
-else{
-	Forgebase = 0;
-	return(0);
-}
+Forgebase = FindObject2(Find_ID(FALW));
 }
 
 func CanInspect(){ return(ObjectCount(FALW) && !ObjectCount(NOIS)); }
@@ -390,3 +382,7 @@ func Forgefx(){
 	
 }
 
+func Incineration(){
+		FreeWork();
+		Reset();
+}

@@ -25,6 +25,10 @@ ContainBlast=1
 Construction=1
 LineConnect=C4D_PowerInput|C4D_PowerOutput|C4D_PowerConsumer
 AutoContextMenu=1
+BlastIncinerate=100
+NoBurnDecay=0
+NoBurnDamage=0
+BurnTo=BFRG
 
 [Physical]
 Energy=100000

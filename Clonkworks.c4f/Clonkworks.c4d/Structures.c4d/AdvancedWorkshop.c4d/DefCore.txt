@@ -23,6 +23,10 @@ VertexY=46,0,24,24,24
 VertexFriction=20,20,20,20,20
 VertexCNAT=8,4,1,2,16
 Entrance=-50,3,48,31
+BlastIncinerate=180
+NoBurnDecay=0
+NoBurnDamage=0
+BurnTo=BADW
 
 [Physical]
 Energy=100000

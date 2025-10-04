@@ -1,6 +1,6 @@
 /*-- AdminCavern --*/
 
-#strict 2
+#strict 3
 
 #include DOOR
 

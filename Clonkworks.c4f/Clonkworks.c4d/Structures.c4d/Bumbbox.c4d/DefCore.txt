@@ -25,6 +25,4 @@ Rotate=1
 Construction=1
 Timer=5
 TimerCall=Update
-
-[Physical]
 Float=1
