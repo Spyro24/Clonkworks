@@ -19,3 +19,4 @@ BlastIncinerate=45
 ContactIncinerate=2
 NoBurnDecay=0
 NoBurnDamage=0
+Grab=1
