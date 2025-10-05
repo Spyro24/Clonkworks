@@ -24,7 +24,7 @@ protected func ControlDigDouble(pClonk)
 		var to = GetActionTarget(1, Line);
 		
 		if(from == ovrlp){
-			if(ContentsCount()) return(0);
+			if(ContentsCount()) break;
 			if(GetID(to) == Line->KitType() || to->~RequiresLine()){
 				Sound("Error");
 				return(1);
@@ -36,7 +36,7 @@ protected func ControlDigDouble(pClonk)
 		}
 		
 		if(to == ovrlp){
-			if(ContentsCount()) return(0);
+			if(ContentsCount()) break;
 			if(GetID(from) == Line->KitType() || from->~RequiresLine()){
 				Sound("Error");
 				return(1);
