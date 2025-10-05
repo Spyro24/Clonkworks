@@ -1,1 +1,1 @@
-Eine leichte Kanone, mit der Seile auf Fahrzeuge oder Kreaturen geworfen werden können, um sie aus der Ferne zu fangen. clonk, was damit gefangen wird, wird gefesselt und kann sich bis zur Befreiung nur eingeschränkt bewegen.
+Eine leichte Kanone, mit der Seile auf Fahrzeuge oder Kreaturen geworfen werden können, um sie aus der Ferne zu fangen. Jeder Feind, der damit gefangen wird, wird gefesselt und kann sich bis zur Befreiung nur eingeschränkt bewegen.

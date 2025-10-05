@@ -1,1 +1,1 @@
-A Lightweight cannon used for throwing ropes at vehicles or creatures to grab them from a range. Any clonk grabbed by this will be tied up and will have restriced control until untied.
+A Lightweight cannon used for throwing ropes at vehicles or creatures to grab them from a range. Any enemy Clonk grabbed by this will be tied up and will have restriced control until untied.

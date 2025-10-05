@@ -94,6 +94,7 @@ public func ALKConnectType(){
 }
 
 public func RejectEntrance(pIntoObj){
+	if(GetCategory(pIntoObj) & C4D_Structure) return(0);
 	return(!AllowLoad(GetID(pIntoObj)));
 }
 

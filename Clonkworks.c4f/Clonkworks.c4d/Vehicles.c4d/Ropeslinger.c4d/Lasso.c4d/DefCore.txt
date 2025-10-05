@@ -19,3 +19,4 @@ Timer=1
 IncompleteActivity=1
 StretchGrowth=1
 Oversize=1
+Components=CK5P=1

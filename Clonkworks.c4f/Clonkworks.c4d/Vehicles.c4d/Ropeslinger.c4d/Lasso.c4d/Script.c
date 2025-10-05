@@ -29,9 +29,20 @@ func Check(){
 		if(GetID(iTie) == RPSG) return(0);
 		if(Mode == false && GetCon() < 30) return(0);
 		var iRope = FindRope(this(), 2);
+		var ConnectedTo = iRope->GetConnectedByRope(0);
 		if(!iRope) return(0);
+		if(CrewMember(iTie) >= 1 && Hostile(GetOwner(), GetOwner(iTie))){
+			RemoveObject(iRope);
+			iRope = CreateObject(CK5P);
+			iRope->TieUp(,iTie);
+			RemoveObject(iRope->GetConnectedByRope(1));
+			iRope->ConnectObjects(ConnectedTo, iTie);
+			RemoveObject();
+			return(1);
+		}
 		iRope->ConnectObjects(iRope->GetConnectedByRope(0), iTie);
-		RemoveObject(this());
+		RemoveObject();
+		return(1);
 	}
 	
 }
