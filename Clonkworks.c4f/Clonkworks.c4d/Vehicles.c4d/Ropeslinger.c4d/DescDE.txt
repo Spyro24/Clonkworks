@@ -1,1 +1,1 @@
-Kann bis zu 3 Seile werfen, die alle Kreaturen und Fahrzeuge auf seinem Weg fesseln. Alles, was gefangen wird, kann von diesem Fahrzeug gelöst und für alle Zwecke verwendet werden, für die Seile benötigt werden.
+Eine leichte Kanone, mit der Seile auf Fahrzeuge oder Kreaturen geworfen werden können, um sie aus der Ferne zu fangen. clonk, was damit gefangen wird, wird gefesselt und kann sich bis zur Befreiung nur eingeschränkt bewegen.

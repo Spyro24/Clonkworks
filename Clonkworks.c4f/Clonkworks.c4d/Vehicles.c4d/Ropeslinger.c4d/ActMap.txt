@@ -2,8 +2,9 @@
 Name=Ready
 Length=19
 Delay=0
-Facet=0,0,32,28,0,0
+Facet=0,0,32,35,0,0
 FacetBase=0
 Directions=2
 FlipDir=1
 Reverse=1
+

@@ -288,7 +288,7 @@ func Activity(){
 	  }
 	  
 	  	//Eat Honey
-		if(!Random(6) && FindObject2(Find_ID(HONY), Find_Distance(20))){
+		if(!Random(6) && FindObject2(Find_ID(HONY), Find_Distance(20), Find_NoContainer())){
 			var Food = FindObject2(Find_ID(HONY), Find_Distance(20), Find_NoContainer());
 			DoCon(RandomX(-30,-5), Food);
 			DoEnergy(5);

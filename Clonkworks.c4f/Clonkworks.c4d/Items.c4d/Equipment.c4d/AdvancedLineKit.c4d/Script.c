@@ -76,10 +76,9 @@ private func CreateLine(linetype, owner, from, to)
 /* Verbinden zweier Gebäude mit einer Leitung */
 private func ConnectLine(line, to)
 {
-
   var line_accept;
   if(to->~ALKConnectType()){
-	  if(GetIndexOf(line, to->~ALKConnectType()) != -1){
+	  if(GetIndexOf(GetID(line), to->~ALKConnectType()) != -1){
 		  line_accept = true;
 	  }else{
 		  line_accept = false;

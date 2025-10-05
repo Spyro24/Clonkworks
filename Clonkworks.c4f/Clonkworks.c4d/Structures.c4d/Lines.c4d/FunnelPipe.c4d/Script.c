@@ -31,7 +31,7 @@ protected func Transfer()
 	  var MoveItem = FindObject2(Find_Container(from), Find_OCF(OCF_Collectible), Sort_Random());
 	  if(GetOCF(to) & OCF_Container){
 		  if(ContentsCount(,to) < space){
-			  if(MoveItem != this())
+			  if(MoveItem != this() && to->~RejectEntrance(MoveItem) != 1)
 			  Enter(to, MoveItem);
 		  }
 	  }
@@ -41,7 +41,7 @@ protected func Transfer()
 		  if(GetOCF(cont) & OCF_Alive) return(0);
 		  if(cont){
 			 if(ContentsCount(,cont) < space){
-			  if(MoveItem != this())
+			  if(MoveItem != this() && cont->~RejectEntrance(MoveItem) != 1)
 			  Collect(cont, MoveItem);
 			 }
 		  }

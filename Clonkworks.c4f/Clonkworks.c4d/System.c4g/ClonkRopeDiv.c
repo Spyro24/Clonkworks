@@ -16,9 +16,8 @@ protected func ControlDigDouble(pClonk)
 	// disconnecting custom lines and getting their proper kits.
 	var ovrlp = FindObject(0, 1,0,0,0, OCF_LineConstruct, 0,0,NoContainer(), ovrlp);
 	
-	if(!ovrlp) return(_inherited());
+	if(ovrlp){
 	SetComDir(COMD_Stop);
-	
 	var Lines = FindObjects(Find_Action("Connect"), Find_Func("isLine"));
 	for(var Line in Lines){
 		var from = GetActionTarget(0, Line);
@@ -47,6 +46,7 @@ protected func ControlDigDouble(pClonk)
 			SetActionTargets(from, Kit, Line);
 			return(1);
 		}
+	}
 	}
 	
   if(GetAction(pClonk) == "Push") return _inherited(pClonk, ...);

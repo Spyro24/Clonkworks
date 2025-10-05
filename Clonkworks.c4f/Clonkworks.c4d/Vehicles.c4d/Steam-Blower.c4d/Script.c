@@ -57,7 +57,7 @@ public func Fire(bool fAuto)
 	} //wowzers! all this logic no longer uses a giant line of code!
 	
 	Sound("SteamBlast*");
-	Steam -= 250;
+	Steam -= 500;
 	if(Steam <= 0)
 	SetActionKeepPhase("Aim");
 	
