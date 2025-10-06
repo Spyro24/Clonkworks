@@ -77,9 +77,9 @@ private func AllowLoad(id idObj)
 {
   if(idObj != CK5P) return(0);
   // Noch jede Menge Platz
-  if (ContentsCount() < 1) return(1);
+  if (ContentsCount() < 3) return(1);
   // Niemals mehr als 10 Objekte laden: Wird gebraucht, wenn aus ControlThrow aufgerufen!
-  if (ContentsCount() >= 1) return(0);
+  if (ContentsCount() >= 4) return(0);
   return(1);
 }
 

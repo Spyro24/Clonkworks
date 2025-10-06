@@ -13,7 +13,7 @@ public func ExitWorkshop(){
 func Initialize() {
   SetAction("Aim");
   SetPhase(15);
-  Steam = 500;
+  Steam = 700;
   return(1);
 }
 
@@ -21,6 +21,9 @@ public func Fire(bool fAuto)
 {
 	if(GetAction() != "Ready"){
 		Sound("Click");
+		var CalcedTime = ((700 - Steam) * 5) / 38;
+		if(CalcedTime == 0) CalcedTime = 1;
+		Message("$TxtWait$",this(),CalcedTime);
 		return(0);
 	}
 	
@@ -57,7 +60,7 @@ public func Fire(bool fAuto)
 	} //wowzers! all this logic no longer uses a giant line of code!
 	
 	Sound("SteamBlast*");
-	Steam -= 500;
+	Steam -= 700;
 	if(Steam <= 0)
 	SetActionKeepPhase("Aim");
 	
@@ -74,7 +77,7 @@ public func Fire(bool fAuto)
 func Recollect(){
 	if(GetCon() < 100) return(0);
   if(GetAction() == "Ready") return(0);
-  if(Steam < 500){
+  if(Steam < 700){
 	 Steam++;
   }else{
 	  Sound("Lever1");
