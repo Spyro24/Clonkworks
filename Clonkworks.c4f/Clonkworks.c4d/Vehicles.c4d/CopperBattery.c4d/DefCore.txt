@@ -24,6 +24,8 @@ Grab=1
 GrabPutGet=C4D_GrabGet|C4D_GrabPut
 Components=CPIG=4;ADM3=2;
 LineConnect=C4D_PowerInput|C4D_PowerOutput|C4D_EnergyHolder
+Rebuy=1
+NoPushEnter=0
 
 [Physical]
 Energy=100000

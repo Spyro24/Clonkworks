@@ -25,3 +25,5 @@ ContactIncinerate=2
 NoBurnDecay=0
 NoBurnDamage=0
 BurnTo=BSBW
+Rebuy=1
+NoPushEnter=0

@@ -23,6 +23,7 @@ GrabPutGet=C4D_GrabGet|C4D_GrabPut
 LineConnect=C4D_PowerInput|C4D_PowerConsumer
 Components=DUMM=5;METL=2;
 BorderBound=1
+NoPushEnter=0
 
 [Physical]
 CanDig=1

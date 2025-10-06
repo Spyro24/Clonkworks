@@ -19,10 +19,11 @@ VertexCNAT=8,2,4,4,1,16
 Grab=1
 Timer=15
 TimerCall=SignalDelay
-GrabPutGet=C4D_GrabGet|C4D_GrabPut
 LineConnect=C4D_PowerInput|C4D_PowerConsumer
 Components=CPIG=3;METL=4;
 BorderBound=1
+Rebuy=1
+NoPushEnter=0
 
 [Physical]
 Energy=100000

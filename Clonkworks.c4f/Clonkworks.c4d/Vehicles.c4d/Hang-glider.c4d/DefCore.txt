@@ -23,3 +23,5 @@ ContactIncinerate=5
 BlastIncinerate=35
 BurnTo=BHGL
 ColorByOwner=1
+Rebuy=1
+NoPushEnter=0

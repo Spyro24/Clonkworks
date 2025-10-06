@@ -29,3 +29,5 @@ ContactIncinerate=1
 NoBurnDecay=0
 NoBurnDamage=0
 BurnTo=BRSG
+Rebuy=1
+NoPushEnter=0
