@@ -1,1 +1,0 @@
-A Bomb created for safe mining, has a big blast and gives you time to back away. Not useful in combat because of its delay.

@@ -9,7 +9,7 @@ Mass=10
 Width=48
 Height=48
 Offset=-24,-43
-Picture=0,100,64,64
+Picture=0,96,64,64
 Timer=5
 TimerCall=Recollect
 Components=METL=2;WOOD=2;SMJP=1;

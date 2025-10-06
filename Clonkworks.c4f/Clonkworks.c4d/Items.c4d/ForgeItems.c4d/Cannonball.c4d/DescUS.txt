@@ -1,1 +1,0 @@
-Creates a Huge Explosion when hitting something at high velocity, Destroying nearby buildings!

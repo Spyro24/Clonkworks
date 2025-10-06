@@ -2,7 +2,7 @@
 Name=Bumbbox
 id=BMBX
 Version=4,9,8
-Category=1282
+Category=1154
 MaxUserSelect=3
 Value=15
 Mass=150

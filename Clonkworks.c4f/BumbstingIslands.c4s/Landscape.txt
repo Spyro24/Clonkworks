@@ -1,0 +1,63 @@
+map Islands {
+//basic islands
+	//some walls for deco
+	overlay{ mat=Tunnel; algo=mandel; turbulence = 100; a=20;};
+	overlay{ mat=Tunnel; algo=mandel; turbulence = 100; a=20; x = -10; y = -10;zoomX=25; zoomY=30;};
+	overlay{ mat=Tunnel; algo=mandel; turbulence = 100; a=20; x=30; y = 30; zoomX=50; zoomY=20;};
+	overlay{algo=mandel; turbulence = 100; a=20; zoomX=10; zoomY=10;};
+	
+	overlay{
+		mat=Earth; algo=mandel; turbulence=100;
+		overlay{
+		mat=Rock; algo=bozo; turbulence=100; a=20;
+		};
+		overlay{
+		mat=Granite; algo=bozo; turbulence=100; a=30;
+		};
+		overlay{
+		mat=Sulphur; algo=bozo; turbulence=100; a=20; zoomX=50; zoomY = 50;
+		};
+		
+		//shiny stuff :)
+		overlay{
+		mat=Gold; algo=bozo; turbulence=100; a=20;
+		};
+		overlay{
+		mat=TitaniumOre; algo=bozo; turbulence=80; a=20; zoomX=50; zoomY=50;
+		};
+		overlay{
+		mat=Water; algo=bozo; turbulence=80; a=20; zoomX=50; zoomY=50;
+		overlay{mat=Earth; algo=border; a=2; b=2;};
+		};
+	};
+	overlay{
+		mat=Earth; algo=bozo; turbulence=100; zoomX=80; zoomY=80; a=10;
+		overlay{
+		mat=Rock; algo=bozo; turbulence=100; a=20;
+		};
+		overlay{
+		mat=Granite; algo=bozo; turbulence=100; a=30;
+		};
+		overlay{
+		mat=Sulphur; algo=bozo; turbulence=100; a=20; zoomX=50; zoomY = 50;
+		};
+		
+		//shiny stuff :)
+		overlay{
+		mat=Gold; algo=bozo; turbulence=100; a=20;
+		};
+		overlay{
+		mat=Ore; algo=bozo; turbulence=80; a=20; zoomX=50; zoomY=50;
+		};
+		overlay{
+		mat=CopperOre; algo=bozo; turbulence=80; a=20; zoomX=50; zoomY=50;
+		};
+		overlay{
+		mat=Water; algo=bozo; turbulence=80; a=20; zoomX=50; zoomY=50;
+		overlay{mat=Earth; algo=border; a=2; b=2;};
+		};
+		overlay{
+		mat=Crystal; algo=mandel; turbulence=100; a=20; zoomX = -40; zoomY=-40;
+		};
+	};
+};

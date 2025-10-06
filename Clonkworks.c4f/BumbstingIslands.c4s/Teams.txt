@@ -1,0 +1,27 @@
+[Teams]
+TeamDistribution=Free
+AutoGenerateTeams=0
+AllowTeamSwitch=0
+AllowHostilityChange=1
+TeamColors=1
+
+	[Team]
+	id=1
+	Name=$Team1$
+	PlrStartIndex=1
+	IconSpec=BUMB
+	Color=16763648
+
+	[Team]
+	id=2
+	Name=$Team2$
+	PlrStartIndex=2
+	IconSpec=MONS
+	Color=51200
+	
+	[Team]
+	id=3
+	Name=$Team3$
+	PlrStartIndex=3
+	IconSpec=FXP1
+	Color=12124156

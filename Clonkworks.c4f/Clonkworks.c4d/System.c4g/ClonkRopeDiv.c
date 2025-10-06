@@ -53,7 +53,7 @@ protected func ControlDigDouble(pClonk)
   // Eklige Effekte bei Mischung mit Leitungsbausätzen... Finger weg!
   if(Contents() && Contents()->~IsKit()) return _inherited(pClonk, ...);
   // Activate-Funktionen in Inventarobjekten haben Vorrang
-  if(Contents() && Contents()->~Activate(this)) return 0;
+  if(Contents() && Contents()->~Activate(this)) return 1;
   // Nur abnehmen, wenn noch ein Inventarplatz frei
   if(ContentsCount() >= this->~MaxContentsCount()) return _inherited(pClonk, ...);
   if(GetDefCoreVal("CollectionLimit", "DefCore", GetID()))

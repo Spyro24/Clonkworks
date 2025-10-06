@@ -31,7 +31,7 @@ func Check(){
 		var iRope = FindRope(this(), 2);
 		var ConnectedTo = iRope->GetConnectedByRope(0);
 		if(!iRope) return(0);
-		if(CrewMember(iTie) >= 1 && Hostile(GetOwner(), GetOwner(iTie))){
+		if(CrewMember(iTie) >= 1 && Hostile(GetOwner(), GetOwner(iTie)) && FindObject(CR5P)){
 			RemoveObject(iRope);
 			iRope = CreateObject(CK5P);
 			iRope->TieUp(,iTie);
