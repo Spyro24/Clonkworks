@@ -1,3 +1,0 @@
-Team1=Hummhugger
-Team2=Monsterjäger
-Team3=Wolkenjäger

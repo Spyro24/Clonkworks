@@ -6,6 +6,7 @@
 local is_locked;	// Ist im Boden verankert?
 local locktype_attach; // is Attached instead of locked?
 local PrimaryAttachment; //what object does this depend on while attached?
+local locked_perma;
 
 local paX, paY;
 
@@ -25,8 +26,12 @@ protected func Initialize() {
 
 protected func Entrance() {
   // Im Behälter: lösen
-  Release(1);
+  Release(1,,1);
   return(1);
+}
+
+protected func RejectEntrance(){
+	if(locktype_attach) return(1);
 }
 
 public func ControlDigDouble(caller) {
@@ -99,30 +104,51 @@ private func SetAttachPos(){
 private func SetAttach(){
 	//getting object on top to update
 	var ObjOnTop;
-	ObjOnTop = FindObjects( Find_Or(Find_Category(C4D_Vehicle), Find_Category(C4D_Living), Find_Category(C4D_Object)), Find_NoContainer(), Find_OnLine(-34,-7,34,-7), Find_Exclude(this()), Find_Exclude(PrimaryAttachment));
+	ObjOnTop = FindObjects( Find_Or(Find_Category(C4D_Vehicle), Find_Category(C4D_Living), Find_Category(C4D_Object)), Find_NoContainer(), Find_OnLine(-30,-7,30,-7), Find_Exclude(this()), Find_Exclude(PrimaryAttachment));
 	//Log("Amount of objects on top of %s: %d", GetName(), GetLength(ObjOnTop));
 	var bX = GetX();
 	var bY = GetY();
-	
+	var WasMoved = false;
 	//updating velocity and position if needed
-	if(!PrimaryAttachment) Release();
-	if(GetX() != GetX(PrimaryAttachment)-paX || GetX() != GetY(PrimaryAttachment)-paY) SetPosition(GetX(PrimaryAttachment)-paX, GetY(PrimaryAttachment)-paY);
-	if(GetXDir() != GetXDir(PrimaryAttachment)) SetXDir(GetXDir(PrimaryAttachment));
-	if(GetYDir() != GetYDir(PrimaryAttachment)) SetYDir(GetYDir(PrimaryAttachment));
+	if(!PrimaryAttachment){
+		Release(,,1);
+		return(0);
+	}
+	if(PrimaryAttachment && !PrimaryAttachment->~CanAttachBridge()){
+		Release(,,1); //release if primary attachment is not supported
+		return(0);
+	}
+	if(GetX() != GetX(PrimaryAttachment)-paX || GetX() != GetY(PrimaryAttachment)-paY){
+		SetPosition(GetX(PrimaryAttachment)-paX, GetY(PrimaryAttachment)-paY);
+		WasMoved = true;
+	}
+	if(GetXDir() != GetXDir(PrimaryAttachment)){
+		SetXDir(GetXDir(PrimaryAttachment));
+		WasMoved = true;
+	}
+	if(GetYDir() != GetYDir(PrimaryAttachment)){
+		SetYDir(GetYDir(PrimaryAttachment));
+		WasMoved = true;
+	}
 	//fixing some of the sliding
 	if(GetXDir() > 1) SetXDir(GetXDir() - 1);
 	if(GetXDir() < 1) SetXDir(GetXDir() + 1);
 	//Setting positions of objects on top.
 	var Xdif = GetX()-bX;
 	var Ydif = GetY()-bY;
+	
+	if(WasMoved && GetActTime() > 5){ //act time is here because the bridge does this violent snap when attached because of upright attach.
 	for(var i in ObjOnTop){
+		if(i->~IsLocked()) continue; //dont drag locked bridges!
+		if((GetDefBottom()-GetY())-6 > GetDefBottom(i)-GetY(i)) continue; //dont drag objects that touch the top of the collision line
 		SetPosition(GetX(i)+Xdif,GetY(i), i);
 	}
 	
 	for(var j in ObjOnTop){
 		if(j->~IsLocked()) continue; //dont drag locked bridges!
-		if((GetDefBottom()-GetY())-6 > GetY(j)) continue; //dont drag objects that touch the top of the collision line
+		if((GetDefBottom()-GetY())-6 > GetDefBottom(j)-GetY(j)) continue; //dont drag objects that touch the top of the collision line
 		SetPosition(GetX(j),GetY(j)+Ydif, j);
+	}
 	}
 	
 	//collision detection
@@ -131,7 +157,17 @@ private func SetAttach(){
 		DisturbConnections(1, 1, 0);
 	}
 	
+	if(GetXDir() > 0 && GBackSolid(-37,0)){
+		SetXDir(1);
+		DisturbConnections(1, 1, 0);
+	}
+	
 	if(GetXDir() > 0 && GBackSolid(37,0)){
+		SetXDir(-1);
+		DisturbConnections(0, -1, 0);
+	}
+	
+	if(GetXDir() < 0 && GBackSolid(37,0)){
 		SetXDir(-1);
 		DisturbConnections(0, -1, 0);
 	}
@@ -165,15 +201,16 @@ private func Lock(quiet, dont_descend) {
 }
 
 private func Destruction(){
-	Release(1);
+	locked_perma = true;
 }
 
-private func Release(quiet, dont_ascend){
+private func Release(quiet, dont_ascend, regardless){
+  if(locked_perma && !regardless) return(0);
   if(iAttachedLeft && iAttachedLeft == PrimaryAttachment){
 	  PrimaryAttachment = 0;
-	  iAttachedLeft->ClearRight();
+	  iAttachedLeft->~ClearRight();
 	  if(iAttachedRight){
-	  iAttachedRight->ClearLeft();
+	  iAttachedRight->~ClearLeft();
 	  iAttachedRight->~Release();
 	  iAttachedRight = 0;
 	  }
@@ -181,18 +218,20 @@ private func Release(quiet, dont_ascend){
   
   if(iAttachedRight && iAttachedRight == PrimaryAttachment){
 	  PrimaryAttachment = 0;
-	  iAttachedRight->ClearLeft();
+	  iAttachedRight->~ClearLeft();
 	  if(iAttachedLeft){
-	  iAttachedLeft->ClearRight();
+	  iAttachedLeft->~ClearRight();
 	  iAttachedLeft->~Release();
 	  iAttachedLeft = 0;
 	  }
   }
 
-  if(locktype_attach && this()){
-	  CollideAll();
-	  iAttachedLeft = 0;
-	  iAttachedRight = 0;
+  if(locktype_attach && !OnFire() && this()){
+		locked_perma = true;
+		var bg = CreateObject(GetID());
+		bg->Release();
+		RemoveObject();
+		return(1);
   }
   
   SetAction("Idle");
@@ -221,8 +260,4 @@ public func IsLocked() { return(is_locked); }
 public func NoPull()
 {
   return IsLocked();
-}
-
-public func Entrance(){
-	Release(true);
 }
