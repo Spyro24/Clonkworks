@@ -1,6 +1,6 @@
 # <img width="2048" height="1024" alt="Promo1" src="https://github.com/user-attachments/assets/b7a8734b-2ae7-4c20-80de-bb765cb6ff67" />
 
-Clonkworks is a mod for [LegacyClonk](https://github.com/legacyclonk/LegacyClonk), that plans on adding new advanced technology, improve mining + cave exploration, and adding bran new tools and utilities for you to mess around with.
+Clonkworks is a mod for [LegacyClonk](https://github.com/legacyclonk/LegacyClonk), that plans on adding new advanced technology, improve mining + cave exploration, and adding brand new tools and utilities for you to mess around with.
 
 Planned Features:
 
