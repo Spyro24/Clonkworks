@@ -1,0 +1,1 @@
+Useful to transport larger amounts of material. It's weight and the amount of items it can hold are determined by the material used to make it.

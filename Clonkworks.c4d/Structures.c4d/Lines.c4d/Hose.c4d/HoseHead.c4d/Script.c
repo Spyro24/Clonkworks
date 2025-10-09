@@ -53,12 +53,15 @@ protected func Activate(){
 	RemoveObject(line);
 	CreateObject(FNKT);
 	RemoveObject(this());
+	
+	return(1);
 }
 
 func Toggle(){
 	Sound("Click");
 	if(IsOn) IsOn = false;
 	else IsOn = true;
+	return(1);
 }
 
 public func ContextAimUp(){

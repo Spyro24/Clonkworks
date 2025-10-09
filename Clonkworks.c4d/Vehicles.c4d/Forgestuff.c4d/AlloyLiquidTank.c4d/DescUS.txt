@@ -1,0 +1,3 @@
+Can store a lot of material in it, but you'll most likely be storing liquids here :)
+
+The power of the used material determines the amount of pixels this tank will hold.

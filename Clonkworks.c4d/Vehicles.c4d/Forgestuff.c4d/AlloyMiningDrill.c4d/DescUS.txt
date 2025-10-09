@@ -1,0 +1,1 @@
+Mines through any material in it's path, as long as it's constantly powered with large amounts of energy. Its speed and efficiency depends on the material used to make it.

@@ -1,2 +1,0 @@
-DE:Legierungskanone
-US:Alloy cannon

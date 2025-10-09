@@ -1,0 +1,5 @@
+Release=Flüssigkeit ablassen
+Fill=Befüllen
+FillFail=Fass kann nicht mit %s befüllt werden!
+FillNoBarrel=Kein Fass vorhanden!
+FillEmpty=Nicht genügend Flüssigkeit gespeichert!

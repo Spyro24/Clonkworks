@@ -1,0 +1,3 @@
+Sie können darin eine Menge Material lagern, aber höchstwahrscheinlich werden Sie hier Flüssigkeiten aufbewahren :)
+
+Die Leistungsstatistik des verwendeten Materials bestimmt die Anzahl der Pixel, die dieser Tank aufnehmen kann.

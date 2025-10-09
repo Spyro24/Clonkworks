@@ -1,0 +1,1 @@
+Nützlich für den Transport größerer Materialmengen. Sein Gewicht und die Menge der Gegenstände, die es aufnehmen kann, hängen vom verwendeten Material ab.
