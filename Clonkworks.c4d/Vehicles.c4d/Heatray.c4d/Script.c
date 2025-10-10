@@ -8,6 +8,10 @@ protected func Initialize(){
 	SetPhase(8);
 }
 
+public func Departure(){
+	SetPosition(GetX(),GetY()+20);
+}
+
 public func RayRange(){
 	return(120);
 }
