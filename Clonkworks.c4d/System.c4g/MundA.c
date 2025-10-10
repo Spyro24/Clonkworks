@@ -1397,7 +1397,7 @@ global func GBackSolidCircle(x , y , iRadius)
 
 	for(var z = iRad; z > 0; z --)
 	{
-		for(var i = 0; i < iRad; i ++)
+		for(var i = 0; i < 360; i ++)
 		{
 			if(!GBackSolid(Cos(i , z) + x , Sin(i , z) + y))	return false;
 		}
@@ -1412,7 +1412,7 @@ global func GBackSemiSolidCircle(x , y , iRadius)
 
 	for(var z = iRad; z > 0; z --)
 	{
-		for(var i = 0; i < iRad; i ++)
+		for(var i = 0; i < 360; i ++)
 		{
 			if(!GBackSemiSolid(Cos(i , z) + x , Sin(i , z) + y))	return false;
 		}
@@ -1427,7 +1427,7 @@ global func GBackLiquidCircle(x , y , iRadius)
 
 	for(var z = iRad; z > 0; z --)
 	{
-		for(var i = 0; i < iRad; i ++)
+		for(var i = 0; i < 360; i ++)
 		{
 			if(!GBackLiquid(Cos(i , z) + x , Sin(i , z) + y)) return false;
 		}
@@ -1442,7 +1442,7 @@ global func GBackSkyCircle(x , y , iRadius)
 
 	for(var z = iRad; z > 0; z --)
 	{
-		for(var i = 0; i < iRad; i ++)
+		for(var i = 0; i < 360; i ++)
 		{
 			if(!GBackSky(Cos(i , z) + x , Sin(i , z) + y))	return false;
 		}
@@ -1459,7 +1459,7 @@ global func GBackSolidAtCircle(x , y , iRadius)
 
 	for(var z = iRad; z > 0; z --)
 	{
-	for(var i = 0; i < iRad; i ++)
+	for(var i = 0; i < 360; i ++)
 	{
 		if(!GBackSolid(Cos(i , z) + x , Sin(i , z) + y))	return false;
 	}
@@ -1474,7 +1474,7 @@ global func GBackSemiSolidAtCircle(x , y , iRadius)
 
 	for(var z = iRad; z > 0; z --)
 	{
-	for(var i = 0; i < iRad; i ++)
+	for(var i = 0; i < 360; i ++)
 	{
 		if(!GBackSemiSolid(Cos(i , z) + x , Sin(i , z) + y))	return false;
 	}
@@ -1488,7 +1488,7 @@ global func GBackLiquidAtCircle(x , y , iRadius)
 	
 	for(var z = iRad; z > 0; z --)
 	{
-	for(var i = 0; i < iRad; i ++)
+	for(var i = 0; i < 360; i ++)
 	{
 		if(!GBackLiquid(Cos(i , z) + x , Sin(i , z) + y))	return false;
 	}
@@ -1503,7 +1503,7 @@ global func GBackSkyAtCircle(x , y , iRadius)
 
 	for(var z = iRad; z > 0; z --)
 	{
-	for(var i = 0; i < iRad; i ++)
+	for(var i = 0; i < 360; i ++)
 	{
 		if(!GBackSky(Cos(i , z) + x , Sin(i , z) + y))	return false;
 	}

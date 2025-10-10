@@ -2,7 +2,7 @@
 Name=Alloy-Liquid-Tank
 id=ALQT
 Version=4,9,8
-Category=260
+Category=1028
 MaxUserSelect=6
 Value=35
 Mass=250

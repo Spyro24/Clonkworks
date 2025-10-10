@@ -3,3 +3,4 @@ TxtAimdown=Aim: down
 TxtFire=Fire
 TxtResetview=Reset view
 TooHot=The laser needs to cool down.
+NothinginSight= There's nothing in the laser's range!

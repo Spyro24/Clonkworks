@@ -61,3 +61,33 @@ global func CreateForgedObjectCustom(id Id, int XOffset, int YOffset, int Owner,
 	
 	return(ForgedObj);
 }
+
+//loosens any material!
+global func Loosen(x , y , iRadius)
+{
+	var iRad = Abs(iRadius);
+	if(GetType(x) == C4V_Any) x = 0;
+	if(GetType(y) == C4V_Any) y = 0;
+	
+	var mateusz = MaterialName(GetMaterial(x,y));
+	BlastFree(x,y,1);
+	if(!GBackSolid(x,y)){
+		CastPXS(mateusz,1,10,x,y);
+	}
+
+	for(var z = iRad; z > 0; z --)
+	{
+		for(var i = 0; i < 360; i ++)
+		{
+			if(GBackSolid(Cos(i , z) + x , Sin(i , z) + y)){
+				var mat = MaterialName(GetMaterial(Cos(i , z) + x,Sin(i , z) + y));
+				BlastFree(Cos(i , z) + x,Sin(i , z) + y,1);
+				if(!GBackSolid(Cos(i , z) + x , Sin(i , z) + y)){
+					CastPXS(mat,1,10,Cos(i , z) + x,Sin(i , z) + y);
+				}
+			}
+		}
+	}
+
+	return true;
+}
