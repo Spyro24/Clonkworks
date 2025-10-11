@@ -5,9 +5,9 @@
 func FRGUpdate(){
 	//SetColorDw(Color, this());
 	SetMass(25*Mass, this());
-	SetGraphics("Liquid",this(),GetID(),2,GFXOV_MODE_ExtraGraphics);
-	SetGraphics(0,this(),GetID(),1,GFXOV_MODE_Base);
-	SetClrModulation(Color,this(),1);
+	SetGraphics("Liquid",this(),GetID(),1,GFXOV_MODE_ExtraGraphics);
+	SetObjectBlitMode(4,this());
+	SetClrModulation(Color,this());
 	AddEffect("Liquidshow",this(),20,0,this());
 }
 
@@ -26,7 +26,7 @@ func LiquidCheck(){
 	r = GetMaterialVal("Color", "Material", Material(LiquidType),0);
 	g = GetMaterialVal("Color", "Material", Material(LiquidType),1);
 	b = GetMaterialVal("Color", "Material", Material(LiquidType),2);
-	SetClrModulation(RGBa(r,g,b), this(),2);
+	SetClrModulation(RGBa(r,g,b), this(),1);
 	}
 }
 
