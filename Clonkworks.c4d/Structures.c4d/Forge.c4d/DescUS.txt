@@ -1,1 +1,3 @@
-The forge can craft advanced vehicles, and better versions of some tools. You can choose a metal before you begin forging, and the metal you use changes the attributes of the item you create.
+The forge can create upgraded versions of most vehicles. You can choose a metal before you begin forging, and the metal you use changes the attributes of the item you create.
+
+Advanced vehicles require an advanced workshop before they can be forged.

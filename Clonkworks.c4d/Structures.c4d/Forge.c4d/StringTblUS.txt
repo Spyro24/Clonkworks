@@ -16,3 +16,5 @@ Move=Moving %s x%d to Forge.
 GatherFail=Gathering Failed!
 MissingItems=Can't Start Forging, Gathered Items Missing!
 Inspect=Inspect Available Alloys
+NoCancelPerm=You can't scrap another player's project!
+NoPerm=Can't use!|Forge owner is Hostile!

@@ -1,1 +1,3 @@
-In der Schmiede können fortschrittliche Fahrzeuge und verbesserte Versionen einiger Werkzeuge hergestellt werden. Bevor Sie mit dem Schmieden beginnen, können Sie ein Metall auswählen. Das verwendete Metall beeinflusst die Eigenschaften des hergestellten Gegenstands.
+In der Schmiede können verbesserte Versionen der meisten Fahrzeuge hergestellt werden. Vor Beginn der Schmiedearbeiten kannst du ein Metall auswählen, dessen Eigenschaften sich auf die Eigenschaften des hergestellten Gegenstands auswirken.
+
+Für die Herstellung fortgeschrittener Fahrzeuge ist eine Fortgeschrittenen-Werkstatt erforderlich.

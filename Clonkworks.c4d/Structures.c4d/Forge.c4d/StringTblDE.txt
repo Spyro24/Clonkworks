@@ -16,3 +16,5 @@ Move=Bewegen von %s x%d zur Schmiede.
 GatherFail=Sammeln fehlgeschlagen!
 MissingItems=Kann nicht mit dem Schmieden beginnen, gesammelte Gegenstände fehlen!
 Inspect=Verfügbare Legierungen prüfen
+NoCancelPerm=Du kannst das Projekt eines anderen Spielers nicht verwerfen!
+NoPerm=Cannot be used!| The owner 

@@ -285,3 +285,17 @@ public func ContextInspect(pCaller){
 	if(MatId)
 	FindObject(FALW)->Inspect(MatId, pCaller);
 }
+
+//Values
+
+public func CalcSellValue(){
+	if(!MatId) return(GetValue(,GetID()));
+	var val = GetValue(,GetID());
+	val/=4;
+	val *= GetValue(,MatId);
+	return(val);
+}
+
+public func CalcValue(){
+	return(CalcSellValue());
+}

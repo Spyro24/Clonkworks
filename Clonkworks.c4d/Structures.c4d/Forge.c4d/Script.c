@@ -36,6 +36,10 @@ Forging=false;
 Forgebase = FindObject2(Find_ID(FALW));
 }
 
+func PlayerCheck(pByObj){
+	if(!Hostile(GetOwner(pByObj),GetOwner())) return(1);
+}
+
 func CanInspect(){ return(ObjectCount(FALW) && !ObjectCount(NOIS)); }
 
 public func ContextInspect(pCaller){
@@ -46,6 +50,11 @@ public func ContextInspect(pCaller){
 
 func ContextForge(object pByObject){
 	[$CtxForge$|Image=CXCN|Condition=CanProduce]
+	if(!PlayerCheck(pByObject)){
+		Message("$NoPerm$",pByObject);
+		pByObject->Sound("CommandFailure1");
+		return(0);
+	}
 		CreateMenu(CXCN,pByObject,this(),4,"$MsgNoUseable$");
 		for(var id in LocalN("ForgeableIDs", Forgebase)){
 			if(!id) continue;
@@ -68,6 +77,12 @@ func Continue(pByObject){
 	
 	//very big fat algorhythm for finding out if any components are still needed
 	//very obese
+	
+	if(!PlayerCheck(pByObject)){
+		Message("$NoPerm$",pByObject);
+		pByObject->Sound("CommandFailure1");
+		return(0);
+	}
 
 	if(!Forging){
 		
@@ -156,6 +171,11 @@ func Continue(pByObject){
 
 func ContextScrap(pByObject){
 	[$CtxScrap$|Image=WKS2|Condition=IsProducing]
+	if(GetOwner(pByObject) != GetOwner() && GetOwner() != NO_OWNER){
+		Message("$NoCancelPerm$",pByObject);
+		pByObject->Sound("CommandFailure1");
+		return(0);
+	}
 	DebugLog("Forging Interrupted: Scrapped");
 	Reset();
 }
