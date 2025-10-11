@@ -14,7 +14,7 @@ VertexCNAT=4,9,10
 VertexFriction=100,10,10
 Value=25
 Mass=60
-Components=XBOW=1;DUMM=4;
+Components=WOOD=3;DUMM=2;
 Picture=640,0,64,64
 CollectionLimit=50
 Grab=1

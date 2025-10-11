@@ -14,7 +14,7 @@ VertexCNAT=4,9,10
 VertexFriction=100,10,10
 Value=35
 Mass=110
-Components=DUMM=8
+Components=DUMM=4
 Picture=608,0,64,64
 CollectionLimit=10
 Grab=1
