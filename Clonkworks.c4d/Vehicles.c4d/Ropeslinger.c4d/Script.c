@@ -104,3 +104,5 @@ private func MaxContents() { return(3); }
 public func Departure(){
 	SetPosition(GetX(),GetY()+17);
 }
+
+public func GetResearchBase() { return(CANN); }

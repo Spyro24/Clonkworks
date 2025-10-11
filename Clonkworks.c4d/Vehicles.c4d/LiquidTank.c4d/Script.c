@@ -234,3 +234,4 @@ protected func ControlDownSingle(object clonk)
   pEngine->~ControlDownSingle(clonk);
   return(1);
 }
+public func GetResearchBase() { return(PUMP); }

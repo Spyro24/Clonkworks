@@ -96,3 +96,5 @@ public func IsAdvancedProduct(){
 public func Departure(){
 	SetPosition(GetX(),GetY()+37);
 }
+
+public func GetResearchBase() { return(CANN); }

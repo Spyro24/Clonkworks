@@ -15,3 +15,4 @@ func FRGUpdate(){
 }
 
 private func MaxContents() { return(30*Power); }
+public func GetResearchBase() { return(LORY); }

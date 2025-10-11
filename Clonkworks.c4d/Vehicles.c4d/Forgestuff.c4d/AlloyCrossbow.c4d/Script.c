@@ -241,3 +241,4 @@ private func GetArrowCount()
   return(count);
 }
 
+public func GetResearchBase() { return(XBOW); }

@@ -94,3 +94,5 @@ public func Fire(bool fAuto)
   // Erfolgreich geschossen
   return(1);
 }
+
+public func GetResearchBase() { return(CANN); }

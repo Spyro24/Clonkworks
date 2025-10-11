@@ -37,3 +37,4 @@ protected func FxLiquidshowInfo(){
 
 func MaxAmount(){ return(Power*1000); }
 func AmountDevision(){ return(MaxAmount()/20);}
+public func GetResearchBase() { return(LQTK); }

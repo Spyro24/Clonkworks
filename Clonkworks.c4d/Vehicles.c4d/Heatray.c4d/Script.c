@@ -212,3 +212,5 @@ public func ExitWorkshop(){
 	if(GetCon() < 100) return(false);
 	return(true);
 }
+
+public func GetResearchBase() { return(CANN); }
