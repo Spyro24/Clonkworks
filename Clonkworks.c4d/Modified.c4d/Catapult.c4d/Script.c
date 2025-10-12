@@ -145,6 +145,7 @@ public func ControlCommand(string szCommand, object pTarget, int iX, int iY)
 public func ControlThrow() // Feuern / Inhalt
 {
   [$TxtFire$|Image=CAT1:1]
+   if(GetEffect("MouseAim",this())) return(0);
   // Nicht bereit: Clonk kann nichts machen
   if (GetAction() ne "Ready") return(1);
   // Nicht gespannt: Clonk kann nur laden/entladen
@@ -157,6 +158,7 @@ public func ControlThrow() // Feuern / Inhalt
 
 public func ControlConf(int conf)
 {
+	 if(GetEffect("MouseAim",this())) return(0);
   if(AimStdConf(conf))
   {
     iPhase = GetPhase();
@@ -167,6 +169,7 @@ public func ControlConf(int conf)
 public func ControlDig(object clonk) // Katapult mehr spannen (weiter Schießen)
 {
   [$TxtAim1$|Method=Classic|Image=CAT1:0]
+   if(GetEffect("MouseAim",this())) return(0);
   AimDown(clonk, 8, "ControlConf");
 }
 
@@ -178,11 +181,13 @@ public func ControlDown(object clonk)
 public func ControlUp(object clonk) // Katapult weniger spannen (kürzer Schießen)
 {
   [$TxtAim2$|Image=CAT1:2]
+   if(GetEffect("MouseAim",this())) return(0);
   AimUp(clonk, 8, "ControlConf");
 }
 
 public func ControlUpdate(object clonk, int comdir)
 {
+	 if(GetEffect("MouseAim",this())) return(0);
   AimUpdate(clonk, comdir, 8, "ControlConf");
 }
 

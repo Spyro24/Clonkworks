@@ -64,6 +64,7 @@ private func RemoveControlEffect(int dir)
 
 public func ControlConf(int conf)
 {
+	 if(GetEffect("MouseAim",this())) return(0);
   if(AimStdConf(conf))
     Sound("CatapultSet");
 }
@@ -71,12 +72,14 @@ public func ControlConf(int conf)
 public func ControlUp(object clonk)     // Zielen: hoch
 {
   [$TxtAimup$|Image=XBO1:2]
+   if(GetEffect("MouseAim",this())) return(0);
   AimUp(clonk, 38-Min(Speed, 37), "ControlConf");
 }
 
 public func ControlDig(object clonk)    // Zielen: runter (klassisch)
 {
   [$TxtAimdown$|Method=Classic|Image=XBO1:0]
+   if(GetEffect("MouseAim",this())) return(0);
   AimDown(clonk, 38-Min(Speed, 37), "ControlConf");
 }
 
@@ -87,6 +90,7 @@ public func ControlDown(object clonk)   // Zielen: runter (JumpAndRun)
 
 public func ControlUpdate(object clonk, int comdir)
 {
+	 if(GetEffect("MouseAim",this())) return(0);
   AimUpdate(clonk, comdir, 38-Min(Speed, 37), "ControlConf");
 }
 
@@ -98,6 +102,7 @@ public func ControlDownSingle() // Sicht zurücksetzen
 public func ControlThrow(pClonk)  // Schießen
 {
   [$TxtFire$|Image=XBO1:1]
+   if(GetEffect("MouseAim",this())) return(0);
   return(Fire(0,pClonk));
 }
 
