@@ -95,4 +95,22 @@ public func Fire(bool fAuto)
   return(1);
 }
 
+public func FireAt(int iX,int iY,int fAuto)
+{
+  var iAngle;
+  // Zielwinkel
+  iAngle = Angle(GetX(),GetY(),iX,iY);
+  // Bei größerer Distanz höher zielen
+  if(Inside(iX-GetX(),+1,+300))
+     iAngle -= Abs(iX-GetX())/12;
+  if(Inside(iX-GetX(),-300,-1))
+     iAngle += Abs(iX-GetX())/12;
+  // Zielen
+  AimToAngle(iAngle);
+  // Feuern
+    if(!GetEffect("MouseAim",this()))
+  AddEffect("MouseAim",this(),100,38 - Min(Speed, 37),this());
+  return(1);
+}
+
 public func GetResearchBase() { return(CANN); }

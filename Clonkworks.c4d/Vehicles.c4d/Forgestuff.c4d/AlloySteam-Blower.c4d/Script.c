@@ -112,3 +112,43 @@ public func Departure(){
 }
 
 public func GetResearchBase() { return(SBLW); }
+
+public func ControlUp(object clonk)     // Zielen: hoch (klassisch)
+{
+  [$TxtAimup$|Image=CAN1:2]
+	AimUp(clonk, 38 - Min(Speed, 37), "ControlConf");
+}
+
+public func ControlDig(object clonk)    // Zielen: runter (klassisch)
+{
+  [$TxtAimdown$|Method=Classic|Image=CAN1:0]
+	AimDown(clonk, 38 - Min(Speed, 37), "ControlConf");
+}
+
+public func ControlDown()
+{
+  [$TxtAimdown$|Method=JumpAndRun|Image=CAN1:0] // Beschreibung fuer JnR
+}
+
+public func ControlUpdate(object clonk, int comdir) // Zielen: JnR
+{
+  AimUpdate(clonk, comdir, 38 - Min(Speed, 37), "ControlConf");
+}
+
+public func FireAt(int iX,int iY,int fAuto)
+{
+  var iAngle;
+  // Zielwinkel
+  iAngle = Angle(GetX(),GetY(),iX,iY);
+  // Bei größerer Distanz höher zielen
+  if(Inside(iX-GetX(),+1,+300))
+     iAngle -= Abs(iX-GetX())/12;
+  if(Inside(iX-GetX(),-300,-1))
+     iAngle += Abs(iX-GetX())/12;
+  // Zielen
+  AimToAngle(iAngle);
+  // Feuern
+    if(!GetEffect("MouseAim",this()))
+  AddEffect("MouseAim",this(),100,38 - Min(Speed, 37),this());
+  return(1);
+}

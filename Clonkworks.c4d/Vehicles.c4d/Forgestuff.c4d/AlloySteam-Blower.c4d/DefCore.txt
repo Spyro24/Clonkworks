@@ -21,3 +21,4 @@ VertexY=4,-4,-14,-4
 VertexFriction=20,20,20,20
 VertexCNAT=8,2,4,1
 NoPushEnter=0
+VehicleControl=1

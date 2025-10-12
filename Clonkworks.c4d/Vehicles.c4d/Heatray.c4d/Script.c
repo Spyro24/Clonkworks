@@ -187,7 +187,6 @@ public func ControlDownSingle() // Sicht zurücksetzen
   [$TxtResetview$|Method=None]
 }
 
-
 public func ControlCommand(string szCommand,object pTarget,int iX,int iY)
 {
   // Feuern
@@ -214,3 +213,60 @@ public func ExitWorkshop(){
 }
 
 public func GetResearchBase() { return(CANN); }
+
+public func FireAt(int iX,int iY,int fAuto)
+{
+			if(IsHot()){
+				Message("$TooHot$",this());
+				Sound("Error");
+				return(1);
+		}
+  var iAngle;
+  // Zielwinkel
+  iAngle = Angle(GetX(),GetY(),iX,iY);
+  // Bei größerer Distanz höher zielen
+  if(Inside(iX-GetX(),+1,+300))
+     iAngle -= Abs(iX-GetX())/12;
+  if(Inside(iX-GetX(),-300,-1))
+     iAngle += Abs(iX-GetX())/12;
+  // Zielen
+  AimToAngle(iAngle);
+  // Feuern
+    if(!GetEffect("MouseAim",this()))
+  AddEffect("MouseAim",this(),100,5,this());
+  return(1);
+}
+
+public func AimToAngle(int iAngle)
+{
+  // Winkel anpassen
+  while(iAngle > 180) iAngle-=360;
+  // Richtung
+  if(iAngle > 0) SetDir(DIR_Right);
+  if(iAngle < 0) SetDir(DIR_Left);
+  // Zielrichtung
+  //SetPhase(BoundBy( 20*Abs(iAngle)/90, 0,19));
+  AutoAimTo = BoundBy( 20*Abs(iAngle)/90, 0,19);
+  if(AutoAimTo == 19) AutoAimTo = 18;
+}
+
+public func FxMouseAimTimer(object pTarget, int iEffectNumber){
+	var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
+	if(!clonk) return(-1);
+	if(AutoAimTo > GetPhase()){
+		SetPhase(GetPhase()+1);
+		    Sound("CatapultSet");
+	}
+	else if(AutoAimTo < GetPhase()){
+		SetPhase(GetPhase()-1);
+		    Sound("CatapultSet");
+	}
+	else return(-1);
+}
+
+public func FxMouseAimStop(object pTarget, int iEffectNumber, int iReason){
+		var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
+	if(!clonk) return(0);
+	if(iReason != 0) return(0);
+	Fire(true);
+}

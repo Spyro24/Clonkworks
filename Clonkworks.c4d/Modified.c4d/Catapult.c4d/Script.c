@@ -3,6 +3,7 @@
 #strict
 
 local iPhase, iFiringPlayer;
+local AutoAimTo;
 
 /* Initialisierung */
 
@@ -87,8 +88,31 @@ private func FireAt(int iTX)
   if(iTX<GetX()) SetDir(DIR_Left());
   // Phase aus einer Annäherungsformel ableiten: X = 22*Phase^2
   iPhase = BoundBy( Sqrt(Abs(GetX()-iTX)/22) ,1,6);
-  SetPhase(iPhase);
-  return(Fire());
+  AutoAimTo = iPhase;
+  if(!GetEffect("MouseAim",this()))
+  AddEffect("MouseAim",this(),100,8,this());
+  return(1);
+}
+
+public func FxMouseAimTimer(object pTarget, int iEffectNumber){
+	var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
+	if(!clonk) return(-1);
+	if(AutoAimTo > GetPhase()){
+		SetPhase(GetPhase()+1);
+		    Sound("CatapultSet");
+	}
+	else if(AutoAimTo < GetPhase()){
+		SetPhase(GetPhase()-1);
+		    Sound("CatapultSet");
+	}
+	else return(-1);
+}
+
+public func FxMouseAimStop(object pTarget, int iEffectNumber, int iReason){
+		var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
+	if(!clonk) return(0);
+	if(iReason != 0) return(0);
+	Fire(true);
 }
 
 /* Laden */

@@ -1,6 +1,7 @@
 /*-- Armbrust --*/
 
 #strict 2
+local AutoAimTo;
 
 public func ReloadDelay() { return 10; } // Zeit zum Nachladen
 
@@ -162,7 +163,9 @@ public func FireAt(int iX,int iY,int fAuto)
   // Zielen
   AimToAngle(iAngle);
   // Feuern
-  return(Fire(fAuto));
+    if(!GetEffect("MouseAim",this()))
+  AddEffect("MouseAim",this(),100,5,this());
+  return(1);
 }
 
 public func AimToAngle(int iAngle)
@@ -173,7 +176,29 @@ public func AimToAngle(int iAngle)
   if(iAngle > 0) SetDir(DIR_Right);
   if(iAngle < 0) SetDir(DIR_Left);
   // Zielrichtung
-  SetPhase(BoundBy( 20*Abs(iAngle)/90, 0,19));
+  //SetPhase(BoundBy( 20*Abs(iAngle)/90, 0,19));
+  AutoAimTo = BoundBy( 20*Abs(iAngle)/90, 0,19);
+}
+
+public func FxMouseAimTimer(object pTarget, int iEffectNumber){
+	var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
+	if(!clonk) return(-1);
+	if(AutoAimTo > GetPhase()){
+		SetPhase(GetPhase()+1);
+		    Sound("CatapultSet");
+	}
+	else if(AutoAimTo < GetPhase()){
+		SetPhase(GetPhase()-1);
+		    Sound("CatapultSet");
+	}
+	else return(-1);
+}
+
+public func FxMouseAimStop(object pTarget, int iEffectNumber, int iReason){
+		var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
+	if(!clonk) return(0);
+	if(iReason != 0) return(0);
+	Fire(true);
 }
 
 /* Laden */
