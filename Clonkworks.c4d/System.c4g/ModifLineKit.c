@@ -6,5 +6,3 @@
 public func IsKit(){
 	return(1);
 }
-
-func IsMetal(){ return(true); }

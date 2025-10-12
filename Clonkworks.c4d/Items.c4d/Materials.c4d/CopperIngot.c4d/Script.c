@@ -13,4 +13,3 @@ public func IsAlchemContainer() { return(false); }
 // Und auch kein Indianerzeug
 public func IsIndianResearch() { return(false); }
 public func IsIndianHandcraft() { return(false); }
-func IsMetal(){ return(true); }
