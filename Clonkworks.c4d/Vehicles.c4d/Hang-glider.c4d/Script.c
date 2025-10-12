@@ -14,6 +14,17 @@ public func ExitWorkshop(){
 	return(true);
 }
 
+//Packing the glider
+public func ControlDigDouble(pByObject){
+	[Pack|Image=PHNG]
+	if(GetAction() ne "OnGround" && GetAction() ne "Hit") return(0);
+	var kit = CreateObject(PHNG,0,0,GetOwner());
+	if(pByObject) Enter(pByObject,kit);
+	Sound("Click");
+	RemoveObject();
+	return(1);
+}
+
 func CheckGround(){
 	//check if its on the ground, if not - liftoff!
 	if(CanGlide() && GetYDir()>10){

@@ -1,0 +1,5 @@
+[Action]
+Name=Burnt
+Length=1
+Facet=0,0,7,4,0,0
+NoOtherAction=1
