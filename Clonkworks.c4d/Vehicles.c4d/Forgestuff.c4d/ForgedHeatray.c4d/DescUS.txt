@@ -1,0 +1,3 @@
+A heavy, coal-powered laser used to melt material in inaccessible, high places. Can also be used to cause severe burns and set things on fire.
+
+2 pieces of coal are required for one shot. The power of the laser is determined by the power of the alloy used in its manufacture, and the mass determines the cooling time.

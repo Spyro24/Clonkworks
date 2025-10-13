@@ -1,0 +1,6 @@
+TxtAimup=Zielen: auf
+TxtAimdown=Zielen: ab
+TxtFire=Feuern
+TxtResetview=Sicht zurücksetzen
+TooHot=Der Laser muss abkühlen.
+NothinginSight= Es befindet sich nichts im Bereich des Lasers!
