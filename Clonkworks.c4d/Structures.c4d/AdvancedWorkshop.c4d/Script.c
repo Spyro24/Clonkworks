@@ -135,7 +135,7 @@ public func ContextConstruction(pCaller) {
 }
 
 global func AdvancedResearchAllowed(iPlr){
-	var looky = FindObject2( Find_Or(Find_Owner(iPlr), Find_Allied(iPlr)), Find_ID(ADVW));
+	var looky = FindObject2( Find_Or(Find_Owner(iPlr), Find_Allied(iPlr)), Find_ID(ADVW), Find_OCF(OCF_Fullcon));
 	if(looky) return(1);
 	else return(0);
 }
