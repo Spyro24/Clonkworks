@@ -10,11 +10,11 @@ Width=37
 Height=30
 Offset=-19,-21
 Picture=0,60,64,64
-Vertices=5
-VertexX=0,3,-3,0,0
-VertexY=-11,-1,-1,8,0
-VertexFriction=20,20,20,20,20
-VertexCNAT=4,2,1,8,16
+Vertices=7
+VertexX=0,3,-3,0,0,-19,17
+VertexY=-11,-1,-1,8,0,0,0
+VertexFriction=20,20,20,20,20,20,20
+VertexCNAT=4,2,1,8,16,65,66
 ColorByOwner=1
 Components=METL=1;TTIG=3;
 ContactCalls=1
