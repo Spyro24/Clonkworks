@@ -12,6 +12,10 @@ func Initialize() {
 	iFuel = 0;
 	return(1);
 }
+public func ExitWorkshop(){
+	if(GetCon() < 100) return(false);
+	return(true);
+}
 
 public func CheckFuel(){
 	if(iFuel <= 0){
@@ -103,6 +107,7 @@ public func ContainedUpdate(object self, int comdir, bool dig, bool throw)
 
 //timer
 func Reidle(){
+	if(GetCon() < 100) return(0);
 	if(GetComDir() == COMD_Stop && GetAction() == "Walk" && GetXDir() == 0){
 		if(GetDir() == DIR_Right){
 			SetXDir(GetXDir()-10);
