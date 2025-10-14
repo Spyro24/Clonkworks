@@ -157,3 +157,13 @@ func Reidle(){
 public func IsAdvancedProduct(){
 	return(1);
 }
+
+//sounds
+
+func SoundOpenDoor(){
+	Sound("SteelGate1");
+}
+
+func SoundCloseDoor(){
+	Sound("SteelGate2");
+}
