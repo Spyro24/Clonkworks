@@ -171,7 +171,7 @@ protected func UseFuel(){
 
 protected func ControlCommand(szCommand, pTarget, iTx, iTy)
 {
- if (szCommand eq "MoveTo" || szCommand eq "Dig")
+ if (szCommand eq "MoveTo")
   return(SetCommand(this(),szCommand, pTarget, iTx, iTy));
  return(0);
 }

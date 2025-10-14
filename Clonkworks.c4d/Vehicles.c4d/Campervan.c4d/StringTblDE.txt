@@ -1,9 +1,7 @@
 Refuel=Tanken
-Ride=Ein-/Aussteigen
 FuelFail1=Derzeit kein Kraftstoff erforderlich!
-FuelFail2=Zum Tanken des Motorrads benötigen Sie ein Ölfass.
-RideFail1=Ich habe keine Berechtigung!
-RideFail2=Jemand fährt bereits damit!
+FuelFail2=Sie benötigen ein Ölfass, um den Van aufzutanken.
+RideFail1=Das ist nicht mein Wohnmobil!
 
 FuelWarn50=50 % Kraftstoff übrig!
 FuelWarn25=25 % Kraftstoff übrig!
