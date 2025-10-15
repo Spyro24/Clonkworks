@@ -1,0 +1,3 @@
+Ein kleines, kapselähnliches Ding, das man betreten und mit einem Clonk in Höhlen steuern kann. Wenn genügend Platz vorhanden ist, werden seine Beine ausgefahren und es kann beginnen, an Höhlenwänden hochzuklettern.
+
+Um abzusteigen, klicken Sie zweimal auf die Schaltfläche „Graben“ oder verlassen Sie das Gerät auf einer Fläche, die keine Hintergrundwand ist.

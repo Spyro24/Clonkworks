@@ -1,2 +1,0 @@
-DE:Hohlenkletterer
-US:CaveClimber

@@ -1,0 +1,9 @@
+TxtUp=Go Up/Activate
+TxtDown=Go Down
+TxtDownDouble=Deactivate
+TxtLeft=Go Left
+TxtRight=Go Right
+TxtDig=Stop
+TxtThrow=Throw Held Item
+ErrNoWall=No Wall to Cling to!
+ErrNoLegSpace=No Leg Space!

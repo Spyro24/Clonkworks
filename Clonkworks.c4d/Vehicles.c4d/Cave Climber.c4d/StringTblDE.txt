@@ -1,0 +1,9 @@
+TxtUp=Nach oben/Aktivieren
+TxtDown=Nach unten
+TxtDownDouble=Deaktivieren
+TxtLeft=Nach links
+TxtRight=Nach rechts
+TxtDig=Stopp
+TxtThrow=Haltenes Objekt werfen
+ErrNoWall=Keine Wand zum Festhalten!
+ErrNoLegSpace=Kein Platz für die Beine!
