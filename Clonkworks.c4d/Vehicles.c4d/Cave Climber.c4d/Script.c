@@ -176,4 +176,4 @@ protected func MoveLegs(){
 }
 
 // Reject content menu
-publuc func RejectContents(){ return(true); }
+public func RejectContents(){ return(true); }
