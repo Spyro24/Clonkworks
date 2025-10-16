@@ -1,0 +1,8 @@
+[Action]
+Name=MoveLeg
+Length=16
+Delay=1
+Facet=0,0,40,16,0,0
+FacetBase=0
+NextAction=Idle
+EndCall=Clonk
