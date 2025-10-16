@@ -23,9 +23,15 @@ func Collection2(pObj){
 	SetClrModulation(GetColorDw(pObj),this(),1);
 }
 
-func Ejection(){
+func Ejection(pObj){
+	if(CrewMember(pObj)){
 	SetClrModulation(RGBa(255,255,255),this(),1);
 	SetGraphics(0,this());
+	}
+	
+	if(Stuck()){
+		Fling(pObj, RandomX(-5,5),-30);
+	}
 }
 
 func ActivateEntrance(pByObj){
@@ -132,12 +138,6 @@ protected func ControlCommand(szCommand, pTarget, iTx, iTy)
   return(SetCommand(this(),szCommand, pTarget, iTx, iTy));
  }
  
-  if (szCommand == "Dig"){
-	 if(GetAction() == "Idle") ContainedUp(this());
-	 if(GetAction() == "Idle") return(0);
-  return(SetCommand(this(),"MoveTo", pTarget, iTx, iTy,,true));
- }
- 
  return(0);
 }
 
@@ -172,17 +172,28 @@ func SoundCloseDoorScheduled(sound){
 //PhaseCall
 
 protected func MoveLegs(){
-	//check back
-	//if(!GetBGWall(0,0)) ContainedDownDouble(this());
+	//if act time is too low, only rotate legs. this is to make sure they dont move when the action just begun.
+	if(GetActTime() < 10){
+		for(var leg in LegList){
+			leg->SetR(Angle(GetX(leg),GetY(leg),GetX(), GetY())-90);
+		}
+		return(0);
+	}
+	
+	//eject when stuck!
+	if(Stuck() || InLiquid()){
+		ContainedDownDouble();
+	}
 
 	//check legs attached to wall. if 0, fall.
 	var attachedAmount = 0;
 	for(var lg in LegList){
 		attachedAmount += lg->IsAttachedToWall();
 	}
-	if(attachedAmount <= 3 && GetActTime() > 2) ContainedDownDouble(this());
+	if(attachedAmount < 3 && GetActTime() > 2) ContainedDownDouble(this());
 	
 	//fixing velocity
+	if(!GetCommand()){
 	if(GetComDir() == COMD_Stop){
 		SetXDir(0); SetYDir(0);
 	}
@@ -194,6 +205,9 @@ protected func MoveLegs(){
 	if(GetComDir() == COMD_Left || GetComDir() == COMD_Right){
 		SetYDir(0);
 	}
+	}
+	
+	var usedLegs = 0;
 	
 	//move legs
 	for(var i = 0; i < GetLength(LegList); i++){
@@ -201,19 +215,34 @@ protected func MoveLegs(){
 		leg->SetR(Angle(GetX(leg),GetY(leg),GetX(), GetY())-90);
 		var dist = Distance(GetX(leg)+GetVertex(1,0,leg), GetY(leg)+GetVertex(1,1,leg), GetX()+GetVertex(i,0), GetY()+GetVertex(i,1));
 		if(dist > 30 && attachedAmount >= 3){
-			if(GetComDir() == COMD_Stop) continue;
-			if(leg->GetAction() == "MoveLeg") continue;
-			attachedAmount -= 1;
+			if(GetComDir() == COMD_Stop && !GetCommand()) continue;
+			if(leg->GetAction() == "MoveLeg" || leg->GetEffect("Legmove",leg)) continue;
+			if(usedLegs == 3) continue;
+			usedLegs++;
+			//realistic-ish leg movement
 			var oX, oY;
 			oX = GetX()-GetX(leg);
 			
-			if(GetComDir() == COMD_Left || GetComDir() == COMD_UpLeft || GetComDir() == COMD_DownLeft) oX -= 40;
-			if(GetComDir() == COMD_Right || GetComDir() == COMD_UpRight || GetComDir() == COMD_DownRight) oX += 40;
+			var com;
+			com = GetComDir();
+			
+			if(!GetCommand()){
+			if(com == COMD_Left || com == COMD_UpLeft || com == COMD_DownLeft) oX -= 40;
+			if(com == COMD_Right || com == COMD_UpRight || com == COMD_DownRight) oX += 40;
+			}else{
+				if(GetXDir() >= 5) oX += 40;
+				if(GetXDir() <= -5) oX -= 40;
+			}
 			
 			oY = GetY()-GetY(leg);
 			
-			if(GetComDir() == COMD_Up || GetComDir() == COMD_UpLeft || GetComDir() == COMD_UpRight) oY -= 40;
-			if(GetComDir() == COMD_Down || GetComDir() == COMD_DownLeft || GetComDir() == COMD_DownRight) oY += 40;
+			if(!GetCommand()){
+			if(com == COMD_Up || com == COMD_UpLeft || com == COMD_UpRight) oY -= 40;
+			if(com == COMD_Down || com == COMD_DownLeft || com == COMD_DownRight) oY += 40;
+			}else{
+				if(GetYDir() >= 5) oY += 40;
+				if(GetYDir() <= -5) oY -= 40;
+			}
 			
 			leg->MoveToPlace(oX+GetVertex(i,0),oY+GetVertex(i,1));
 		}
