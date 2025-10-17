@@ -1,2 +1,2 @@
-DE:Hohlenkletterer
-US:Cave Climber
+DE:Höhlenkriecher
+US:Cavecrawler

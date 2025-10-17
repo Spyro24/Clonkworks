@@ -1,3 +1,2 @@
-A small pod looking thingy that can be entered and controlled by a clonk in caves. If there is valid space, it's legs are deployed and it can begin climbing up cave walls.
-
-to Dismount, click the Dig button twice, or exit onto any non-background-wall area.
+A special vehicle used for climbing up the walls of caverns and chasms, it's slow but reliable.
+Once your clonk has entered this, press "Up" to mount the vehicle to a wall. to dismount, press "Dig"

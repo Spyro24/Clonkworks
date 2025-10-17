@@ -1,3 +1,2 @@
-Ein kleines, kapselähnliches Ding, das man betreten und mit einem Clonk in Höhlen steuern kann. Wenn genügend Platz vorhanden ist, werden seine Beine ausgefahren und es kann beginnen, an Höhlenwänden hochzuklettern.
-
-Um abzusteigen, klicken Sie zweimal auf die Schaltfläche „Graben“ oder verlassen Sie das Gerät auf einer Fläche, die keine Hintergrundwand ist.
+Ein Spezialfahrzeug, das zum Erklimmen von Höhlenwänden und Schluchten verwendet wird. Es ist langsam, aber zuverlässig.
+Sobald Ihr Clonk eingestiegen ist, drücken Sie „Auf“, um das Fahrzeug an einer Wand anzubringen. Um abzusteigen, drücken Sie „Graben“.

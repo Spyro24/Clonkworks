@@ -54,6 +54,7 @@ public func ContainedUp(pByObj){
 	}
 	
 	if(GetAction() == "Idle"){
+		Message("$ErrNoWall$",this());
 		Sound("Error");
 		return(1);
 	}
@@ -249,7 +250,7 @@ protected func MoveLegs(){
 	
 	//move legs
 	for(var i = 0; i < GetLength(LegList); i++){
-		if(MovedLegs > 2) break; //max legs
+		if(MovedLegs > 1) break; //max legs
 		var leg = LegList[i];
 		leg->SetR(Angle(GetX(leg),GetY(leg),GetX(), GetY())-90);
 		var dist = Distance(GetX(leg)+GetVertex(1,0,leg), GetY(leg)+GetVertex(1,1,leg), GetX()+GetVertex(i,0), GetY()+GetVertex(i,1));
@@ -376,6 +377,16 @@ protected func DeployLegs(){
 		LocalN("iVtx2",Rope) = 1;
 		Rope->SetPoint(1, GetX(newLeg)-GetVertex(1,0,newLeg), GetY(newLeg)-GetVertex(1,1,newLeg));
 		Rope->SetRopeLength(100);
+		
+		//is leg ok to place?
+		if(newLeg->IsAttachedToWall() == false){
+			SetXDir(vx); SetYDir(vy);
+			UndeployLegs();
+			Message("$ErrNoLegSpace$",this());
+			Sound("Error");
+			ContainedDownDouble();
+			return(0);
+		}
 	}
 	
 	SetXDir(vx); SetYDir(vy);
