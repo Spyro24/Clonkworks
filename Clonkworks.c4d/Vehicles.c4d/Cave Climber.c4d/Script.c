@@ -405,3 +405,6 @@ private func legrem(rem){
 
 // Reject content menu
 public func RejectContents(){ return(true); }
+
+//Advanced research and crafting
+public func IsAdvancedProduct(){ return(1); }

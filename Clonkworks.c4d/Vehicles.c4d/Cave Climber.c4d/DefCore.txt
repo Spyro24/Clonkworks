@@ -2,7 +2,7 @@
 Name=Cave Climber
 id=CVCB
 Version=4,9,8
-Category=1028
+Category=1284
 MaxUserSelect=10
 Value=135
 Mass=350
@@ -11,10 +11,10 @@ Height=35
 Offset=-17,-17
 Picture=0,120,93,71
 Entrance=-14,-1,29,19
-BorderBound=C4D_Border_Bottom|C4D_Border_Top|C4D_Border_Sides
+BorderBound=7
 ClosedContainer=2
 CollectionLimit=1
-Components=TTIG=9
+Components=TTIG=7
 VehicleControl=2
 ContactCalls=1
 NoPushEnter=1
