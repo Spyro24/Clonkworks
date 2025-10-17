@@ -1,12 +1,20 @@
 /*-- Neues Script --*/
 
-#strict
+#strict 2
 
 local tX;
 local tY;
 local ttX;
 local ttY;
-local NoCol;
+local vert;
+
+public func GetLegVert(){
+	return(vert);
+}
+
+public func SetLegVert(v){
+	vert = v;
+}
 
 func Initialize() {
   
@@ -29,27 +37,15 @@ public func MoveToPlace(iX,iY){
 	tY = YDif;
 	
 	SetAction("MoveLeg");
-	if(Distance(GetX(),GetY(),GetX()+iX,GetY()+iY) > 100) NoCol = true;
-	else NoCol = false;
 	AddEffect("Legmove",this(),100,1,this());
 	return(1);
 }
 
 protected func FxLegmoveTimer(object pTarget, int iEffectNumber, int iEffectTime){
 	if(iEffectTime > 16) return(-1);
-	if(!NoCol && iEffectTime > 1)
-	if(GBackSolid(tX,tY) || GBackSolid(GetVertex(0,0), GetVertex(0,1)) || !GetBGWall(tX,tY)) return(-1);;
-	SetPosition(GetX()+tX,GetY()+tY,,16);
+	if(!GetBGWall(tX,tY)) return(-1);
+	SetPosition(GetX()+tX,GetY()+tY);
 }
-
-/* protected func FxLegmoveStop(){
-	AddEffect("LegmoveCooldown",this(),100,1,this());
-}
-
-protected func FxLegmoveCooldownTimer(object pTarget, int iEffectNumber, int iEffectTime){
-	if(iEffectTime > 16) return(-1);
-} */
-
 
 protected func FxLegmoveStop(){
 	SetAction("Idle");
@@ -59,11 +55,13 @@ public func IsAttachedToWall(){
 	if(GetAction() == "MoveLeg"){
 		return(0);
 	}
-	return(GetBGWall(GetVertex(0,0),GetVertex(0,1)) || GBackSolid(GetVertex(0,0), GetVertex(0,1)));
+	//return(GetBGWall(GetVertex(0,0),GetVertex(0,1)) || GBackSolid(GetVertex(0,0), GetVertex(0,1)));
+	return(GetBGWall() || GBackSolid());
 }
 
 protected func Clonk(){
 		var Mat = GetMaterial(GetVertex(0,0),GetVertex(0,1));
+		if (Mat == -1) return(0);
 		var col1,col2;
 		col1 = RGBa(GetMaterialVal("Color", "Material", Mat,0),GetMaterialVal("Color", "Material", Mat,1),GetMaterialVal("Color", "Material", Mat,2));
 		if(GetMaterialVal("Color", "Material", Mat,3)) col2 = RGBa(GetMaterialVal("Color", "Material", Mat,3),GetMaterialVal("Color", "Material", Mat,4),GetMaterialVal("Color", "Material", Mat,5));

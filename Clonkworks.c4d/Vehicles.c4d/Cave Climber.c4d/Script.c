@@ -30,7 +30,7 @@ func Ejection(pObj){
 	}
 	
 	if(Stuck()){
-		Fling(pObj, RandomX(-5,5),-30);
+		Fling(pObj, RandomX(-5,5),-5);
 	}
 }
 
@@ -169,16 +169,44 @@ func SoundCloseDoorScheduled(sound){
 	Sound(sound);
 }
 
+//leg pos fixer
+public func UnstuckLegs(){
+	for(var leg in LegList){
+		if(GBackSolid(GetVertex(0,0,leg),GetVertex(1,0,leg)) || GBackLiquid(GetVertex(0,0,leg),GetVertex(1,0,leg))){
+			if(GetX(leg) < GetX()) SetX(GetX(leg)+3,leg);
+			if(GetX(leg) > GetX()) SetX(GetX(leg)-3,leg);
+			
+			if(GetY(leg) > GetY()) SetY(GetY(leg)+3,leg);
+			if(GetY(leg) < GetY()) SetY(GetY(leg)-3,leg);
+			return(1);
+		}
+		
+		if(GetMaterial() != -1 && leg->GetBGWall(GetVertex(0,0,leg),GetVertex(1,0,leg)) == 0){
+			if(GetX(leg) < GetX()) SetX(GetX(leg)+5,leg);
+			if(GetX(leg) > GetX()) SetX(GetX(leg)-5,leg);
+			
+			if(GetY(leg) > GetY()) SetY(GetY(leg)-5,leg);
+			if(GetY(leg) < GetY()) SetY(GetY(leg)+5,leg);
+			return(1);
+		}
+	}
+}
+
 //PhaseCall
 
 protected func MoveLegs(){
-	//if act time is too low, only rotate legs. this is to make sure they dont move when the action just begun.
-	if(GetActTime() < 10){
+	UnstuckLegs();
+	
+		//rotation
 		for(var leg in LegList){
 			leg->SetR(Angle(GetX(leg),GetY(leg),GetX(), GetY())-90);
 		}
+		
+	//if act time is too low, only rotate legs. this is to make sure they dont move when the action just begun.
+	if(GetActTime() < 10){
 		return(0);
 	}
+
 	
 	//eject when stuck!
 	if(Stuck() || InLiquid()){
@@ -190,7 +218,7 @@ protected func MoveLegs(){
 	for(var lg in LegList){
 		attachedAmount += lg->IsAttachedToWall();
 	}
-	if(attachedAmount < 3 && GetActTime() > 2) ContainedDownDouble(this());
+	if(attachedAmount < 2) ContainedDownDouble(this());
 	
 	//fixing velocity
 	if(!GetCommand()){
@@ -207,18 +235,27 @@ protected func MoveLegs(){
 	}
 	}
 	
-	var usedLegs = 0;
+	var BannedLegs = []; //legs that can not be used.
+	var MovedLegs = 0; //Legs that are currently moving
+	
+	//dont move legs when youre in the sky.
+	if(GetMaterial(0,0) == -1) return(0);
+	
+	//set moved legs to current moving legs
+	for(var l in LegList){
+		if(l->IsAttachedToWall()) continue;
+		MovedLegs++;
+	}
 	
 	//move legs
 	for(var i = 0; i < GetLength(LegList); i++){
+		if(MovedLegs > 2) break; //max legs
 		var leg = LegList[i];
 		leg->SetR(Angle(GetX(leg),GetY(leg),GetX(), GetY())-90);
 		var dist = Distance(GetX(leg)+GetVertex(1,0,leg), GetY(leg)+GetVertex(1,1,leg), GetX()+GetVertex(i,0), GetY()+GetVertex(i,1));
-		if(dist > 30 && attachedAmount >= 3){
+		if(!Random(10) && dist > 30){
 			if(GetComDir() == COMD_Stop && !GetCommand()) continue;
 			if(leg->GetAction() == "MoveLeg" || leg->GetEffect("Legmove",leg)) continue;
-			if(usedLegs == 3) continue;
-			usedLegs++;
 			//realistic-ish leg movement
 			var oX, oY;
 			oX = GetX()-GetX(leg);
@@ -230,8 +267,14 @@ protected func MoveLegs(){
 			if(com == COMD_Left || com == COMD_UpLeft || com == COMD_DownLeft) oX -= 40;
 			if(com == COMD_Right || com == COMD_UpRight || com == COMD_DownRight) oX += 40;
 			}else{
-				if(GetXDir() >= 5) oX += 40;
-				if(GetXDir() <= -5) oX -= 40;
+				if(GetXDir() >= 5){
+					com = COMD_Right;
+					oX += 40;
+				}
+				if(GetXDir() <= -5){ 
+					com = COMD_Left;
+					oX -= 40;
+				}
 			}
 			
 			oY = GetY()-GetY(leg);
@@ -240,17 +283,81 @@ protected func MoveLegs(){
 			if(com == COMD_Up || com == COMD_UpLeft || com == COMD_UpRight) oY -= 40;
 			if(com == COMD_Down || com == COMD_DownLeft || com == COMD_DownRight) oY += 40;
 			}else{
-				if(GetYDir() >= 5) oY += 40;
-				if(GetYDir() <= -5) oY -= 40;
+				if(GetYDir() >= 5){ 
+					if(com == COMD_Left) com = COMD_DownLeft;
+					if(com == COMD_Right) com = COMD_DownRight;
+					oY += 40;
+				}
+				if(GetYDir() <= -5){
+					if(com == COMD_Left) com = COMD_UpLeft;
+					if(com == COMD_Right) com = COMD_UpRight;
+					oY -= 40;
+				}
 			}
 			
+			//banning legs, only one leg per side. going through all 6 legs.
+			if(i == 0){
+				if(InArray(leg->GetLegVert(), BannedLegs) == -1){
+				if(com == COMD_Up || com == COMD_Down) ArrayAdd(BannedLegs,8);
+				if(com == COMD_Left || com == COMD_Right) ArrayAdd(BannedLegs,7);
+				if(com == COMD_UpLeft || com == COMD_UpRight || com == COMD_DownLeft || com == COMD_DownRight) ArrayAdd(BannedLegs,10);
+				}
+			}
+			
+			if(i == 1){
+				/* if(com == COMD_Up || com == COMD_Down) ArrayAdd(BannedLegs,9);
+				if(com == COMD_Left || com == COMD_Right) ArrayAdd(BannedLegs,9);
+				if(com == COMD_UpLeft || com == COMD_UpRight || com == COMD_DownLeft || com == COMD_DownRight) ArrayAdd(BannedLegs,10); */
+				if(InArray(leg->GetLegVert(), BannedLegs) == -1){
+				ArrayAdd(BannedLegs,9);
+				}
+			}
+			
+			if(i == 2){
+				if(InArray(leg->GetLegVert(), BannedLegs) == -1){
+				if(com == COMD_Up || com == COMD_Down) ArrayAdd(BannedLegs,10);
+				if(com == COMD_Left || com == COMD_Right) ArrayAdd(BannedLegs,5);
+				if(com == COMD_UpLeft || com == COMD_UpRight || com == COMD_DownLeft || com == COMD_DownRight) ArrayAdd(BannedLegs,8);
+				}
+			}
+			
+			if(i == 3){
+				if(InArray(leg->GetLegVert(), BannedLegs) == -1){
+				if(com == COMD_Up || com == COMD_Down) ArrayAdd(BannedLegs,5);
+				if(com == COMD_Left || com == COMD_Right) ArrayAdd(BannedLegs,10);
+				if(com == COMD_UpLeft || com == COMD_UpRight || com == COMD_DownLeft || com == COMD_DownRight) ArrayAdd(BannedLegs,7);
+				}
+			}
+			
+			if(i == 4){
+				if(InArray(leg->GetLegVert(), BannedLegs) == -1){
+				ArrayAdd(BannedLegs,6);
+				}
+			}
+			
+			if(i == 5){
+				if(InArray(leg->GetLegVert(), BannedLegs) == -1){
+				if(com == COMD_Up || com == COMD_Down) ArrayAdd(BannedLegs,7);
+				if(com == COMD_Left || com == COMD_Right) ArrayAdd(BannedLegs,8);
+				if(com == COMD_UpLeft || com == COMD_UpRight || com == COMD_DownLeft || com == COMD_DownRight) ArrayAdd(BannedLegs,5);
+				}
+			}
+			
+			if(InArray(leg->GetLegVert(), BannedLegs) != -1) continue;
+			if(com == COMD_Stop) continue;
+			
 			leg->MoveToPlace(oX+GetVertex(i,0),oY+GetVertex(i,1));
+			MovedLegs++;
 		}
+		
+		//DebugLog("TOTAL MOVED LEGS ON FRAME: %d",MovedLegs); <-- lagfest {{WIPF}}
 	}
 }
 
 //deployment and unemployment of legs
 protected func DeployLegs(){
+	var vx = GetXDir();
+	var vy = GetYDir();
 	//lets avoid duplicates
 	for(var leg in LegList){
 		RemoveObject(leg);
@@ -259,7 +366,19 @@ protected func DeployLegs(){
 	for(var i in LegVerts){
 		var newLeg = CreateObject(CCLG, GetVertex(i,0),GetVertex(i,1));
 		LegList[GetIndexOf(i,LegVerts)] = newLeg;
+		newLeg->SetLegVert(i);
+		
+		var Rope = CreateObject(CK5P);
+		Rope->ConnectObjects(this(),newLeg);
+		LocalN("RopeColor",Rope) = RGBa(50,50,50);
+		LocalN("fNoPickUp_0",Rope) = 1;
+		LocalN("fNoPickUp_1",Rope) = 1;
+		LocalN("iVtx2",Rope) = 1;
+		Rope->SetPoint(1, GetX(newLeg)-GetVertex(1,0,newLeg), GetY(newLeg)-GetVertex(1,1,newLeg));
+		Rope->SetRopeLength(100);
 	}
+	
+	SetXDir(vx); SetYDir(vy);
 }
 
 protected func UndeployLegs(){
