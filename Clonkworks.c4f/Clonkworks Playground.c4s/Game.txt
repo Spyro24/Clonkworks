@@ -1,2 +1,0 @@
-[Script]
-GlobalNamed=2;lgt_enlightment=i372,lgt_last_lgt_frame=i292

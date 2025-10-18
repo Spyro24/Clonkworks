@@ -1,0 +1,5 @@
+Opt1=Beliebiges Spawnen
+Opt2=Objekte spawnen
+Opt3=Tiere spawnen
+Opt4=Fahrzeug spawnen
+Opt5=Clonk-Typ ändern

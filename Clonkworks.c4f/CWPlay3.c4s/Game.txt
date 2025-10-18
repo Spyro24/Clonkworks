@@ -1,0 +1,2 @@
+[Script]
+GlobalNamed=4;lgt_enlightment=A0,lgt_last_lgt_frame=A0,aExtendedAddMsgBoardCmd=A0,g_wallscript_read_list=a[1;A0]

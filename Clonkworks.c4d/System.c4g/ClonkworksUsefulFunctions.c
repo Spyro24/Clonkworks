@@ -96,3 +96,12 @@ global func Loosen(x , y , iRadius)
 
 	return true;
 }
+
+//get the highest container if an object is contained
+global func ContainedTop(pObj){
+	if(!Contained(pObj)) return(0);
+	while(true){
+		if(Contained(pObj)) pObj = Contained(pObj);
+		else return(pObj);
+	}
+}

@@ -1,0 +1,9 @@
+MCLK_PrefCombo
+MCLK_QS
+Scoreboard
+Welcome to Clonkworks Playground 3! This scenario is just a temporary little testing space for you to try out everything this mod has to offer.
+The chest next to me has endless amounts of every item, and the house to the left has 15 of every vehicle + some extra useful stuff.
+If you wish to spawn something, go to: Player Menu > Goals > Spawner. Have fun!
+Willkommen bei Clonkworks Playground 3! Dieses Szenario ist nur ein kleiner tempor‰rer Testbereich, in dem Sie alles ausprobieren kˆnnen, was dieser Mod zu bieten hat.
+Die Truhe neben mir enth‰lt unendlich viele Exemplare jedes Gegenstands, und das Haus auf der linken Seite enth‰lt 15 Exemplare jedes Fahrzeugs + einige zus‰tzliche n¸tzliche Dinge.
+Wenn Sie etwas spawnen mˆchten, gehen Sie zu: Spielermen¸ > Ziele > Spawner. Viel Spaﬂ!

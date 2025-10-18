@@ -17,7 +17,10 @@ local Producing;
 local Forging;
 local len;
 
-func CanProduce(){return(!Producing && Forgebase != 0 && !Forging);}
+func CanProduce(){
+	Forgebase = FindObject2(Find_ID(FALW));
+	return(!Producing && Forgebase != 0 && !Forging);
+}
 func IsProducing(){return(Producing && !Forging);}
 
 local Worker;

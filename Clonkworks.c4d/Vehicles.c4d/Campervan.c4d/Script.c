@@ -141,7 +141,7 @@ func Reidle(){
 			if(CheckFuel()) return(0);
 		}
 		if(!FindObject2(Find_ID(OBRL), Find_Container(this())))
-		Message("{{OBRL}}",this());
+		if(!Contained()) Message("{{OBRL}}",this());
 	}
 	
 	//fixing animation bug

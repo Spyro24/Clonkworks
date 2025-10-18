@@ -1,0 +1,5 @@
+Opt1=Spawn Any
+Opt2=Spawn Objects
+Opt3=Spawn Animals
+Opt4=Spawn Vehicle
+Opt5=Change Clonk Type

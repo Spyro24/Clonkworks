@@ -9,14 +9,9 @@ func Initialize() {
 
 func Attract(){
 	if(Contained()){
-		if( !(GetCategory(Contained()) & C4D_Vehicle) && !(GetCategory(Contained()) & C4D_Living) ){
+		if( !(GetCategory(ContainedTop(this())) & C4D_Vehicle) && !(GetCategory(ContainedTop(this())) & C4D_Living) ){
 			return(0);
 		}
-		
-	    if(Contained()->Contained())
-		if( !(GetCategory(Contained()->Contained()) & C4D_Vehicle) && !(GetCategory(Contained()->Contained()) & C4D_Living) ){
-			return(0);
-		};
 	}
 	var atrc = FindObjects(Find_Category(C4D_Object), Find_Distance(50), Find_Exclude(this()));
 	var MaxAtr = 10;

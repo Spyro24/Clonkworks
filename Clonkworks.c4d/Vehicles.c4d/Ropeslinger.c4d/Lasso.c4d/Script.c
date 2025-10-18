@@ -24,6 +24,8 @@ func Check(){
 		RemoveObject(this());
 	}
 	
+	if(Contained()) return(0);
+	
 	var iTie = FindObject2(Find_AtPoint(0,0), Find_Or(Find_Category(C4D_Vehicle), Find_Category(C4D_Living)), Find_NoContainer());
 	if(iTie){
 		if(GetID(iTie) == RPSG) return(0);
