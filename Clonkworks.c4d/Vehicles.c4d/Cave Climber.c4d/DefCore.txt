@@ -28,9 +28,8 @@ VertexY=-17,16,0,0,0,-17,0,17,-17,0,17
 VertexFriction=20,20,20,20,20,20,20,20,20,20,20
 VertexCNAT=4,8,1,2,16,69,65,73,70,66,74
 Float=1
-Timer=5
+Timer=1
 TimerCall=EjectMultipleCaptains
 
 [Physical]
 Float=100
-CorrosionResist=1

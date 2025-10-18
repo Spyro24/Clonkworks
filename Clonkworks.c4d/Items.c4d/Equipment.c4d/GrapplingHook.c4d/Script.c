@@ -24,7 +24,6 @@ func Launch(pByClonk)
   var pPulley = CreateObject(CL5P, 0, 0, GetOwner());
   pRope = CreateObject(CK5P, 0, 0, GetOwner());
   pRope->ConnectObjects(pPulley, this);
-  LocalN("MaxLength", pRope) = len;
   pPulley->SetRope(pRope, this);
   pPulley->Enter(pByClonk);
   LocalN("fNoPickUp_1", pRope) = 1;

@@ -1,0 +1,7 @@
+[Action]
+Name=Wrecked
+Length=6
+Delay=0
+Facet=0,0,35,35,0,0
+FacetBase=0
+

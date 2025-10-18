@@ -56,6 +56,17 @@ public func Fire(bool fAuto)
   iYDir /= 2;
   iXDir /= 2;
   
+  if(GetID(pProjectile) == CW5P){
+	  Exit(pProjectile,iX,iY,Random(360),iXDir,iYDir,+30);
+	  pProjectile->Launch(pProjectile);
+	  
+	  var iRope = FindRope(pProjectile,0);
+	  RemoveObject(iRope->GetConnectedByRope(0));
+	  iRope->ConnectObjects(this(),pProjectile);
+	  iRope->SetRopeLength(3000);
+	  return(1);
+  }
+  
   RemoveObject(pProjectile);
   pProjectile = CreateObject(LSSO);
   Enter(this(), pProjectile);
@@ -79,7 +90,7 @@ public func Fire(bool fAuto)
 
 private func AllowLoad(id idObj)
 {
-  if(idObj != CK5P) return(0);
+  if(idObj != CK5P && idObj != CW5P) return(0);
   // Noch jede Menge Platz
   if (ContentsCount() < 3) return(1);
   // Niemals mehr als 10 Objekte laden: Wird gebraucht, wenn aus ControlThrow aufgerufen!
@@ -97,9 +108,9 @@ public func ALKConnectType(){
 	return([FNPP]);
 }
 
-public func RejectEntrance(pIntoObj){
-	if(GetCategory(pIntoObj) & C4D_Structure) return(0);
-	return(!AllowLoad(GetID(pIntoObj)));
+//for funnel pipe
+public func CanNotBeDispensedInto(MoveItem){
+	return(!AllowLoad(GetID(MoveItem)));
 }
 
 

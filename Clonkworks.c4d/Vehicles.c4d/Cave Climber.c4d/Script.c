@@ -6,8 +6,10 @@
 
 local LegVerts;
 local LegList;
+local RecentHits; //Objects that his this recently, do not modify outside of this object
 
 func Initialize() {
+	RecentHits = [];
 	LegVerts = [5,6,7,8,9,10];
 	LegList = [];
 	SetGraphics("Window",this(),GetID(),GFX_Overlay,6);
@@ -512,4 +514,61 @@ func EjectMultipleCaptains(){
 	if(GetLength(FindObjects(Find_Container(this()), Find_OCF(OCF_CrewMember))) > 1){
 		Exit(FindObject2(Find_Container(this()), Find_OCF(OCF_CrewMember)));
 	}
+	
+	if(Contained()) return(0);
+	
+	//additionally, take damage from falling objects
+	for(var i in FindObjects(Find_Distance(26),Find_Category(C4D_Object), Find_NoContainer())){
+		if(InArray(i,RecentHits) != -1) continue;
+		if(GetSpeed(i) > 40){
+			if(!(i->~Hit3())) if(!(i->~Hit2())) i->~Hit();;
+			if(!i) return(0);
+			SetXDir(GetXDir(i)-((GetXDir(i)/2)*3),i);
+			DoDamage(GetMass(i)/2);
+			CastParticles("PxSpark", 5,100, GetX(i)-GetX(),GetY(i)-GetY(), 10, 50, RGBa(255,255,0,0), RGBa(255,255,0,0));
+			Sound("ClonkHit*");
+			if(!Random(5) && GetAction() == "Movement") ContainedDownDouble(this());
+			ArrayAdd(RecentHits,i);
+		}
+	}
+	
+	//some effects when damaged
+	if(GetDamage() > 55 && !Random(3*7)){
+		Smoke(,,RandomX(10,20));
+	}
+	
+	if(GetDamage() > 100 && !Random(8*7)){
+		Sound("Spark*");
+		CastParticles("PxSpark", 3,100, RandomX(-10,10),RandomX(-10,10), 10, 50, RGBa(255,255,0,0), RGBa(255,255,0,0));
+	}
+	
+	//remove recently hit objects if theyre far away
+	for(var j in RecentHits){
+		if(ObjectDistance(this(),j) > 26 || Contained(j)) ArrayDeleteEntry(RecentHits,j);
+	}
+	
+	//water damage
+	//if(InLiquid() && !Random(20)) DoDamage(RandomX(1,5));
+}
+
+//Damage
+public func Damage(){
+	for(var i = 0; i < RandomX(2,5); i++){
+		Smoke(,,RandomX(10,20));
+	}
+	
+	if(GetDamage() > 120){
+		for(var i = 0; Contents() != 0; i++){
+			Exit(Contents());
+		}
+		var Wreck = CreateObject(WCVB);
+		Wreck->SetAction("Wrecked");
+		Wreck->SetPhase(RandomX(0,5));
+		Explode(45);
+	}
+}
+
+//On removal
+protected func Destruction(){
+	UndeployLegs();
 }
