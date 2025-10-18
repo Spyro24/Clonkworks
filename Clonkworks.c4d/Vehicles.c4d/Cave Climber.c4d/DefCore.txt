@@ -13,11 +13,10 @@ Picture=0,120,93,71
 Entrance=-14,-1,29,19
 BorderBound=7
 ClosedContainer=2
-CollectionLimit=1
+CollectionLimit=15
 Components=TTIG=7
 VehicleControl=2
 ContactCalls=1
-NoPushEnter=1
 Rebuy=1
 Pathfinder=2
 ContainBlast=1
@@ -28,6 +27,9 @@ VertexX=0,0,-16,16,0,-17,-20,-17,17,20,17
 VertexY=-17,16,0,0,0,-17,0,17,-17,0,17
 VertexFriction=20,20,20,20,20,20,20,20,20,20,20
 VertexCNAT=4,8,1,2,16,69,65,73,70,66,74
+Float=1
+Timer=5
+TimerCall=EjectMultipleCaptains
 
 [Physical]
 Float=100

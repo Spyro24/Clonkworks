@@ -35,10 +35,15 @@ func Ejection(pObj){
 }
 
 func ActivateEntrance(pByObj){
-	//Log(GetCommand(pByObj));
-	if(GetCommand(pByObj,0) == "Exit") return(_inherited(pByObj));
-	if(CrewMember(pByObj) && FindObject2(Find_OCF(OCF_CrewMember), Find_Container(this()))) return(0);
-	return(_inherited(pByObj));
+	if(GetCommand(pByObj,0) == "Exit") return(_inherited(pByObj)); //if the object is exiting, do normal behaviour :)
+	if(CrewMember(pByObj) && FindObject2(Find_OCF(OCF_CrewMember), Find_Container(this()))) return(0); //only one crew member can be in this vehicle.
+	if(GetCategory(pByObj) & C4D_Vehicle) return(0); //vehicles cant enter.
+	return(_inherited(pByObj)); // do normal behaviour.
+}
+
+func RejectEntrance(pObj){
+	//no entering buildings and stuff if there's a captain.
+	if(FindObject2(Find_Container(this()), Find_OCF(OCF_CrewMember))) return(1);
 }
 
 //control
@@ -146,6 +151,99 @@ protected func ControlCommandFinished(){
 		  SetComDir(COMD_Stop);
 		  SetXDir(0); SetYDir(0);
 }
+
+//Item taking in and out
+//Normally throw and dig are used to to this, but dig is occupied by "Stop" for classic movement, so i will handle all the logic in here :)
+protected func ContainedThrow(pClonk){
+	if(!pClonk) return(1);
+	
+	var CanPut, CanTake, CanEject;
+	CreateMenu(CVCB,pClonk,this(),0,"$TxtItemMenu$",,1);
+	if(ContentsCount(,pClonk)){
+		CanPut = true;
+		AddMenuItem("$TxtPut$","CVCBPut",GetID(Contents(0,pClonk)),pClonk,0,pClonk);
+	}
+	if( FindObject2(Find_Container(this()), Find_Not(Find_OCF(OCF_CrewMember))) ){
+		CanTake = true;
+		AddMenuItem("$TxtTake$","CVCBTakeMenu",CXIV,pClonk,0,pClonk);
+		if(GetAction() == "Movement"){
+			CanEject = true;
+			AddMenuItem("$TxtEject$","CVCBEjectMenu",TRP1,pClonk,0,pClonk);
+		}
+	}
+	
+	if(CanPut && !CanTake && !CanEject){
+		CloseMenu(pClonk);
+		CVCBPut(,pClonk);
+	}
+	
+	if(!CanPut && CanTake && !CanEject){
+		CloseMenu(pClonk);
+		CVCBTakeMenu(CXIV,pClonk);
+	}
+	
+	if(!CanPut && !CanTake && CanEject){
+		CloseMenu(pClonk);
+		CVCBEjectMenu(TRP1,pClonk);
+	}
+	
+	if(!CanPut && !CanTake && !CanEject){
+		CloseMenu(pClonk);
+		Sound("CommandFailure1");
+		Message("$ErrItemMenu$",this());
+	}
+	
+	return(1);
+}
+
+public func CVCBPut(foo,pClonk){
+	SetCommand(pClonk,"Put",this());
+}
+
+public func CVCBTakeMenu(foo,pClonk){
+	//fake contents menu
+	var Cont = FindObjects(Find_Container(this()), Find_Not(Find_OCF(OCF_CrewMember)));
+	CreateMenu(foo,pClonk,this(),0,"$TxtTake$");
+	var AlreadyUsedType = [];
+	for(var i in Cont){
+		if(InArray(GetID(i),AlreadyUsedType) != -1) continue;
+		AddMenuItem("$TxtTake$: %s","CVCBTake",GetID(i),pClonk,ContentsCount(GetID(i)),pClonk);
+		ArrayAdd(AlreadyUsedType,GetID(i));
+	}
+}
+
+public func CVCBTake(foo,pClonk){
+	SetCommand(pClonk,"Get",,1,,this(),foo);
+}
+
+public func CVCBEjectMenu(foo,pClonk){
+	//same menu as take, with slight modifications
+	var Cont = FindObjects(Find_Container(this()), Find_Not(Find_OCF(OCF_CrewMember)));
+	CreateMenu(foo,pClonk,this(),0,"$TxtTake$");
+	var AlreadyUsedType = [];
+	for(var i in Cont){
+		if(InArray(GetID(i),AlreadyUsedType) != -1) continue;
+		AddMenuItem("$TxtEject$: %s","CVCBEject",GetID(i),pClonk,ContentsCount(GetID(i)),i);
+		ArrayAdd(AlreadyUsedType,GetID(i),true);
+	}
+}
+
+public func CVCBEject(foo,Item){
+	if(GetAction() != "Movement"){
+		Message("$ErrEject1$",this());
+		Sound("Error");
+		return(0);
+	}
+	
+	if(Contained(Item) != this()){
+		Message("$ErrEject2$",this(),GetName(foo));
+		Sound("Error");
+		return(0);
+	}
+	
+	Exit(Item,0,13);
+}
+
 
 
 //global functions
@@ -404,7 +502,14 @@ private func legrem(rem){
 }
 
 // Reject content menu
-public func RejectContents(){ return(true); }
+//public func RejectContents(){ return(true); }
 
 //Advanced research and crafting
 public func IsAdvancedProduct(){ return(1); }
+
+//eject clonks if there's more than 1 inside
+func EjectMultipleCaptains(){
+	if(GetLength(FindObjects(Find_Container(this()), Find_OCF(OCF_CrewMember))) > 1){
+		Exit(FindObject2(Find_Container(this()), Find_OCF(OCF_CrewMember)));
+	}
+}

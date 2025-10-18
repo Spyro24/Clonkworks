@@ -26,3 +26,4 @@ Construction=1
 Timer=5
 TimerCall=Update
 Float=1
+NoPushEnter=1

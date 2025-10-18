@@ -7,3 +7,12 @@ TxtDig=Stop
 TxtThrow=Throw Held Item
 ErrNoWall=No Wall to Cling to!
 ErrNoLegSpace=No Leg Space!
+
+TxtItemMenu=Contents Action
+TxtPut=Put
+TxtEject=Eject
+TxtTake=Take
+
+ErrEject1=Can't Eject at the moment!
+ErrEject2=Can't find %s!
+ErrItemMenu=No contents action can be done!
