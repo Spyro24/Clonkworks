@@ -14,7 +14,7 @@ Base=1
 BorderBound=1
 ClosedContainer=2
 CollectionLimit=50
-Components=METL=5;TTIG=5;
+Components=METL=5;TTIG=5;CPIG=3
 ContainBlast=1
 ColorByOwner=1
 Exclusive=1

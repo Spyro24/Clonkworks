@@ -2,7 +2,7 @@
 Name=Heatray
 id=HTRY
 Version=4,9,8
-Category=1284
+Category=3332
 MaxUserSelect=1
 Value=85
 Mass=350
@@ -18,7 +18,7 @@ VertexCNAT=8,1,4,2
 Grab=1
 GrabPutGet=C4D_GrabGet|C4D_GrabPut
 Rebuy=1
-Components=METL=7;CPIG=1;
+Components=METL=5;CPIG=4;
 ClosedContainer=1
 Timer=5
 TimerCall=DoHeatCheck

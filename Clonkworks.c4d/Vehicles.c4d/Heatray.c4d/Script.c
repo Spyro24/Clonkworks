@@ -210,11 +210,6 @@ public func IsAdvancedProduct(){
 	return(1);
 }
 
-public func ExitWorkshop(){
-	if(GetCon() < 100) return(false);
-	return(true);
-}
-
 public func GetResearchBase() { return(CANN); }
 
 public func FireAt(int iX,int iY,int fAuto)

@@ -2,7 +2,7 @@
 Name=Liquid-Tank
 id=LQTK
 Version=4,9,8
-Category=260
+Category=3332
 MaxUserSelect=6
 Value=35
 Mass=250
@@ -17,7 +17,7 @@ VertexFriction=20,20,100,100,100,100,100,100
 VertexCNAT=8,8,8,1,2,4,4,4
 Grab=1
 GrabPutGet=C4D_GrabGet
-Components=METL=3;TTIG=2
+Components=METL=2;TTIG=2
 ColorByOwner=1
 Timer=3
 TimerCall=LiquidCheck

@@ -9,14 +9,6 @@ protected func Initialize(){
 	SetPhase(8);
 }
 
-func FRGUpdate(){
-	//SetColorDw(Color, this());
-	SetMass(117*Mass, this());
-	SetGraphics("Light",this(),GetID(),2,GFXOV_MODE_ExtraGraphics);
-	SetObjectBlitMode(4,this());
-	SetClrModulation(Color,this());
-}
-
 public func RayRange(){
 	return(180);
 }

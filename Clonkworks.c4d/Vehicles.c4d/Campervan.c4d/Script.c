@@ -12,10 +12,6 @@ func Initialize() {
 	iFuel = 0;
 	return(1);
 }
-public func ExitWorkshop(){
-	if(GetCon() < 100) return(false);
-	return(true);
-}
 
 public func CheckFuel(){
 	if(iFuel <= 0){

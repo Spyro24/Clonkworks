@@ -4,11 +4,6 @@
 
 local Charge;
 
-public func ExitWorkshop(){
-	if(GetCon() < 100) return(false);
-	return(true);
-}
-
 func Construction(){
 	Charge = 0;
 }

@@ -9,11 +9,6 @@ func Initialize() {
   return(1);
 }
 
-public func ExitWorkshop(){
-	if(GetCon() < 100) return(false);
-	return(true);
-}
-
 //Packing the glider
 public func ControlDigDouble(pByObject){
 	[Pack|Image=PHNG]

@@ -5,11 +5,6 @@
 
 local Steam;
 
-public func ExitWorkshop(){
-	if(GetCon() < 100) return(false);
-	return(true);
-}
-
 func Initialize() {
   SetAction("Aim");
   SetPhase(15);

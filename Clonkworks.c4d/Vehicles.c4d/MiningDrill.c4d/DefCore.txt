@@ -20,7 +20,7 @@ Grab=1
 Timer=15
 TimerCall=SignalDelay
 LineConnect=C4D_PowerInput|C4D_PowerConsumer
-Components=CPIG=3;METL=4;
+Components=CPIG=3;METL=3;
 BorderBound=1
 Rebuy=1
 NoPushEnter=0

@@ -8,11 +8,6 @@ public func SetGhostRider(val){
 	GhostRider = val;
 }
 
-public func ExitWorkshop(){
-	if(GetCon() < 100) return(false);
-	return(true);
-}
-
 func Initialize() {
   SetPhysical("Walk", 700000, 2);
   fuel = 0;
