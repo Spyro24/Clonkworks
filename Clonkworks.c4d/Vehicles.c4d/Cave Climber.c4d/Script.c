@@ -274,7 +274,7 @@ func SoundCloseDoorScheduled(sound){
 public func UnstuckLegs(){
 	for(var leg in LegList){
 		if(GetCategory(leg) == 4) continue;
-		if(GBackSolid(GetVertex(0,0,leg),GetVertex(1,0,leg)) || GBackLiquid(GetVertex(0,0,leg),GetVertex(1,0,leg))){
+		if(leg->GBackSolid() || leg->GBackLiquid()){
 			if(GetX(leg) < GetX()) SetX(GetX(leg)+3,leg);
 			if(GetX(leg) > GetX()) SetX(GetX(leg)-3,leg);
 			
@@ -283,7 +283,7 @@ public func UnstuckLegs(){
 			return(1);
 		}
 		
-		if(GetMaterial() != -1 && leg->GetBGWall(GetVertex(0,0,leg),GetVertex(1,0,leg)) == 0){
+		if(GetBGWall() && leg->GetBGWall(GetVertex(0,0,leg),GetVertex(1,0,leg)) == 0){
 			if(GetX(leg) < GetX()) SetX(GetX(leg)+5,leg);
 			if(GetX(leg) > GetX()) SetX(GetX(leg)-5,leg);
 			
@@ -358,6 +358,7 @@ protected func MoveLegs(){
 		if(!Random(10) && dist > 30){
 			if(GetComDir() == COMD_Stop && !GetCommand()) continue;
 			if(leg->GetAction() == "MoveLeg" || leg->GetEffect("Legmove",leg)) continue;
+			if(GetCategory(leg) == 4) continue;
 			//realistic-ish leg movement
 			var oX, oY;
 			oX = GetX()-GetX(leg);
