@@ -36,14 +36,22 @@ public func MoveToPlace(iX,iY){
 	tX = XDif;
 	tY = YDif;
 	
-	SetAction("MoveLeg");
+	if(GetAction() != "MoveLeg") SetAction("MoveLeg");
 	AddEffect("Legmove",this(),100,1,this());
 	return(1);
 }
 
 protected func FxLegmoveTimer(object pTarget, int iEffectNumber, int iEffectTime){
 	if(iEffectTime > 16) return(-1);
-	if(!GetBGWall(tX,tY)) return(-1);
+	if(!GetBGWall(tX,tY) && GetPhase() < 5){
+		for(var i = iEffectTime; i <= 16; i++){
+			if(GetBGWall(tX+(i*tX), tY+(i*tY))){
+				break;
+			}
+			
+			if(i == 16) return(-1);
+		}
+	}
 	SetPosition(GetX()+tX,GetY()+tY);
 }
 
@@ -73,4 +81,18 @@ protected func Clonk(){
 		CastParticles("PxSpark",RandomX(3,9),25,GetVertex(0,0),GetVertex(0,1),10,40,col1,col2);
 		
 		Sound("ClimbHit*");
+}
+
+public func Unstick(){
+	if(GetEffect("Legmove")) return(0);
+	if(GetBGWall() || GBackSolid()){
+		if(GetCategory() != 1){
+			SetCategory(1);
+		}
+	}
+	else{
+		if(GetCategory() != 4){
+			SetCategory(4);
+		}
+	}
 }

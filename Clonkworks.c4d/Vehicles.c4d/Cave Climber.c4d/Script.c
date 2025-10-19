@@ -273,6 +273,7 @@ func SoundCloseDoorScheduled(sound){
 //leg pos fixer
 public func UnstuckLegs(){
 	for(var leg in LegList){
+		if(GetCategory(leg) == 4) continue;
 		if(GBackSolid(GetVertex(0,0,leg),GetVertex(1,0,leg)) || GBackLiquid(GetVertex(0,0,leg),GetVertex(1,0,leg))){
 			if(GetX(leg) < GetX()) SetX(GetX(leg)+3,leg);
 			if(GetX(leg) > GetX()) SetX(GetX(leg)-3,leg);
@@ -310,7 +311,7 @@ protected func MoveLegs(){
 
 	
 	//eject when stuck!
-	if(Stuck() || InLiquid()){
+	if(Stuck()){
 		ContainedDownDouble();
 	}
 
@@ -339,8 +340,8 @@ protected func MoveLegs(){
 	var BannedLegs = []; //legs that can not be used.
 	var MovedLegs = 0; //Legs that are currently moving
 	
-	//dont move legs when youre in the sky.
-	if(GetMaterial(0,0) == -1) return(0);
+	//dont move legs when youre in the sky. (or in liquid)
+	if(GetMaterial(0,0) == -1 || InLiquid()) return(0);
 	
 	//set moved legs to current moving legs
 	for(var l in LegList){
@@ -476,7 +477,7 @@ protected func DeployLegs(){
 		LocalN("fNoPickUp_1",Rope) = 1;
 		LocalN("iVtx2",Rope) = 1;
 		Rope->SetPoint(1, GetX(newLeg)-GetVertex(1,0,newLeg), GetY(newLeg)-GetVertex(1,1,newLeg));
-		Rope->SetRopeLength(100);
+		Rope->SetRopeLength(120);
 		
 		//is leg ok to place?
 		if(newLeg->IsAttachedToWall() == false){

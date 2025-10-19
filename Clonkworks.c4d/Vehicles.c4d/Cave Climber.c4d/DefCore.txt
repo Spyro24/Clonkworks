@@ -32,4 +32,4 @@ Timer=1
 TimerCall=EjectMultipleCaptains
 
 [Physical]
-Float=100
+Float=120
