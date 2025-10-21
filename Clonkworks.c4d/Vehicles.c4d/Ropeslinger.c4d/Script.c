@@ -57,6 +57,10 @@ public func Fire(bool fAuto)
   iXDir /= 2;
   
   if(GetID(pProjectile) == CW5P){
+	  var rope;
+	  while(rope = FindRope(pProjectile,0)){
+		  RemoveObject(rope);
+	  }
 	  Exit(pProjectile,iX,iY,Random(360),iXDir,iYDir,+30);
 	  pProjectile->Launch(pProjectile);
 	  
