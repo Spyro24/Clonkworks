@@ -275,20 +275,20 @@ public func UnstuckLegs(){
 	for(var leg in LegList){
 		if(GetCategory(leg) == 4) continue;
 		if(leg->GBackSolid() || leg->GBackLiquid()){
-			if(GetX(leg) < GetX()) SetX(GetX(leg)+3,leg);
-			if(GetX(leg) > GetX()) SetX(GetX(leg)-3,leg);
+			if(GetX(leg) > GetX()) SetX(GetX(leg)+3,leg);
+			if(GetX(leg) < GetX()) SetX(GetX(leg)-3,leg);
 			
-			if(GetY(leg) > GetY()) SetY(GetY(leg)+3,leg);
-			if(GetY(leg) < GetY()) SetY(GetY(leg)-3,leg);
+			if(GetY(leg) < GetY()) SetY(GetY(leg)+3,leg);
+			if(GetY(leg) > GetY()) SetY(GetY(leg)-3,leg);
 			return(1);
 		}
 		
 		if(GetBGWall() && leg->GetBGWall(GetVertex(0,0,leg),GetVertex(1,0,leg)) == 0){
-			if(GetX(leg) < GetX()) SetX(GetX(leg)+5,leg);
-			if(GetX(leg) > GetX()) SetX(GetX(leg)-5,leg);
+			if(GetX(leg) < GetX()) SetX(GetX(leg)+3,leg);
+			if(GetX(leg) > GetX()) SetX(GetX(leg)-3,leg);
 			
-			if(GetY(leg) > GetY()) SetY(GetY(leg)-5,leg);
-			if(GetY(leg) < GetY()) SetY(GetY(leg)+5,leg);
+			if(GetY(leg) > GetY()) SetY(GetY(leg)-3,leg);
+			if(GetY(leg) < GetY()) SetY(GetY(leg)+3,leg);
 			return(1);
 		}
 	}
@@ -351,7 +351,7 @@ protected func MoveLegs(){
 	
 	//move legs
 	for(var i = 0; i < GetLength(LegList); i++){
-		if(MovedLegs > 1) break; //max legs
+		if(MovedLegs >= 2) break; //max legs
 		var leg = LegList[i];
 		leg->SetR(Angle(GetX(leg),GetY(leg),GetX(), GetY())-90);
 		var dist = Distance(GetX(leg)+GetVertex(1,0,leg), GetY(leg)+GetVertex(1,1,leg), GetX()+GetVertex(i,0), GetY()+GetVertex(i,1));

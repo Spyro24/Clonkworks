@@ -157,6 +157,7 @@ public func IsAdvancedProduct(){
 //sounds
 
 func SoundOpenDoor(){
+	SetDir(DIR_Left);
 	Sound("SteelGate1");
 }
 
