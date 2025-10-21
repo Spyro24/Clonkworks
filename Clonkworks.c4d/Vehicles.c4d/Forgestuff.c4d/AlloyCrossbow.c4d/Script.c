@@ -64,7 +64,7 @@ private func RemoveControlEffect(int dir)
 
 public func ControlConf(int conf)
 {
-	 if(GetEffect("MouseAim",this())) return(0);
+	 if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   if(AimStdConf(conf))
     Sound("CatapultSet");
 }
@@ -72,14 +72,14 @@ public func ControlConf(int conf)
 public func ControlUp(object clonk)     // Zielen: hoch
 {
   [$TxtAimup$|Image=XBO1:2]
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimUp(clonk, 38-Min(Speed, 37), "ControlConf");
 }
 
 public func ControlDig(object clonk)    // Zielen: runter (klassisch)
 {
   [$TxtAimdown$|Method=Classic|Image=XBO1:0]
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimDown(clonk, 38-Min(Speed, 37), "ControlConf");
 }
 
@@ -90,7 +90,7 @@ public func ControlDown(object clonk)   // Zielen: runter (JumpAndRun)
 
 public func ControlUpdate(object clonk, int comdir)
 {
-	 if(GetEffect("MouseAim",this())) return(0);
+	if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimUpdate(clonk, comdir, 38-Min(Speed, 37), "ControlConf");
 }
 
@@ -102,7 +102,7 @@ public func ControlDownSingle() // Sicht zurücksetzen
 public func ControlThrow(pClonk)  // Schießen
 {
   [$TxtFire$|Image=XBO1:1]
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   return(Fire(0,pClonk));
 }
 
@@ -205,28 +205,6 @@ public func AimToAngle(int iAngle)
   //SetPhase(BoundBy( 20*Abs(iAngle)/90, 0,19));
   AutoAimTo = BoundBy( 20*Abs(iAngle)/90, 0,19);
 }
-
-public func FxMouseAimTimer(object pTarget, int iEffectNumber){
-    var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
-	if(!clonk) return(-1);
-	if(AutoAimTo > GetPhase()){
-		SetPhase(GetPhase()+1);
-		    Sound("CatapultSet");
-	}
-	else if(AutoAimTo < GetPhase()){
-		SetPhase(GetPhase()-1);
-		    Sound("CatapultSet");
-	}
-	else return(-1);
-}
-
-public func FxMouseAimStop(object pTarget, int iEffectNumber, int iReason){
-		var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
-	if(!clonk) return(0);
-	if(iReason != 0) return(0);
-	Fire(true);
-}
-
 /* Laden */
 
 protected func Collection(pObj)

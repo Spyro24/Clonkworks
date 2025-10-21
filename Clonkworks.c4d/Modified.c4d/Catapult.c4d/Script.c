@@ -94,27 +94,6 @@ private func FireAt(int iTX)
   return(1);
 }
 
-public func FxMouseAimTimer(object pTarget, int iEffectNumber){
-	var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
-	if(!clonk) return(-1);
-	if(AutoAimTo > GetPhase()){
-		SetPhase(GetPhase()+1);
-		    Sound("CatapultSet");
-	}
-	else if(AutoAimTo < GetPhase()){
-		SetPhase(GetPhase()-1);
-		    Sound("CatapultSet");
-	}
-	else return(-1);
-}
-
-public func FxMouseAimStop(object pTarget, int iEffectNumber, int iReason){
-		var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
-	if(!clonk) return(0);
-	if(iReason != 0) return(0);
-	Fire(true);
-}
-
 /* Laden */
 
 protected func Collection() { Sound("Connect"); }
@@ -145,7 +124,7 @@ public func ControlCommand(string szCommand, object pTarget, int iX, int iY)
 public func ControlThrow() // Feuern / Inhalt
 {
   [$TxtFire$|Image=CAT1:1]
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   // Nicht bereit: Clonk kann nichts machen
   if (GetAction() ne "Ready") return(1);
   // Nicht gespannt: Clonk kann nur laden/entladen
@@ -158,7 +137,7 @@ public func ControlThrow() // Feuern / Inhalt
 
 public func ControlConf(int conf)
 {
-	 if(GetEffect("MouseAim",this())) return(0);
+	if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   if(AimStdConf(conf))
   {
     iPhase = GetPhase();
@@ -169,7 +148,7 @@ public func ControlConf(int conf)
 public func ControlDig(object clonk) // Katapult mehr spannen (weiter Schießen)
 {
   [$TxtAim1$|Method=Classic|Image=CAT1:0]
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimDown(clonk, 8, "ControlConf");
 }
 
@@ -181,13 +160,13 @@ public func ControlDown(object clonk)
 public func ControlUp(object clonk) // Katapult weniger spannen (kürzer Schießen)
 {
   [$TxtAim2$|Image=CAT1:2]
-   if(GetEffect("MouseAim",this())) return(0);
+  if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimUp(clonk, 8, "ControlConf");
 }
 
 public func ControlUpdate(object clonk, int comdir)
 {
-	 if(GetEffect("MouseAim",this())) return(0);
+	 if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimUpdate(clonk, comdir, 8, "ControlConf");
 }
 

@@ -22,14 +22,14 @@ protected func ControlConf(int conf)
 public func ControlUp(object clonk)     // Zielen: hoch (klassisch)
 {
   [$TxtAimup$|Image=CAN1:2]
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimUp(clonk, 4, "ControlConf");
 }
 
 public func ControlDig(object clonk)    // Zielen: runter (klassisch)
 {
   [$TxtAimdown$|Method=Classic|Image=CAN1:0]
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimDown(clonk, 4, "ControlConf");
 }
 
@@ -40,7 +40,7 @@ public func ControlDown()
 
 public func ControlUpdate(object clonk, int comdir) // Zielen: JnR
 {
-	 if(GetEffect("MouseAim",this())) return(0);
+	 if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimUpdate(clonk, comdir, 4, "ControlConf");
 }
 
@@ -53,7 +53,7 @@ public func ControlThrow(pClonk)    // Feuern / Inhalt
 {
   [$TxtFire$|Image=CAN1:1]
   // Der Clonk will doch bestimmt nur etwas nachladen: nicht vorzeitig abfeuern
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   var pThing;
   if (pThing = pClonk->Contents())
     if (AllowLoad(GetID(pThing)))
@@ -153,27 +153,6 @@ public func AimToAngle(int iAngle)
   // Zielrichtung
   //SetPhase(BoundBy( 19*Abs(iAngle)/90, 0,18));
   AutoAimTo = BoundBy( 19*Abs(iAngle)/90, 0,18);
-}
-
-public func FxMouseAimTimer(object pTarget, int iEffectNumber){
-	var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
-	if(!clonk) return(-1);
-	if(AutoAimTo > GetPhase()){
-		SetPhase(GetPhase()+1);
-		    Sound("CatapultSet");
-	}
-	else if(AutoAimTo < GetPhase()){
-		SetPhase(GetPhase()-1);
-		    Sound("CatapultSet");
-	}
-	else return(-1);
-}
-
-public func FxMouseAimStop(object pTarget, int iEffectNumber, int iReason){
-	var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
-	if(!clonk) return(0);
-	if(iReason != 0) return(0);
-	Fire(true);
 }
     
 /* Laden */

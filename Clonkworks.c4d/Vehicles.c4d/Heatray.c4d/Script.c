@@ -155,7 +155,7 @@ public func ControlUp(object clonk)     // Zielen: hoch (klassisch)
 	  Sound("Error");
 	  return(1);
   }
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimUp(clonk, 4, "ControlConf");
 }
 
@@ -167,7 +167,7 @@ public func ControlDig(object clonk)    // Zielen: runter (klassisch)
 	  Sound("Error");
 	  return(1);
   }
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimDown(clonk, 4, "ControlConf");
 }
 
@@ -181,7 +181,7 @@ public func ControlUpdate(object clonk, int comdir) // Zielen: JnR
   if(IsHot() && (comdir == COMD_Up || comdir == COMD_Down)){
 	  return(1);
   }
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimUpdate(clonk, comdir, 4, "ControlConf");
 }
 
@@ -246,25 +246,4 @@ public func AimToAngle(int iAngle)
   //SetPhase(BoundBy( 20*Abs(iAngle)/90, 0,19));
   AutoAimTo = BoundBy( 20*Abs(iAngle)/90, 0,19);
   if(AutoAimTo == 19) AutoAimTo = 18;
-}
-
-public func FxMouseAimTimer(object pTarget, int iEffectNumber){
-	var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
-	if(!clonk) return(-1);
-	if(AutoAimTo > GetPhase()){
-		SetPhase(GetPhase()+1);
-		    Sound("CatapultSet");
-	}
-	else if(AutoAimTo < GetPhase()){
-		SetPhase(GetPhase()-1);
-		    Sound("CatapultSet");
-	}
-	else return(-1);
-}
-
-public func FxMouseAimStop(object pTarget, int iEffectNumber, int iReason){
-		var clonk = FindObject2(Find_OCF(OCF_CrewMember), Find_Action("Push"), Find_ActionTarget(this()));
-	if(!clonk) return(0);
-	if(iReason != 0) return(0);
-	Fire(true);
 }

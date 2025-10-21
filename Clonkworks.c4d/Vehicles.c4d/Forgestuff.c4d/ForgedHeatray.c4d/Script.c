@@ -130,7 +130,7 @@ public func ControlUp(object clonk)     // Zielen: hoch (klassisch)
 	  Sound("Error");
 	  return(1);
   }
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimUp(clonk, 38 - Min(Speed, 37), "ControlConf");
 }
 
@@ -142,7 +142,7 @@ public func ControlDig(object clonk)    // Zielen: runter (klassisch)
 	  Sound("Error");
 	  return(1);
   }
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimDown(clonk, 38 - Min(Speed, 37), "ControlConf");
 }
 
@@ -151,7 +151,7 @@ public func ControlUpdate(object clonk, int comdir) // Zielen: JnR
   if(IsHot() && (comdir == COMD_Up || comdir == COMD_Down)){
 	  return(1);
   }
-   if(GetEffect("MouseAim",this())) return(0);
+   if(GetEffect("MouseAim",this())) RemoveEffect("MouseAim",this());
   AimUpdate(clonk, comdir, 38 - Min(Speed, 37), "ControlConf");
 }
 
