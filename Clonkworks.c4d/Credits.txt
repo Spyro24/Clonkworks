@@ -1,0 +1,29 @@
+CLONKWORKS:
+Kodenith (Main creator)
+Danghor (helped with translations early on :D )
+Ryou (helped and provided 3d modeling stuff :D )
+
+SEILPACK:
+
+Original-Seilpack
+- Guenther
+
+Seil-Partikeleffekt
+- Randrian
+
+Winch- und Enterhakengrafik
+- Nachtfalter
+
+Seilobjektgrafik
+- RedWolf Design
+
+Seilrollengrafik
+- Pluto
+
+Seilpack Remake
+- Supaplex
+
+NEW FUNCTIONS & USEFUL FEATURES FOR DEVELOPERS
+Viktor234
+sstj_clonkfan
+Other people included on the filename's of their scripts :)

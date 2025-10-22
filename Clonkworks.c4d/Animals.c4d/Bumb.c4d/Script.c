@@ -703,3 +703,11 @@ public func ContainedUpdate(object self, int comdir, bool dig, bool throw)
     
   return(1);
 }
+
+//bumbs can be recolored easily with this bumb-only modification of SetClrModulation
+public func SetClrModulation (int dwClr, object pObj, int iOverlayID){
+	if(pObj == 0 || pObj == this()){
+		if(iOverlayID == 0) SetGraphics("Recolor",this());
+	}
+	return(_inherited(dwClr,pObj,iOverlayID));
+}

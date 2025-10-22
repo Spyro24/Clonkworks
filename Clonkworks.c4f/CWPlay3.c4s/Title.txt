@@ -1,2 +1,2 @@
-DE:Clonkworks Playground 3
-US:Clonkworks Playground 3
+DE:<c ff9400>Clonkworks</c> <c bababa>Playground</c> 3
+US:<c ff9400>Clonkworks</c> <c bababa>Playground</c> 3
