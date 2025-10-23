@@ -43,3 +43,6 @@ public func Unscrew(foo,pObj){
 	Sound("screw*");
 	return(1);
 }
+
+public func IsAnvilProduct(){ return(1); }
+public func IsAdvancedProduct(){ return(1); }

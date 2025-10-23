@@ -1,0 +1,2 @@
+TxtPack=Put in jar
+TxtDanger=This honey is not safe to take. Make sure there aren't any bumbs nearby before taking it.

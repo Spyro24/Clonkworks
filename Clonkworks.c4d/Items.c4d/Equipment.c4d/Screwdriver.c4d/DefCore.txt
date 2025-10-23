@@ -19,3 +19,4 @@ Collectible=1
 Rebuy=1
 Components=METL=2
 Rotate=1
+Float=1

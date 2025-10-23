@@ -71,6 +71,7 @@ global func FxChestefTimer(object pTarget, int iEffectNumber, int iEffectTime){
 	  if(GetCategory(,def) & 2048) ok = true;
 	  if(GetCategory(,def) & 16384) ok = true;
 	  if(ContentsCount(def,Chest)) ok = false;
+	  if(def == HONY) ok = false;
 	  if(!ok) continue;
 	  var obj = CreateContents(def,Chest,1);
 	  SetOwner(0,obj);
