@@ -256,6 +256,12 @@ public func IsBridge() { return(1); }
 
 public func IsLocked() { return(is_locked); }
 
+//unscrew
+public func Unscrewable(){ return(IsLocked()); }
+public func Unscrew(){
+	return(Release());
+}
+
 // Nicht an die Dampflok koppeln lassen
 public func NoPull()
 {

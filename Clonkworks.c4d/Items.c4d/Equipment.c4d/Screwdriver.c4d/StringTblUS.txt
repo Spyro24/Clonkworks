@@ -1,0 +1,3 @@
+TxtUnscrew=Unscrew
+ErrNoObjects=There's no objects that can be unscrewed!
+ErrObjectFar=Can't Unscrew %s, too far away!

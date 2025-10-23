@@ -1,0 +1,3 @@
+TxtUnscrew=Lösen
+ErrNoObjects=Es gibt keine Objekte, die gelöst werden können!
+ErrObjectFar=%s kann nicht gelöst werden, zu weit entfernt!
