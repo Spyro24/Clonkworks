@@ -21,10 +21,21 @@ public func RayBlastRange(){
 }
 
 protected func UseFuel(){
+	var pCoal=ObjectCount2(Find_Container(this()), Find_ID(COAL));
+	if(pCoal >= 2){
 	for(var i = 0; i < 2; i++){
 		RemoveObject(FindObject2(Find_Container(this()), Find_ID(COAL)));
 	}
 	return(1);
+	}
+	
+	var pCoal=ObjectCount2(Find_Container(this()), Find_ID(WOOD));
+	if(pCoal >= 4){
+	for(var i = 0; i < 4; i++){
+		RemoveObject(FindObject2(Find_Container(this()), Find_ID(WOOD)));
+	}
+	return(1);
+	}
 }
 
 public func Fire(bool fAuto)
@@ -32,8 +43,12 @@ public func Fire(bool fAuto)
   var pCoal=ObjectCount2(Find_Container(this()), Find_ID(COAL));
   if (pCoal < 2) 
   {
-    Sound("Click");
-    return(0);
+	    var pCoal=ObjectCount2(Find_Container(this()), Find_ID(WOOD));
+		if (pCoal < 4) 
+		{
+			Sound("Click");
+			return(0);
+		}
   }
   
   if(IsHot()){
@@ -133,7 +148,7 @@ protected func RejectCollect(id idObj, object pObj)
 
 private func AllowLoad(id idObj)
 {
-	if(idObj != COAL) return(0);
+	if(idObj != COAL && idObj != WOOD) return(0);
   if (ContentsCount() < 12) return(1);
   return(0);
 }

@@ -22,8 +22,12 @@ public func Fire(bool fAuto)
   var pCoal=ObjectCount2(Find_Container(this()), Find_ID(COAL));
   if (pCoal < 2) 
   {
-    Sound("Click");
-    return(0);
+	    var pCoal=ObjectCount2(Find_Container(this()), Find_ID(WOOD));
+		if (pCoal < 4) 
+		{
+			Sound("Click");
+			return(0);
+		}
   }
   
   if(IsHot()){
