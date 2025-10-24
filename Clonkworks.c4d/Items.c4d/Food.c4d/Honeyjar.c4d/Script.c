@@ -9,6 +9,7 @@ public func MaxPackCount() { return(5); }
 public func IsAnvilProduct() { return(0); }
 
 public func Activate(pClonk){
+	[$TxtDrink$]
 	Sound("Drink");
 	pClonk->Drink(this());
 	DoEnergy(20,pClonk);
@@ -33,4 +34,8 @@ public func DoPackCount(iChange)
   UpdatePicture();
   // Masse anpassen
   UpdateMass();
+}
+
+public func Hit(){
+	if(!Random(3)) Sound("Crystal*");
 }
