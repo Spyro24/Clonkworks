@@ -14,6 +14,6 @@ VertexFriction=50,50,50,50,50
 Value=15
 Mass=12
 Components=TTIG=1;METL=1;
-Picture=8,0,80,60
+Picture=0,6,80,60
 Rebuy=1
 Collectible=1
