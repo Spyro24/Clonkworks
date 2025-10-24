@@ -1,0 +1,2 @@
+DE:Sauerstoffflasche
+US:Oxygen Tank

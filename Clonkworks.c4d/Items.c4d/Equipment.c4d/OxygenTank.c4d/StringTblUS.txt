@@ -1,0 +1,6 @@
+TxtReplenish=Breathe
+ErrNoBreathableSolo=Tank Empty!
+ErrNoBreathable=All tanks empty!
+ErrNotInWater=Why would i use this if im not in water?
+Percentage1=Filled: %d% (Not filled enough.)
+Percentage2=Filled: %d% (Good to go!)
