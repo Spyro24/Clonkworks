@@ -20,3 +20,4 @@ VertexY=6,-5
 VertexCNAT=8,4
 VertexFriction=20,100
 BorderBound=1
+LineConnect=128

@@ -4,3 +4,4 @@ TxtLineRemoval=%s abgenommen.
 TxtNewLine=Konstruktion|%s.
 TxtNoConnectType=%s kann nicht an|%s angeschlossen werden.
 TxtConnect=%s an|%s angeschlossen
+TxtLineInfo=Hilfe: Erweiterte Zeilen

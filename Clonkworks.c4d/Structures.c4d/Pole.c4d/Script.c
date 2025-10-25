@@ -30,3 +30,7 @@ public func IsLocked() { return Stuck(); }
 public func NoPull() { return 1; }
   
 public func GetVertexToConnect() { return 2; }
+
+public func ALKConnectType(){
+	return([TRPW]);
+}

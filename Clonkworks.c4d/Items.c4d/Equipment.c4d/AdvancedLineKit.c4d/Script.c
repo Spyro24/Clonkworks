@@ -117,4 +117,19 @@ private func ConnectLine(line, to)
 public func IsAnvilProduct() { return(1); }
 public func IsAdvancedProduct() { return(1); }
 public func IsKit() { return(1); }
-func IsMetal(){ return(true); }
+
+//Info menu
+public func ContextInfo(pClonk){
+	[$TxtLineInfo$|Image=CXIN]
+	CreateMenu(CXIN,pClonk,this(),4);
+	for(var i = 0; GetDefinition(i) != 0; i++){
+		var j = GetDefinition(i);
+		if(DefinitionCall(j,"isLine") && j != PWRL && j != DPIP && j != SPIP){
+			AddMenuItem(GetName(,j),"DoLineDesc",j,pClonk,0,GetOwner(pClonk),GetDesc(,j));
+		}
+	}
+}
+
+public func DoLineDesc(line,owner){
+	MessageWindow(GetDesc(,line),owner,CXIN,GetName(,line));
+}

@@ -21,5 +21,5 @@
 
 //what advanced lines can be connected?
 public func ALKConnectType(){
-	return([FNPP, TRPW]);
+	return([FNPP]);
 }
