@@ -250,3 +250,9 @@ private func GetArrowCount()
 }
 
 public func GetResearchBase() { return(XBOW); }
+public func ALKConnectType(){
+	return([FNPP,TRPW]);
+}
+public func TripActivate(){
+	return(Fire(true));
+}

@@ -1,0 +1,3 @@
+If something touches this wire, it will activate the 2 objects connected to it. 
+
+This wire is stiff, if it bends in any way, it may break.

@@ -190,5 +190,8 @@ private func AllowLoad(id idObj)
 
 public func GetResearchBase() { return(CATA); }
 public func ALKConnectType(){
-	return([FNPP]);
+	return([FNPP,TRPW]);
+}
+public func TripActivate(){
+	return(Fire(true));
 }

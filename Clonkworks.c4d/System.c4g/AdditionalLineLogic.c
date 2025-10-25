@@ -5,9 +5,11 @@
 #appendto PWRL
 #appendto FNPP
 #appendto HOSE
+#appendto TRPW
 
 private func Transfer(){
 	if(!ObjectCount(RSWR)) 	return(inherited());
+	if(this()->~CustomLengthLimit()) return(inherited());
 	var from, to;
 	from = GetActionTarget(0);
 	to = GetActionTarget(1);

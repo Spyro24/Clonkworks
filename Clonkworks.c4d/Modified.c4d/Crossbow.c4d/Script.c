@@ -230,6 +230,9 @@ private func GetArrowCount()
 }
 
 public func ALKConnectType(){
-	return([FNPP]);
+	return([FNPP,TRPW]);
 }
 
+public func TripActivate(){
+	return(Fire(true));
+}

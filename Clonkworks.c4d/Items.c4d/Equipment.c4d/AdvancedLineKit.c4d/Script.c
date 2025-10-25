@@ -57,7 +57,7 @@ public func LineSelection(pObject,clonk){
 }
 
 protected func LineSelectionDone(linetype, from){
-  var obj = FindObject(0, 1,0,0,0, OCF_LineConstruct(), 0,0,0, obj);
+  var obj = FindObject(0, 1,0,0,0, OCF_LineConstruct(), 0,0,NoContainer(), obj);
   if(!obj) return(Message("$TxtNoNewLine$", this()));
   if(obj != from) return(Message("$TxtNoNewLine$", this()));
   

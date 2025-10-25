@@ -1,30 +1,35 @@
 /*-- Neues Script --*/
 
-#strict
-local Full;
+#strict 2
 local FullPercent;
 
-public func IsFilled(){ return(Full); }
+public func IsFilled(){ return(FullPercent>=50); }
 public func GetOxygen(){ return(FullPercent); }
+public func MaxOxygen(){ return(250); }
 
 func Initialize() {
 	AddEffect("OxyDesc",this(),20,0,this());
-  Full = true;
-  FullPercent = 100;
+  FullPercent = 250;
   Update();
   return(1);
 }
 
 func FxOxyDescInfo(object pTarget, int iEffectNumber){
+	var Full = IsFilled();
 	if(Full){
-		return(Format("$Percentage2$",FullPercent));
+		return(Format("$Percentage2$",FullPercent,MaxOxygen()));
 	}
-	return(Format("$Percentage1$",FullPercent));
+	return(Format("$Percentage1$",FullPercent,MaxOxygen()));
 }
 
 
 protected func Update(){
-	Full = (FullPercent >= 50);
+	var Full = IsFilled();
+	if(GetEffect("OxygenTank",Contained()) && GetEffect("OxygenTank",Contained(),,4)  == this()){
+		SetPicture(0,76,64,64,this());
+		return(0);
+	}
+	
 	if(Full){
 		SetPicture(64,12,64,64,this());
 	}else{
@@ -34,8 +39,8 @@ protected func Update(){
 
 public func SetFull(int fullness){
 	if(fullness < 0) fullness = 0;
-	if(FullPercent == 100 && fullness >= 100) return(0);
-	if(fullness > 100) fullness = 100;
+	if(FullPercent == MaxOxygen() && fullness >= MaxOxygen()) return(0);
+	if(fullness > MaxOxygen()) fullness = MaxOxygen();
 	FullPercent = fullness;
 	Update();
 	return(1);
@@ -44,16 +49,29 @@ public func SetFull(int fullness){
 public func Activate(pClonk){
 	[$TxtReplenish$]
 	
-	if(!InLiquid(pClonk)){
+	
+	if(GetBreath(pClonk) == GetPhysical("Breath",,pClonk)/1000){
 			Message("$ErrNotInWater$",pClonk);
 			pClonk->Sound("CommandFailure*");
 			return(1);
 	}
 	
-	if(!Full){
+	if(GetEffect("OxygenTank",pClonk) && GetEffect("OxygenTank",pClonk,,4)  == this()){
+		RemoveEffect("OxygenTank",pClonk);
+		return(1);
+	}
+	
+	if(GetEffect("OxygenTank",pClonk) && GetEffect("OxygenTank",pClonk,,4) != this()){
+		Message("$ErrInUse$",pClonk);
+	    pClonk->Sound("CommandFailure*");
+	   return(1);
+	}
+	
+	if(!IsFilled()){
 		if(ContentsCount(GetID(),Contained()) != 1){
 			for(var i in FindObjects(Find_ID(GetID()), Find_Container(Contained()))){
 				if(i->~IsFilled()){
+					ShiftContents(pClonk);
 					i->Activate(pClonk);
 					return(1);
 				}
@@ -69,18 +87,42 @@ public func Activate(pClonk){
 		}
 	}
 	
-	pClonk->Drink(this());
-	DoBreath(GetPhysical("Breath", 0, GetCursor(0))*FullPercent/100000, pClonk);
-	SetFull(0);
+	//pClonk->Drink(this());
+	AddEffect("OxygenTank",pClonk,120,1,this());
 	pClonk->Sound("Breath");
 	return(1);
 }
 
+//breathe effect
+public func FxOxygenTankStart(object pTarget){
+	Sound("Fusing",0,pTarget,75,,+1);
+}
+
+public func FxOxygenTankTimer(object pTarget, int iEffectNumber, int iEffectTime){
+	if(GetOxygen() == 0 || GetBreath(pTarget) == GetPhysical("Breath",,pTarget)/1000 || !GetAlive(pTarget) || Contained() != pTarget){
+			return(-1);
+	}
+	
+	DoBreath(1,pTarget);
+	SetFull(GetOxygen()-1);
+}
+
+public func FxOxygenTankStop(object pTarget, int iEffectNumber, int iReason, bool fTemp){
+	Sound("Fusing",0,pTarget,75,,-1);
+	Sound("Airlock2");
+	Update();
+}
+
+
 func ReplOxy(){
+	var Full = IsFilled();
 	var wasEmpty = !Full;
-	if(!InLiquid(ContainedTop())){
+	var ctt = ContainedTop();
+	if(!ctt) ctt = this();
+	
+	if(!InLiquid(ContainedTop()) && ctt->GBackSolid() == false){
 		if(!Full) SetFull(GetOxygen()+Random(2));
-		else if(!Random(7)) SetFull(GetOxygen()+1);
+		else if(!Random(3)) SetFull(GetOxygen()+1);
 	}
 
 	if(Full && wasEmpty) Sound("Airlock1");
