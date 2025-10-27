@@ -1,0 +1,2 @@
+DE:Spritze
+US:Syringe
