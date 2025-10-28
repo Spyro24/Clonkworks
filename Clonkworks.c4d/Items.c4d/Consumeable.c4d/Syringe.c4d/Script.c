@@ -3,6 +3,10 @@
 #strict 2
 local Essence;
 
+//craftstuff
+public func IsAnvilProduct(){ return(1); }
+public func IsAdvancedProduct(){ return(1); }
+
 func Initialize() {
   Update();
   AddEffect("Syrinf",this(),1,0,this());
@@ -60,6 +64,9 @@ protected func FxInjectionStart(pTarget,iEffectNumber,iTemp){
 	//make the clonk kneel down to inject.
 	if(GetActMapVal("Name","KneelDown",GetID(pTarget)))
 	pTarget->SetAction("KneelDown");
+
+	//stopping the target
+	SetComDir(COMD_None,pTarget);
 }
 
 protected func FxInjectionTimer(pTarget,iEffectNumber,iEffectTime){

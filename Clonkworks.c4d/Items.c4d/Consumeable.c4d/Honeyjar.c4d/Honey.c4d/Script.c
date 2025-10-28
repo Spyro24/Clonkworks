@@ -16,6 +16,20 @@ func Initialize() {
   return(1);
 }
 
+public func Alert(pClonk){
+	SetAction("Idle");
+	if(GetOCF(pClonk) & OCF_Alive){
+		//find nearby bumbs and alert them if this honey isnt from the bumbhouse.
+		if(Wild){
+			for(var found in FindObjects(Find_ID(BUMB), Find_Distance(300))){
+			if(found)
+			if(ObjectDistance(this(), found) < 300 && GetAction(found) != "Rest")
+			LocalN("GrudgeTarget", found) = pClonk;;
+			}
+		}
+	}
+}
+
 func HoneyUpdate(){
 	
 	if(Wild && !GetEffect("WildHoney",this())){
@@ -31,20 +45,6 @@ func HoneyUpdate(){
 
 func FxWildHoneyInfo(object pTarget, int iEffectNumber){
 	return("$TxtDanger$");
-}
-
-func Entrance(object pContainer){
-    SetAction("Idle");
-	if(GetOCF(pContainer) & OCF_Alive){
-		//find nearby bumbs and alert them if this honey isnt from the bumbhouse.
-		if(Wild){
-			for(var found in FindObjects(Find_ID(BUMB), Find_Distance(300))){
-			if(found)
-			if(ObjectDistance(this(), found) < 300 && GetAction(found) != "Rest")
-			LocalN("GrudgeTarget", found) = pContainer;;
-			}
-		}
-	}
 }
 
 func ContactLeft() {
@@ -96,6 +96,8 @@ public func RejectEntrance(pInto)
 
 public func Entrance(pClonk)
 {
+  Alert(pClonk);
+	
   // Wieder zu einem Objekt machen?
   if(!(GetCategory() & C4D_Object))
    SetCategory(C4D_Object,this());
@@ -121,6 +123,8 @@ public func JoinPack(pClonk,fForce)
   // Nicht wenn unterdrückt
   if(GetEffect("IntNoPacking", pClonk)) return(0);
   if(GetEffect("IntArrowVanish", this())) return(0);
+  
+  Alert(pClonk);
   
   var pObj, aList;
   // Pfeilpakete im Clonk suchen
