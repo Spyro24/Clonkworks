@@ -2,5 +2,4 @@ TxtInject=Inject
 ErrAlreadyUsed=I should wait before i inject again.
 ErrBadPos=%s can't inject at the moment!
 ErrNoCorpse=Nothing to extract!
-
-InfoSyr={{%s}} Contains essence from %s.
+TxtEssence={{%i}} Contains essence from %s.
