@@ -19,3 +19,4 @@ Collectible=1
 Components=TTIG=1;CRYS=1;
 ColorByOwner=1
 Rotate=1
+NoSell=1

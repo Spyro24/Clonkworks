@@ -1,1 +1,1 @@
-Allows you to temporarily gain stat boosts from animal corpses. Simply extract the essence from a dead non-rotting animal and then inject it onto yourself. Effects last around 20 seconds.
+Allows you to temporarily gain stat boosts from animals. Simply extract the essence from an animal and then inject it onto yourself. Effects last around a minute.

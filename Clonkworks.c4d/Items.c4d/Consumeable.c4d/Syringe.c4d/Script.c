@@ -97,6 +97,7 @@ public func DoExtraction(){
 	Essence = GetID(Injectable);
 	Sound("StabExtract");
 	SetAction("Filled");
+	Punch(Injectable,10);
 }
 
 public func DoInjection(){
@@ -117,10 +118,10 @@ public func FxInjectedStart(pTarget,iEffectNumber, iTemp, EssenceType){
 }
 
 public func FxInjectedTimer(pTarget, iEffectNumber, iEffectTime){
-	if(iEffectTime > 23*36) return(-1);
-	if(!Random(15) && iEffectTime > 3*36) CreateParticle("PSpark",GetX(pTarget)+RandomX(-8,8),GetY(pTarget)+8,0,-5,RandomX(25,40),EffectVar(0,pTarget,iEffectNumber)->~EssenceInfo(1),pTarget);
-	if(iEffectTime != 3*36) return(0);
+	if(iEffectTime > 63*36) return(-1);
 	var EssenceType = EffectVar(0,pTarget,iEffectNumber);
+	if(!Random(15) && iEffectTime > 3*36 && !Contained(pTarget)) CreateParticle("PSpark",GetX(pTarget)+RandomX(-8,8),GetY(pTarget)+8,0,-5,RandomX(25,40),DefinitionCall(EssenceType,"EssenceInfo",1,pTarget),pTarget);
+	if(iEffectTime != 3*36) return(0);
 	DefinitionCall(EssenceType,"EssenceInfo",2,pTarget);
 }
 
