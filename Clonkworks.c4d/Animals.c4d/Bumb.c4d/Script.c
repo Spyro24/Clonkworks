@@ -721,21 +721,22 @@ public func EssenceInfo(int type, object pObj){
 	//1 - Color
 	//2 - Stats
 	//3 - On End
+	//4 - Timer
 		if(type == 1) return(RGBa(241,162,0));
 		if(type == 2 && pObj){
-			var JumpOld, DigOld, PunchOld;
+			var JumpOld, BuildOld, PunchOld;
 			JumpOld = GetPhysical("Jump",0,pObj);
-			DigOld = GetPhysical("Dig",0,pObj);
-			PunchOld = GetPhysical("Fight",0,pObj);
+			BuildOld = GetPhysical("Dig",0,pObj);
+			PunchOld = GetPhysical("CanConstruct",0,pObj);
 		
 			SetPhysical("Jump",JumpOld+15000,3,pObj);
-			SetPhysical("Dig",DigOld+8000,3,pObj);
+			SetPhysical("CanConstruct",BuildOld+50,3,pObj);
 			SetPhysical("Fight",PunchOld+5000,3,pObj);
 		
 		}
 		if(type == 3 && pObj){
 			ResetPhysical(pObj,"Jump");
-			ResetPhysical(pObj,"Dig");
+			ResetPhysical(pObj,"CanConstruct");
 			ResetPhysical(pObj,"Fight");
 		}
 }
