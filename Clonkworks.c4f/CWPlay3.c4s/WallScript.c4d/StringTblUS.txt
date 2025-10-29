@@ -1,5 +1,0 @@
-CtrlRead=Read
-MsgCantRead=I can't|read it.
-MsgEngineRestart=Restart engine.
-MsgReconnectWindmill=Reconnect with Windmill.
-Info_WSC=To progress you have to fire the T-Flint as soon as you get it and then use the scroll directly on the second sack.

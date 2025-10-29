@@ -2,4 +2,5 @@ Opt1=Beliebiges Spawnen
 Opt2=Objekte spawnen
 Opt3=Tiere spawnen
 Opt4=Fahrzeug spawnen
-Opt5=Clonk-Typ Ã¤ndern
+Opt5=Clonk-Typ ändern
+TxtWelcome=Willkommen bei Clonkworks Playground 3!||Alles, was Sie brauchen, können Sie in Ihrer Heimatbasis kaufen oder im Spawn-Objekt-Ziel spawnen.||Viel Spaß beim Ausprobieren aller Funktionen dieses Mods!

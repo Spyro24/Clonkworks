@@ -17,27 +17,16 @@ func Initialize() {
   FindObject2(Find_ID(FALW))->AddForgeable(HONY, RGBa(156, 57, 13, 1), 0, 36, -6, "Sticky Burnable WaterLQM Skew");
   FindObject2(Find_ID(FALW))->AddForgeable(CRYS, RGBa(141, 169, 242, 127), 0, 45, 7, "Regen Glow Fragile");
   FindObject2(Find_ID(FALW))->AddForgeable(MGNT, RGBa(0, 100, 255, 0), 3, 34, 2, "LavaLQM Attractive Magnet");
-  
-  //putting items in cabin
-  var Cabin = FindObject(HUT3);
-  for(var i = 0; GetDefinition(i,C4D_Vehicle) != 0; i++){
-	  var def = GetDefinition(i,C4D_Vehicle);
-	  if(GetComponent(DUMM,,,def) > 0) continue;
-	  if(GetCategory(,def) & C4D_Knowledge) CreateContents(def,Cabin,15);
-  }
-
-  //putting items in chest
-  var Chest = FindObject(CHST);
-  Chest->SetOwner(0);
-  Chest->SetCategory(2);
-  AddEffect("Chestef",Chest,10,1);
-  
   //all strucutres become player 1's.
   for(var struct in FindObjects(Find_Category(C4D_Structure))){
 	  SetOwner(0,struct);
   }
   
   //Liquid filled tanks, endless'ish liquid :D
+    var Cabin = FindObject(HUT3);
+	for(var cont in FindObjects(Find_Container(Cabin))){
+		RemoveObject(cont);
+	}
   var Tanks = [];
   Tanks[0] = CreateForgedObjectCustom(ALQT,0,0,0,RandomRGBa(),1,99,99,"");
   Tanks[0]->InsertLiquidPx("DuroLava",Tanks[0]->MaxAmount());
@@ -60,31 +49,24 @@ func Initialize() {
   }
 }
 
-global func FxChestefTimer(object pTarget, int iEffectNumber, int iEffectTime){
-	var Chest = pTarget;
-    for(var i = 0; GetDefinition(i,C4D_Object) != 0; i++){
-	  var def = GetDefinition(i,C4D_Object);
-	  if(GetComponent(DUMM,,,def) > 0) continue;
-	  var ok = false;
-	  if(GetCategory(,def) & 512) ok = true;
-	  if(GetCategory(,def) & 1024) ok = true;
-	  if(GetCategory(,def) & 2048) ok = true;
-	  if(GetCategory(,def) & 16384) ok = true;
-	  if(ContentsCount(def,Chest)) ok = false;
-	  if(def == HONY) ok = false;
-	  if(!ok) continue;
-	  var obj = CreateContents(def,Chest,1);
-	  SetOwner(0,obj);
-	}
-}
-
-
-
 func InitializePlayer(int iPlr){
 	SetPosition(GetX(FindObject(HUT3)), GetY(FindObject(HUT3)), GetCrew(iPlr,0));
 	var flag = CreateObject(FLAG, 130+(5*iPlr),509, 0);
 	Enter(FindObject(HUT3),flag);
 	SetOwner(iPlr, flag);
 	SetFoW (0, iPlr);
-	var i, id; while (id = GetDefinition(i++)) SetPlrKnowledge(iPlr, id);
+	var i, id; while (id = GetDefinition(i++)){
+		SetPlrKnowledge(iPlr, id);
+		var ok = false;
+		var def = id;
+		if(GetCategory(,def) & 512) ok = true;
+		if(GetCategory(,def) & 1024) ok = true;
+		if(GetCategory(,def) & 2048) ok = true;
+		if(GetCategory(,def) & 16384) ok = true;
+		if(GetDefCoreVal("CrewMember", "DefCore", def)) ok = true;
+		if(GetCategory(,def) & C4D_Structure) ok = false;
+		if(GetComponent(DUMM,,,def) > 0) ok = false;
+		if(!ok) continue;
+		DoHomebaseMaterial(iPlr,id,999);
+	}
 }

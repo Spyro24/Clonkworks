@@ -79,13 +79,13 @@ public func GetLiquidAmount(){ return(Amount); }
 
 public func IsLiquidStorage(){ return(1); }
 
-func Destruction(){
+/* func Destruction(){
 	if(Amount && LiquidType){
 		for(var i = 0; i < Amount; i++){
 			InsertMaterial(Material(LiquidType),0,0,RandomX(-100,100),RandomX(-100,100));
 		}
 	}
-}
+} */
 
 public func IsAdvancedProduct(){ return(1); }
 

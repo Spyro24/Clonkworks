@@ -5,6 +5,13 @@ func Initialize(){
 	SetPosition(0,0);
 }
 
+func InitializePlayer(int iPlr){
+	//welcome menu
+	CreateMenu(BUMB,GetCrew(iPlr),this(),,"Clonkworks Playground 3",,3);
+	AddMenuItem("$TxtWelcome$",,,GetCrew(iPlr));
+	SetWealth(iPlr,999999);
+}
+
 public func Managment(){
 	for(var i in FindObjects(Find_Category(C4D_Structure))){
 		if(GetID(i) == KDNT) continue;

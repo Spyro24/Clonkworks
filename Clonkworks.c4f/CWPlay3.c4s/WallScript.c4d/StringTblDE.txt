@@ -1,5 +1,0 @@
-CtrlRead=Lesen
-MsgCantRead=Ich kann es|nicht lesen.
-MsgEngineRestart=Motor neustarten.
-MsgReconnectWindmill=Windrad neu verbinden.
-Info_WSC=Um weiterzukommen musst du den T-Flint sofort zünden wenn du ihn bekommst und dann die Schriftrolle direkt beim zweiten Sack einsetzen.
