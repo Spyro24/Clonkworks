@@ -6,11 +6,19 @@ local Air;
 
 func Initialize() {
   Chargeup();
+  AddEffect("AirStatus",this(),1,0,this());
 }
 
 protected func Chargeup(){
 	SetAction("Charged");
-	SetPicture(0,74,64,64,this());
+	SetPicture(0,75,64,64,this());
+}
+
+//status effect
+protected func FxAirStatusInfo(object pTarget, int iEffectNumber){
+	if(GetAction() == "Charged") return("$Status1$");
+	if(GetAction() == "Charging") return(Format("$Status2$",30-(Air/38)));
+	return("$Status3$");
 }
 
 protected func DischargeAir(SpecialUser){
@@ -22,8 +30,8 @@ protected func DischargeAir(SpecialUser){
 	
 	if(GetProcedure(Targ) != "FLIGHT") return(0);
 	
-	SetAction("Charging");
-	SetPicture(0,10,64,64,this());
+	SetAction("Idle");
+	SetPicture(0,11,64,64,this());
 	Sound("SteamBlast*");
 	
 	var vX =GetXDir(Targ);
@@ -59,18 +67,46 @@ protected func DischargeAir(SpecialUser){
 	
 	return(1);
 	}
-	return(0);
+	
+	if(GetAction() == "Idle") SetAction("Charging");
+	else SetAction("Idle");
+	
+	Sound("QuickClose");
+	
+	return(1);
 }
 
 protected func ChargeAir(){
-	if(GBackSky(0,0)) Air+=2;
-	else Air += 1;
+	if(Stuck() || InLiquid()){
+		SetAction("Idle");
+		Sound("QuickClose");
+		return(0);
+	}
+	Air++;
 	
-	if(Air > (38 * 120)){
+	if(Air > (38 * 30)){
 		Air = 0;
-		Sound("Lever1");
+		Sound("JarFill");
 		Chargeup();
 	}
+	
+	var pX, pY;
+	pX = RandomX(-1,1);
+	pY = RandomX(-1,1);
+	if(!pX || !pY) return(0);
+	pX *= RandomX(0,15);
+	pY *= RandomX(0,15);
+	
+	var pXDir, pYDir, pAngle;
+	pAngle=Angle(GetX(),GetY(),GetX()+pX,GetY()+pY);
+	
+	pXDir = Sin(pAngle+180, 5);
+	pYDir = -Cos(pAngle+180, 5);
+	if(GetCategory(ContainedTop()) & C4D_Structure) return(0);
+	if(GetCategory(ContainedTop()) & C4D_Vehicle) return(0);
+	var top = ContainedTop();
+	if(!top) top = this();
+	CreateParticle("PSpark",pX,pY,pXDir,pYDir,RandomX(20,35),RGBa(255,255,255,RandomX(0,25)),top);
 }
 
 public func Activate(){

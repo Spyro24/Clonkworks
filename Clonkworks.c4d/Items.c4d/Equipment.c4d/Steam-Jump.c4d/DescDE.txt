@@ -1,3 +1,1 @@
-Blasen unglaubliche Mengen Luft aus, um einen Clonk beim Springen oder Fallen weiter zu schleudern. Dann saugen sie die Luft langsam wieder ein.
-
-FÃ¼r den schnellen Einsatz werfen Sie es in die Luft.
+Es saugt langsam Luft an. Sobald es gefüllt ist, kann es verwendet werden, um einen Klonk in Richtung seines Falles zu schleudern.

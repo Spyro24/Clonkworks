@@ -1,2 +1,2 @@
-DE:Mini-Dampfkanone
-US:Mini Steam Launcher
+DE:Windglas
+US:Windjar

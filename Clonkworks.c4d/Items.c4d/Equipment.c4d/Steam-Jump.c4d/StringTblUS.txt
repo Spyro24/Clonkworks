@@ -1,1 +1,4 @@
 Launch=Launch
+Status1=|It's filled with air, activate or throw midair to launch.
+Status2=|It's recharging. %d seconds left.
+Status3=|It's empty. activate to begin recharging.

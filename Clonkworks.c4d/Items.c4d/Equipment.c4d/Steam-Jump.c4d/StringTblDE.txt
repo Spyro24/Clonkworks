@@ -1,1 +1,4 @@
 Launch=Schießen
+Status1=|Es ist mit Luft gefüllt, aktivieren oder in die Luft werfen, um es zu starten.
+Status2=|Es wird gerade aufgeladen. Noch %d Sekunden.
+Status3=|Es ist leer. Aktivieren, um mit dem Aufladen zu beginnen.

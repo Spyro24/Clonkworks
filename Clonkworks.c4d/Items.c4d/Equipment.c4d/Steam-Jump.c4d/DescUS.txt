@@ -1,3 +1,1 @@
-Blows out incredible amounts of air to launch a clonk further while jumping or falling. Then it slowly sucks the air back in.
-
-for quick use, throw it midair.
+It slowly absorbs air onto itself. once filled, it can be used to launch a clonk in the direction of his fall.
