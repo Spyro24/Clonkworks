@@ -71,9 +71,9 @@ global func CheckSpeedY(int yDir , int i1 , int i2 , object pObj)
 
 
 //Erzeugt ein Pixel des angegebenen Materials an der angegebenen Stelle
-global func CreateMatPx(string sMaterial , int x , int y)
+global func CreateMatPx(string sMaterial , int x , int y, int sub)
 {
-	var b = DrawMaterialQuad(sMaterial , x , y , x +1 , y , x , y +1 , x +1, y +1);
+	var b = DrawMaterialQuad(sMaterial , x , y , x +1 , y , x , y +1 , x +1, y +1, sub);
 	return(b);
 }
 

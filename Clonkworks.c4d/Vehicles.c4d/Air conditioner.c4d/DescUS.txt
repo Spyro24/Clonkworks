@@ -1,0 +1,3 @@
+When powered, it can heat up or cool down nearby materials. Best used in large quantities.
+
+Instructions: Grab and press Throw or Dig to cycle Left and Right. if this loses power or goes in liquids, it will automatically turn off.

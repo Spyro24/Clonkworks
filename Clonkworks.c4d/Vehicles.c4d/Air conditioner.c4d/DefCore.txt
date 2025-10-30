@@ -1,0 +1,25 @@
+[DefCore]
+Name=Air conditioner
+id=ACUT
+Version=4,9,8
+Category=1284
+MaxUserSelect=5
+Value=60
+Mass=10
+Width=16
+Height=20
+Offset=-8,-10
+Picture=8,20,49,64
+Vertices=5
+VertexX=-5,4,6,0,-7
+VertexY=9,9,0,-10,0
+VertexFriction=20,20,60,60,60
+VertexCNAT=8,8,2,4,1
+Rotate=1
+Grab=1
+LineConnect=C4D_PowerInput|C4D_PowerOutput
+VehicleControl=C4D_VehicleControl_Outside
+Components=CRYS=1;METL=1;TTIG=2;
+
+[Physical]
+Energy=100000
