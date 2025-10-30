@@ -6,7 +6,7 @@ Clonkworks is a In-development mod for LegacyClonk, that adds a lot of new techn
 
 Currently, you can create many new vehicles in the Advanced Workshop, ranging from a motorbike, to a laser, to a Spider-like cave crawler, and more! You can also build a forge to create special versions of some vehicles, with their stats and properties changing based on the used materials.
 
-<p align="center"><b>Current Version: 1.2.1 BETA</b></p>
+<p align="center"><b>Current Version: 1.2.3
 
 <div align="center">
 <details>
