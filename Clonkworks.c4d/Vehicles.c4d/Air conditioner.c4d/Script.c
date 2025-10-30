@@ -9,6 +9,7 @@ func Initialize() {
 }
 
 public func ControlThrow(pByObj){
+	[$TxtLeft$]
 	if(GetEnergy() == 0 && FindObject(ENRG)) return(1);
 	if(GetAction() == "Heating") return(1);
 	Sound("Click");
@@ -16,6 +17,7 @@ public func ControlThrow(pByObj){
 	if(GetAction() == "Cooling") return(SetAction("Idle"));
 }
 public func ControlDig(pByObj){
+	[$TxtRight$]
 	if(GetEnergy() == 0 && FindObject(ENRG)) return(1);
 	if(GetAction() == "Cooling") return(1);
 	Sound("Click");
@@ -43,13 +45,15 @@ public func DoHeat(){
 	var mat = GetMaterial(iX-GetX(),iY-GetY());
 	var HeatedMat, MatTex;
 	HeatedMat = GetMaterialVal("AboveTempConvertTo", "Material", mat);
-	if(!HeatedMat) continue;
+	if(GetMaterialVal("AboveTempConvert", "Material", mat) > TempRange()) continue;
+	if(!HeatedMat || HeatedMat == "") continue;
 	MatTex = GetMaterialVal("TextureOverlay", "Material", Material(HeatedMat));
-	//for now its always melted into a walled material, if you know how to check if its underground pls help :pray:
+	
+	var Underground = UndergroundXY(iX,iY);
 	if(MatTex){
-		CreateMatPx(Format("%s-%s",HeatedMat,MatTex),iX,iY,1);
+		CreateMatPx(Format("%s-%s",HeatedMat,MatTex),iX,iY,Underground);
 	}else{
-		CreateMatPx(Format("%s",HeatedMat),iX,iY,1);
+		CreateMatPx(Format("%s",HeatedMat),iX,iY,Underground);
 	}
 	}
 }
@@ -72,16 +76,21 @@ public func DoCooling(){
 	var mat = GetMaterial(iX-GetX(),iY-GetY());
 	var HeatedMat, MatTex;
 	HeatedMat = GetMaterialVal("BelowTempConvertTo", "Material", mat);
-	if(!HeatedMat) continue;
+	if(GetMaterialVal("BelowTempConvert", "Material", mat) < -TempRange()) continue;
+	if(!HeatedMat || HeatedMat == "") continue;
 	MatTex = GetMaterialVal("TextureOverlay", "Material", Material(HeatedMat));
-	//same as above
+	
+	var Underground = UndergroundXY(iX-GetX(),iY-GetY());
+	
 	if(MatTex){
-		CreateMatPx(Format("%s-%s",HeatedMat,MatTex),iX,iY,1);
+		CreateMatPx(Format("%s-%s",HeatedMat,MatTex),iX,iY,Underground);
 	}else{
-		CreateMatPx(Format("%s",HeatedMat),iX,iY,1);
+		CreateMatPx(Format("%s",HeatedMat),iX,iY,Underground);
 	}
 	}
 }
+
+public func TempRange(){ return(15); }
 
 //basic stuff
 public func IsAdvancedProduct(){ return(1); }
@@ -89,4 +98,37 @@ public func IsAdvancedProduct(){ return(1); }
 //what advanced lines can be connected?
 public func ALKConnectType(){
 	return([TRPW]);
+}
+
+//global funcs
+global func UndergroundXY(int x, int y){
+	var iX = AbsX(x);
+	var iY = AbsY(y);
+	var iMat = GetMaterial(iX,iY);
+	var iTex = GetMaterialVal("TextureOverlay", "Material", iMat);
+	//remove pixel here 20 times just in case.
+	for(var i = 0; i < 20; i++){
+	BlastFree(iX,iY,1);
+	}
+	
+	if(GetMaterial(iX,iY) != Material("Sky")){
+		if(iTex){
+			CreateMatPx(Format("%s-%s",MaterialName(iMat),iTex),x,y,1);
+		}else{
+			CreateMatPx(Format("%s",MaterialName(iMat)),x,y,1);
+		}
+		return(1);
+	}
+	
+	if(iTex){
+			CreateMatPx(Format("%s-%s",MaterialName(iMat),iTex),x,y,0);
+	}else{
+			CreateMatPx(Format("%s",MaterialName(iMat)),x,y,0);
+	}
+	return(0);
+}
+
+//damage
+public func Damage(int iChange, int iByPlayer){
+	if(GetDamage() > 55) Explode(30);
 }

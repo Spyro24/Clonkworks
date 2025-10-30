@@ -1,0 +1,2 @@
+TxtLeft=Turn knob left
+TxtRight=Turn knob right
