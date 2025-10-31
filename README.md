@@ -12,7 +12,7 @@ Currently, you can create many new vehicles in the Advanced Workshop, ranging fr
 <details>
 <summary><b>Plan list</b></summary>
 
-<img width="1024" height="1536" alt="Plans" src="https://github.com/user-attachments/assets/b857e9d0-735b-457a-85b5-7a9c705d1658" />
+<img width="1024" height="1536" alt="Plans" src="https://github.com/user-attachments/assets/2099d4e7-70ef-4a88-a086-65395c23346b" />
 
 </details>
 </div>
