@@ -1,0 +1,13 @@
+[Material]
+Name=TitaniumOre
+Color=151,155,166,114,122,137,165,167,172
+Shape=3
+Density=50
+Friction=100
+BlastFree=1
+Blast2Object=ORE3
+Blast2ObjectRatio=100
+MaxAirSpeed=100
+MaxSlide=1
+Placement=50
+TextureOverlay=Structure

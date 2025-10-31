@@ -38,7 +38,7 @@ public func DoHeat(){
 	//finding a random pixel nearby and heating it up!
 	for(var i = 0; i < Random(200); i++){
 	var iX, iY, range;
-	range = 67;
+	if(Contained()) range/=2;
 	iX = GetX() + RandomX(-range,range);
 	iY = GetY() + RandomX(-range,range);
 	
