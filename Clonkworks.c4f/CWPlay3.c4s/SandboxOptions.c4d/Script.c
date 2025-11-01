@@ -27,6 +27,9 @@ public func Activate(pByPlr){
 	AddMenuItem("$Opt3$","SpawnMenu",BUMB,pByObj,0,pByObj);
 	AddMenuItem("$Opt4$","SpawnMenu",MTBK,pByObj,0,pByObj);
 	AddMenuItem("$Opt5$","SpawnMenu",CLNK,pByObj,0,pByObj);
+	if(GetMaterialCount(Material("Earth")) < 436233){
+	AddMenuItem("$Opt6$","RemakeTerrain",SELV,pByObj,0,pByObj);
+	}
 }
 
 public func SpawnMenu(identifier, Spawner){
@@ -51,6 +54,27 @@ public func SpawnMenu(identifier, Spawner){
 	for(var i = 0; GetDefinition(i,category) != 0; i++){
 		AddMenuItem(GetName(,GetDefinition(i,category)),"Spawn",GetDefinition(i,category),Spawner,0,Spawner);
 	}
+}
+
+public func RemakeTerrain(){
+	for(var i in FindObjects(Find_Category(C4D_Structure))){
+		RemoveObject(i);
+	}
+	DrawMaterialQuad("Tunnel", 0,0, LandscapeWidth()-1,0, LandscapeWidth()-1,LandscapeHeight()-1, 0,LandscapeHeight()-1);
+	Message("{{SELV}} $Opt6$!");
+	Schedule("LoamAtEmpty()",5,300);
+}
+
+global func LoamAtEmpty(){
+	var iX, iY, i;
+	i = true;
+	while(i == true || (GBackSolid(iX,iY) && iY < LandscapeHeight()/2)){
+		iX = Random(LandscapeWidth());
+		iY = Random(LandscapeHeight());
+		i = false;
+	}
+	
+	CastObjects(LOMB,50,10,iX,iY);
 }
 
 public func Spawn(Item, Spawner){

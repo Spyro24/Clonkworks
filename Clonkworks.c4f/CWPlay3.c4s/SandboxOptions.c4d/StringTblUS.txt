@@ -3,4 +3,5 @@ Opt2=Spawn Objects
 Opt3=Spawn Animals
 Opt4=Spawn Vehicle
 Opt5=Change Clonk Type
+Opt6=Emergency Terrain Reconstruction
 TxtWelcome=Welcome to Clonkworks Playground 3!||Everything you need can be bought inside your homebase, or spawned within the Spawn Objects Goal.||Have fun trying out this mod's every feature!

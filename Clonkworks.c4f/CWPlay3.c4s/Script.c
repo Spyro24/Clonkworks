@@ -70,3 +70,13 @@ func InitializePlayer(int iPlr){
 		DoHomebaseMaterial(iPlr,id,999);
 	}
 }
+
+public func RelaunchPlayer(Owner){
+	var conk = CreateObject(CLNK,LandscapeWidth()/2,LandscapeHeight()/3);
+	var Cabin = FindObject(HUT3);
+	if(Cabin) Enter(Cabin,conk);
+	
+	SetOwner(Owner,conk);
+	MakeCrewMember(conk,Owner);
+	SetCursor(Owner,conk);
+}
