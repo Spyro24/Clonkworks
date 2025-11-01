@@ -1,0 +1,1 @@
+Erzeugt einen Kreis aus Lehm, wenn er auf den Boden geworfen wird. Feste oder flüssige Bereiche bleiben davon unberührt.

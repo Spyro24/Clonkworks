@@ -1,0 +1,1 @@
+Creates a circle of loam around it when thrown onto the ground. any solid or liquid areas are unaffected.

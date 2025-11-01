@@ -9,10 +9,10 @@ func InitializePlayer(int iPlr){
 	//welcome menu
 	CreateMenu(BUMB,GetCrew(iPlr),this(),,"Clonkworks Playground 3",,3);
 	AddMenuItem("$TxtWelcome$",,,GetCrew(iPlr));
-	SetWealth(iPlr,999999);
 }
 
 public func Managment(){
+	SetWealth(0,999999);
 	for(var i in FindObjects(Find_Category(C4D_Structure))){
 		if(GetID(i) == KDNT) continue;
 		if(GetCon(i) < 100 && !OnFire(i)) SetCon(100,i);
