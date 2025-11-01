@@ -26,7 +26,7 @@ func Check(){
 	
 	if(Contained()) return(0);
 	
-	var iTie = FindObject2(Find_AtPoint(0,0), Find_Or(Find_Category(C4D_Vehicle), Find_Category(C4D_Living)), Find_NoContainer());
+	var iTie = FindObject2(Find_AtPoint(0,0), Find_Or(Find_Category(C4D_Vehicle), Find_Category(C4D_Living)), Find_NoContainer(), Find_Exclude(this()));
 	if(iTie){
 		if(GetID(iTie) == RPSG) return(0);
 		if(Mode == false && GetCon() < 30) return(0);

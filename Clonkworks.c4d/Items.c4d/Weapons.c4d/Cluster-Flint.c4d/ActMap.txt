@@ -1,0 +1,6 @@
+[Action]
+Name=Exploding
+Length=1
+Delay=0
+Facet=6,6,1,1,0,0
+Procedure=FLOAT
