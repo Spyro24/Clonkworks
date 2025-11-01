@@ -30,7 +30,7 @@ public func Activate(pClonk)
 	 var steps = 10; //max steps
 	 var dir = GetDir2(pClonk);
 	 Exit();
-	 while(steps > 0 || !GBackSolid()){
+	 while(steps > 0 && !GBackSolid()){
 		 SetX(GetX()+dir);
 		 steps--;
 	 }
@@ -40,7 +40,7 @@ public func Activate(pClonk)
  if(GetProcedure(pClonk) == "HANGLE"){
 	 var steps = 10; //max steps
 	 Exit();
-	 while(steps > 0 || !GBackSolid()){
+	 while(steps > 0 && !GBackSolid()){
 		 SetY(GetY()-1);
 		 steps--;
 	 }
@@ -48,4 +48,9 @@ public func Activate(pClonk)
  }
  
  return true;
+}
+
+public func Stickiness(){
+	if((GetContact(this(),-1) & 8)&& GetAction() == "Activated") SetActionKeepPhase("ActivatedStick");
+	if(!(GetContact(this(),-1) & 8) && GetAction() == "ActivatedStick") SetActionKeepPhase("Activated");
 }

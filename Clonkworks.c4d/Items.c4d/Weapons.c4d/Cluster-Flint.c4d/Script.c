@@ -20,13 +20,19 @@ protected func Hit()
   SetAction("Exploding");
   SetXDir(0);
   SetYDir(0);
-  var size = ExplodeSize() - 5;
+  var i = 5;
   var timer = 10;
-  while(size > 0){
+  var range = 5;
+  while(i > 0){
+	  var iX, iY, Size;
+	  iX = RandomX(-range,range);
+	  iY = RandomX(-range,range);
+	  Size = 25 - (Distance(0,0,iX,iY)/2);
 	  Schedule(Format("LocalN(\"exploder\") = CreateObject(FLNT,RandomX(-45,45),RandomX(-45,45))"),timer,0);
-	  Schedule(Format("LocalN(\"exploder\")->~Explode(%d)",size),timer+1,0);
+	  Schedule(Format("LocalN(\"exploder\")->~Explode(%d)",Size),timer+1,0);
 	  timer+=RandomX(5,10);
-	  size -= 5;
+	  i--;
+	  range+=5;
   }
   Schedule("RemoveObject()",timer+15);
 }

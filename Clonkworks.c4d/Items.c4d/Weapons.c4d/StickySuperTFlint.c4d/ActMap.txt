@@ -4,6 +4,13 @@ Delay=120
 Facet=0,6,6,6
 NextAction=TimeOver
 Sound=Fusing
+
+[Action]
+Name=ActivatedStick
+Delay=120
+Facet=0,6,6,6
+NextAction=TimeOver
+Sound=Fusing
 Attach=15
 
 [Action]
