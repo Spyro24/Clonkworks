@@ -39,3 +39,8 @@ public func DoPackCount(iChange)
 public func Hit(){
 	if(!Random(3)) Sound("Crystal*");
 }
+
+public func ContextUnpack(pClonk){
+  [$TxtUnpack$|Image=HONY]
+  return (Unpack(pClonk));
+}
