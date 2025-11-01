@@ -60,18 +60,19 @@ public func RemakeTerrain(){
 	for(var i in FindObjects(Find_Category(C4D_Structure))){
 		RemoveObject(i);
 	}
-	DrawMaterialQuad("Tunnel", 0,0, LandscapeWidth()-1,0, LandscapeWidth()-1,LandscapeHeight()-1, 0,LandscapeHeight()-1);
+	DrawMaterialQuad("Tunnel", 0,0, LandscapeWidth()-1,0, LandscapeWidth()-1,LandscapeHeight(), 0,LandscapeHeight());
 	Message("{{SELV}} $Opt6$!");
-	Schedule("LoamAtEmpty()",5,300);
+	Schedule("LoamAtEmpty()",5,800);
 }
 
 global func LoamAtEmpty(){
+	DrawMaterialQuad("Tunnel", 0,0, LandscapeWidth()-1,0, LandscapeWidth()-1,LandscapeHeight()/2, 0,LandscapeHeight()/2);
 	var iX, iY, i;
-	i = true;
-	while(i == true || (GBackSolid(iX,iY) && iY < LandscapeHeight()/2)){
+	while(true){
 		iX = Random(LandscapeWidth());
 		iY = Random(LandscapeHeight());
-		i = false;
+		if(iY < LandscapeHeight()/2) iY = LandscapeHeight()/2;
+		if(!GBackSolid(iX,iY)) break;
 	}
 	
 	CastObjects(LOMB,50,10,iX,iY);

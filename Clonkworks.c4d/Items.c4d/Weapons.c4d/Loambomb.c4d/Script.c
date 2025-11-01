@@ -14,7 +14,7 @@ protected func Hit()
 
 func LoamFill(Size,x,y,Mat){
 	//for now it just uses the function below, later it will ingore all solid and liquid materials
-	DrawMaterialCircle(Mat,x,y,Size,true);
+	LoamCircle(ExplodeSize(),GetX(),GetY());
 	
 	CastParticles("FSpark", 5,50, 0,0, 50, 200, RGBa(179,116,54,177), RGBa(179,116,54,177));
 	CastParticles("FSpark", 5,50, 0,0, 50, 200, RGBa(97,59,23,0), RGBa(97,59,23,177));
@@ -29,6 +29,22 @@ for(var y=iY-iRad;y<iY+iRad;++y)
 if((x-iX)**2 + (y-iY)**2 < iRad**2)
 DrawMaterialQuad(szMaterial,x,y,x+1,y,x+1,y+1,x,y+1,sub);
 return true;
+}
+
+public func LoamCircle(int strength, int iX, int iY)
+{
+  //var from = ["DuroLava", "Lava", "Water", "Acid"];
+  //var to   = ["Granite", "Rock", "Ice", "Crystal"];
+
+  for(var y = iY-strength; y <= iY+strength; y++)
+    for(var x = iX-strength; x <= iX+strength; x++)
+      if(AbsX(x)**2 + AbsY(y)**2 <= strength**2)
+      {
+		if(GBackSolid(x-GetX(),y-GetY())) continue;
+		if(GBackLiquid(x-GetX(),y-GetY())) continue;
+		DrawMaterialQuad("Earth",x,y,x,y+1,x,y,x,y,1); 			
+      }
+  return true;
 }
 
 /* Kann in der Chemiefabrik hergestellt werden */
