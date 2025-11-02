@@ -33,17 +33,22 @@ return true;
 
 public func LoamCircle(int strength, int iX, int iY)
 {
-  //var from = ["DuroLava", "Lava", "Water", "Acid"];
-  //var to   = ["Granite", "Rock", "Ice", "Crystal"];
+  var NormalSize = 1009;
+  var PlacedPixels = 0;
 
   for(var y = iY-strength; y <= iY+strength; y++)
     for(var x = iX-strength; x <= iX+strength; x++)
       if(AbsX(x)**2 + AbsY(y)**2 <= strength**2)
       {
+		PlacedPixels++;
 		if(GBackSolid(x-GetX(),y-GetY())) continue;
+		PlacedPixels--;
 		if(GBackLiquid(x-GetX(),y-GetY())) continue;
-		DrawMaterialQuad("Earth",x,y,x,y+1,x,y,x,y,1); 			
+		DrawMaterialQuad("Earth",x,y,x,y+1,x,y,x,y,1); 	
+		PlacedPixels++;
       }
+	
+  CastPXS("Earth",NormalSize-PlacedPixels,10);
   return true;
 }
 
