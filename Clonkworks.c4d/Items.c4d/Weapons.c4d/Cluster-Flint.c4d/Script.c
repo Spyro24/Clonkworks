@@ -28,8 +28,7 @@ protected func Hit()
 	  iX = RandomX(-range,range);
 	  iY = RandomX(-range,range);
 	  Size = 25 - (Distance(0,0,iX,iY)/2);
-	  Schedule(Format("LocalN(\"exploder\") = CreateObject(FLNT,RandomX(-45,45),RandomX(-45,45))"),timer,0);
-	  Schedule(Format("LocalN(\"exploder\")->~Explode(%d)",Size),timer+1,0);
+	  Schedule(Format("DoClusterExplosion(%d)",range),timer,0);
 	  timer+=RandomX(5,10);
 	  i--;
 	  range+=5;
@@ -39,4 +38,13 @@ protected func Hit()
 
 public func RejectEntrance(idObj){
 	if(GetAction() eq "Exploding") return(1);
+}
+
+func DoClusterExplosion(range){
+	  var exploder = CreateObject(FLNT,RandomX(-45,45),RandomX(-45,45));
+	  var iX, iY, Size;
+	  iX = RandomX(-range,range);
+	  iY = RandomX(-range,range);
+	  Size = 25 - (Distance(0,0,iX,iY)/2);
+	  exploder->Explode(Size);
 }
