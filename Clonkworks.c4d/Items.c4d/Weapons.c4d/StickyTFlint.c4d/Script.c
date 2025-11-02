@@ -34,6 +34,7 @@ public func Activate(pClonk)
 		 SetX(GetX()+dir);
 		 steps--;
 	 }
+	 SetX(GetX()+dir);
 	 return true;
  }
  
@@ -44,6 +45,7 @@ public func Activate(pClonk)
 		 SetY(GetY()-1);
 		 steps--;
 	 }
+	 SetY(GetY()-1);
 	 return true;
  }
  

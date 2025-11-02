@@ -1,0 +1,9 @@
+[Action]
+Name=Active
+Length=1
+Delay=1
+Facet=7,0,7,7,0,0
+NextAction=Active
+InLiquidAction=Idle
+StartCall=CheckNearby
+Attach=15

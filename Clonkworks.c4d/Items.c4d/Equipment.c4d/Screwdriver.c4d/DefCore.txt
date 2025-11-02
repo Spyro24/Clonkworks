@@ -20,3 +20,5 @@ Rebuy=1
 Components=METL=2
 Rotate=1
 Float=1
+StretchGrowth=1
+Oversize=1

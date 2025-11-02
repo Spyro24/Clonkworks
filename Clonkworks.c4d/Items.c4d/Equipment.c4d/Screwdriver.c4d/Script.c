@@ -46,3 +46,5 @@ public func Unscrew(foo,pObj){
 
 public func IsAnvilProduct(){ return(1); }
 public func IsAdvancedProduct(){ return(1); }
+
+public func Initialize(){ SetCon(150); }
